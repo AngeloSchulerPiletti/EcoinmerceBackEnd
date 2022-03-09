@@ -16,7 +16,7 @@ namespace BarterHash.Domain.ContractInterface
         [Parameter("uint", "paymentAmount", 2)]
         public long PaymentAmount { get; set; }
 
-        [Parameter("uint", "purchaseIdentifier", 3)]
-        public long PurchaseIdentifier { get; set; }
+        [Parameter("string", "purchaseIdentifier", 3)]
+        public string PurchaseIdentifier { get; set; }
     }
 }

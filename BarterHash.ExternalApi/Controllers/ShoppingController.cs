@@ -14,6 +14,6 @@ namespace BarterHash.ExternalApi.Controllers
 
         // Verify shopping payment (sender: ecommerce | need auth)
         
-        // Receive payment intent (sender: ecommerce | need auth | data: purchase ID, amount in R$, purchase date)
+        // Receive notification of payment intent (sender: ecommerce | need auth | data: purchase ID, amount in R$, purchase date)
     }
 }

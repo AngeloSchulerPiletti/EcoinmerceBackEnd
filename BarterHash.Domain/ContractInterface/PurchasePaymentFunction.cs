@@ -14,7 +14,7 @@ namespace BarterHash.Domain.ContractInterface
         [Parameter("address", "ecommerceWallet", 1)]
         public string EcommerceWallet { get; set; }
 
-        [Parameter("uint", "purchaseIdentifier", 2)]
-        public long PurchaseIdentifier { get; set; }
+        [Parameter("string", "purchaseIdentifier", 2)]
+        public string PurchaseIdentifier { get; set; }
     }
 }
