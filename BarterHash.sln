@@ -7,11 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarterHash.ExternalApi", "B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarterHash.InternalApi", "BarterHash.InternalApi\BarterHash.InternalApi.csproj", "{B86D7DF6-A434-4DDB-93DF-FAA354BE4650}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarterHash.Application", "BarterHash.Application\BarterHash.Application.csproj", "{1E22C1ED-9B55-40B0-B03D-56D011BD1CCF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarterHash.Application", "BarterHash.Application\BarterHash.Application.csproj", "{1E22C1ED-9B55-40B0-B03D-56D011BD1CCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarterHash.Domain", "BarterHash.Domain\BarterHash.Domain.csproj", "{9BBFB27D-C70B-45C4-A22D-6FB4267DB018}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarterHash.Domain", "BarterHash.Domain\BarterHash.Domain.csproj", "{9BBFB27D-C70B-45C4-A22D-6FB4267DB018}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarterHash.Infra.Repository", "BarterHash.Infra.Repository\BarterHash.Infra.Repository.csproj", "{BD5AF242-2FDE-4265-96B5-0916EACEF117}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarterHash.Infra.Repository", "BarterHash.Infra.Repository\BarterHash.Infra.Repository.csproj", "{BD5AF242-2FDE-4265-96B5-0916EACEF117}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarterHash.SmartContractSubscriber", "BarterHash.SmartContractSubscriber\BarterHash.SmartContractSubscriber.csproj", "{41BC038F-DC99-41E3-9100-46A4B92F5A71}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{BD5AF242-2FDE-4265-96B5-0916EACEF117}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD5AF242-2FDE-4265-96B5-0916EACEF117}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD5AF242-2FDE-4265-96B5-0916EACEF117}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41BC038F-DC99-41E3-9100-46A4B92F5A71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41BC038F-DC99-41E3-9100-46A4B92F5A71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41BC038F-DC99-41E3-9100-46A4B92F5A71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41BC038F-DC99-41E3-9100-46A4B92F5A71}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
