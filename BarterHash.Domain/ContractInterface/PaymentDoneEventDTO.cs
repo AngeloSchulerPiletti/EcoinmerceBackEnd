@@ -18,5 +18,8 @@ namespace BarterHash.Domain.ContractInterface
 
         [Parameter("string", "purchaseIdentifier", 3)]
         public string PurchaseIdentifier { get; set; }
+
+        [Parameter("address", "costumerWallet", 4, true)]
+        public string CostumerWallet { get; set; }
     }
 }

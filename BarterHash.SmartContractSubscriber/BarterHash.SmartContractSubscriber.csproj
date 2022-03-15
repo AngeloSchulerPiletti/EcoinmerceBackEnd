@@ -8,6 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.3" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="6.0.0" />
     <PackageReference Include="Nethereum.JsonRpc.WebSocketClient" Version="4.2.0" />
@@ -17,5 +20,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BarterHash.Domain\BarterHash.Domain.csproj" />
+    <ProjectReference Include="..\BarterHash.Infra.Repository\BarterHash.Infra.Repository.csproj" />
   </ItemGroup>
 </Project>

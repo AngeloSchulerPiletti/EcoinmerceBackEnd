@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BarterHash.Domain.Entities.Purchase
+﻿namespace BarterHash.Domain.Entities.Purchase
 {
     public class PurchaseCheck
     {
-        public long Id { get; set; }
+        public PurchaseCheck()
+        {
+            CheckOverCounter = 0;
+        }
+
+        public long PurchaseCheckId { get; set; }
         public int CheckOverCounter { get; set; } // Precisa contabilizar a cada busca no banco
-        public long PurchaseId { get; set; }
+        public DateTime? LastCheckTime { get; set; }
+        public DateTime? FirstCheckDate { get; set; }
         public virtual Purchase Purchase { get; set; }
     }
 }

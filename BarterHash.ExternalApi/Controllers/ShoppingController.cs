@@ -1,9 +1,4 @@
-﻿using BarterHash.Domain.ContractInterface;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Nethereum.Contracts;
-using Nethereum.JsonRpc.WebSocketStreamingClient;
-using Nethereum.RPC.Reactive.Eth.Subscriptions;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace BarterHash.ExternalApi.Controllers
 {

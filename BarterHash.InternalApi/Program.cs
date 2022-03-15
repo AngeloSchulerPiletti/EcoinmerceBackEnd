@@ -1,4 +1,4 @@
-using BarterHash.Infra.Repository.Context;
+using BarterHash.Infra.Repository.Database.Context;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

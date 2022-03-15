@@ -1,7 +1,11 @@
 using BarterHash.Domain.ContractInterface;
+using BarterHash.Domain.Entities.Purchase;
+using BarterHash.Domain.Objects.DTO;
+using BarterHash.Infra.Repository.Interfaces;
 using Nethereum.Contracts;
 using Nethereum.JsonRpc.WebSocketStreamingClient;
 using Nethereum.RPC.Reactive.Eth.Subscriptions;
+using Nethereum.Web3;
 
 namespace BarterHash.SmartContractSubscriber
 {
@@ -11,11 +15,13 @@ namespace BarterHash.SmartContractSubscriber
         // Salva as paradas no sql server
         private readonly ILogger<Worker> _logger;
         private readonly StreamingWebSocketClient _client;
+        private IPurchaseRepository _repository;
 
-        public Worker(ILogger<Worker> logger)
+        public Worker(ILogger<Worker> logger, IPurchaseRepository repository)
         {
             _logger = logger;
             _client = new StreamingWebSocketClient("ws://127.0.0.1:7545");
+            _repository = repository;
         }
 
         public async override Task StartAsync(CancellationToken cancellationToken)
@@ -28,6 +34,7 @@ namespace BarterHash.SmartContractSubscriber
             while (!stoppingToken.IsCancellationRequested)
             {
                 await Task.Delay(1000, stoppingToken);
+                Console.WriteLine("waiting");
             }
         }
 
@@ -41,18 +48,50 @@ namespace BarterHash.SmartContractSubscriber
             {
                 try
                 {
+                    Console.WriteLine("Trying to decode event log");
                     var decoded = Event<PaymentDoneEventDTO>.DecodeEvent(log);
-                    if (decoded != null) Console.WriteLine("Contract address: " + log.Address + " Log Ecommerce Wallet:" + decoded.Event.EcommerceWallet);
-                    else Console.WriteLine("Found not standard transfer log");
+
+                    if (decoded != null)
+                    {
+                        PaymentEventDTO paymentEventDTO = new(
+                            decoded.Event.PurchaseIdentifier,
+                            0,
+                            0,
+                            decoded.Event.EcommerceWallet,
+                            decoded.Event.CostumerWallet,
+                            DateTime.Now,
+                            Web3.Convert.FromWei(decoded.Event.PaymentAmount)
+                        );
+                        Purchase purchase = _repository.SavePaymentEvent(paymentEventDTO);
+
+                        if (purchase == null)
+                        {
+                            Console.WriteLine("Error registered at DB");
+                            _repository.SavePurchaseEventFail(new PurchaseEventFailDTO(log.Address, log.BlockHash, log.TransactionHash));
+                        }
+                        else Console.WriteLine("Payment saved!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error registered at DB");
+                        _repository.SavePurchaseEventFail(new PurchaseEventFailDTO(log.Address, log.BlockHash, log.TransactionHash));
+                    }
                 }
+
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Log Address: " + log.Address + " is not a standard transfer log:", ex.Message);
+                    // Talvez se um evento que não seja do tipo PaymentDone for emitido, caia aqui, então testa isso depois...
+                    Console.WriteLine("Error registered at DB");
+                    _repository.SavePurchaseEventFail(new PurchaseEventFailDTO(log.Address, log.BlockHash, log.TransactionHash, ex.Message));
                 }
             });
 
+            Console.WriteLine("Starting service");
+
             await _client.StartAsync();
             await subscription.SubscribeAsync(filterTransfers);
+
+            Console.WriteLine("Service started!");
         }
     }
 }
