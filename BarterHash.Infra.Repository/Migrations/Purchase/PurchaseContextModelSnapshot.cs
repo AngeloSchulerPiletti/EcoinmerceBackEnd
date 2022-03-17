@@ -4,18 +4,16 @@ using BarterHash.Infra.Repository.Database.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace BarterHash.Infra.Repository.Migrations
+namespace BarterHash.Infra.Repository.Migrations.Purchase
 {
     [DbContext(typeof(PurchaseContext))]
-    [Migration("20220315020039_Initial_PurchaseTables")]
-    partial class Initial_PurchaseTables
+    partial class PurchaseContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -116,6 +114,38 @@ namespace BarterHash.Infra.Repository.Migrations
                     b.HasKey("PurchaseEventId");
 
                     b.ToTable("PurchaseEvents");
+                });
+
+            modelBuilder.Entity("BarterHash.Domain.Entities.Purchase.PurchaseEventFail", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<string>("BlockHash")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("LogAddress")
+                        .IsRequired()
+                        .HasMaxLength(42)
+                        .HasColumnType("nvarchar(42)");
+
+                    b.Property<string>("Observation")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<string>("TransactionHash")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PurchaseEventFails");
                 });
 
             modelBuilder.Entity("BarterHash.Domain.Entities.Purchase.PurchaseNotice", b =>

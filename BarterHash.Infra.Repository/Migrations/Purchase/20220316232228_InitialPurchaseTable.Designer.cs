@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace BarterHash.Infra.Repository.Migrations
+namespace BarterHash.Infra.Repository.Migrations.Purchase
 {
     [DbContext(typeof(PurchaseContext))]
-    [Migration("20220315023822_EventFailTable")]
-    partial class EventFailTable
+    [Migration("20220316232228_InitialPurchaseTable")]
+    partial class InitialPurchaseTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

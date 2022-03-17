@@ -4,10 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BarterHash.Infra.Repository.Database.Context
 {
-
     public class PurchaseContext : DbContext
     {
-        public PurchaseContext(DbContextOptions options) : base(options)
+        public PurchaseContext(DbContextOptions<PurchaseContext> options) : base(options)
         {
         }
 
