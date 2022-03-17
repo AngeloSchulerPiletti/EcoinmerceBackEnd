@@ -10,8 +10,8 @@ namespace BarterHash.Infra.Repository
 {
     public class PurchaseRepository : IPurchaseRepository
     {
-        private PurchaseContext _context;
-        private IMapper _mapper;
+        private readonly PurchaseContext _context;
+        private readonly IMapper _mapper;
 
         public PurchaseRepository(PurchaseContext context, IMapper mapper)
         {

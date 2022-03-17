@@ -11,15 +11,11 @@ namespace BarterHash.SmartContractSubscriber
 {
     public class Worker : BackgroundService
     {
-        // Vai arrumar isso aqui
-        // Salva as paradas no sql server
-        private readonly ILogger<Worker> _logger;
         private readonly StreamingWebSocketClient _client;
-        private IPurchaseRepository _repository;
+        private readonly IPurchaseRepository _repository;
 
-        public Worker(ILogger<Worker> logger, IPurchaseRepository repository)
+        public Worker(IPurchaseRepository repository)
         {
-            _logger = logger;
             _client = new StreamingWebSocketClient("ws://127.0.0.1:7545");
             _repository = repository;
         }
