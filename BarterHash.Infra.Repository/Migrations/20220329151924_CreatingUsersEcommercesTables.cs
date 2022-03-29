@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BarterHash.Infra.Repository.Migrations
 {
-    public partial class InitialEcommerceUserTables : Migration
+    public partial class CreatingUsersEcommercesTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -22,9 +22,9 @@ namespace BarterHash.Infra.Repository.Migrations
                     Uf = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: false),
                     AverageTotalEmployees = table.Column<int>(type: "int", nullable: true),
                     AverageAnualBiling = table.Column<int>(type: "int", nullable: true),
+                    ManagerId = table.Column<long>(type: "bigint", nullable: false),
                     Cnpj = table.Column<string>(type: "nvarchar(18)", maxLength: 18, nullable: false),
-                    AccessToken = table.Column<string>(type: "nvarchar(260)", maxLength: 260, nullable: false),
-                    ManagerId = table.Column<long>(type: "bigint", nullable: false)
+                    AccessToken = table.Column<string>(type: "nvarchar(260)", maxLength: 260, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -35,22 +35,25 @@ namespace BarterHash.Infra.Repository.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    Id = table.Column<long>(type: "bigint", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TokenConfirmation = table.Column<string>(type: "nvarchar(260)", maxLength: 260, nullable: true),
+                    TokenConfirmationExpiry = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(260)", maxLength: 260, nullable: false),
                     Role = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     AccessToken = table.Column<string>(type: "nvarchar(260)", maxLength: 260, nullable: false),
-                    AccessTokenExpiry = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AccessTokenExpiry = table.Column<DateTime>(type: "datetime2", nullable: true),
                     RefreshToken = table.Column<string>(type: "nvarchar(260)", maxLength: 260, nullable: false),
-                    RefreshTokenExpiry = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RefreshTokenExpiry = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Salt = table.Column<byte[]>(type: "varbinary(50)", maxLength: 50, nullable: false),
                     EcommerceId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => new { x.Email, x.UserName, x.Id });
                     table.ForeignKey(
                         name: "FK_Users_Ecommerces_EcommerceId",
                         column: x => x.EcommerceId,

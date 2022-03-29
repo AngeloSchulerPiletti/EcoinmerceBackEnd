@@ -5,6 +5,6 @@ namespace BarterHash.Application.TokenService.Interface
 {
     public interface ITokenServiceEcommerce
     {
-        public TokenVO GenerateToken(Ecommerce user);
+        public TokenVO GenerateToken(Ecommerce ecommerce);
     }
 }

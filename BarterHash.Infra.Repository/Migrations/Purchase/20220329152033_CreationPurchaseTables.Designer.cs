@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BarterHash.Infra.Repository.Migrations.Purchase
 {
     [DbContext(typeof(PurchaseContext))]
-    [Migration("20220316232228_InitialPurchaseTable")]
-    partial class InitialPurchaseTable
+    [Migration("20220329152033_CreationPurchaseTables")]
+    partial class CreationPurchaseTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

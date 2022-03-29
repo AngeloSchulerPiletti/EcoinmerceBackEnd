@@ -1,5 +1,4 @@
-﻿
-using BarterHash.Domain.Entities.Ecommerce;
+﻿using BarterHash.Domain.Entities.Ecommerce;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -25,6 +24,9 @@ namespace BarterHash.Infra.Repository.Database.Map.EcommerceMap
                 .HasMaxLength(50)
                 .IsRequired();
 
+            builder.Property(x => x.TokenConfirmation)
+                .HasMaxLength(260);
+
             builder.Property(x => x.Password)
                 .HasMaxLength(260)
                 .IsRequired();
@@ -38,6 +40,10 @@ namespace BarterHash.Infra.Repository.Database.Map.EcommerceMap
 
             builder.Property(x => x.RefreshToken)
                 .HasMaxLength(260)
+                .IsRequired();
+
+            builder.Property(x => x.Salt)
+                .HasMaxLength(50)
                 .IsRequired();
         }
     }

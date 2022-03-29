@@ -82,28 +82,31 @@ namespace BarterHash.Infra.Repository.Migrations
 
             modelBuilder.Entity("BarterHash.Domain.Entities.Ecommerce.User", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                    b.Property<string>("Email")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+                    b.Property<string>("UserName")
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("AccessToken")
                         .IsRequired()
                         .HasMaxLength(260)
                         .HasColumnType("nvarchar(260)");
 
-                    b.Property<DateTime>("AccessTokenExpiry")
+                    b.Property<DateTime?>("AccessTokenExpiry")
                         .HasColumnType("datetime2");
 
                     b.Property<long?>("EcommerceId")
                         .IsRequired()
                         .HasColumnType("bigint");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -120,7 +123,7 @@ namespace BarterHash.Infra.Repository.Migrations
                         .HasMaxLength(260)
                         .HasColumnType("nvarchar(260)");
 
-                    b.Property<DateTime>("RefreshTokenExpiry")
+                    b.Property<DateTime?>("RefreshTokenExpiry")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Role")
@@ -128,12 +131,19 @@ namespace BarterHash.Infra.Repository.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<string>("UserName")
+                    b.Property<byte[]>("Salt")
                         .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
+                        .HasMaxLength(50)
+                        .HasColumnType("varbinary(50)");
 
-                    b.HasKey("Id");
+                    b.Property<string>("TokenConfirmation")
+                        .HasMaxLength(260)
+                        .HasColumnType("nvarchar(260)");
+
+                    b.Property<DateTime?>("TokenConfirmationExpiry")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Email", "UserName", "Id");
 
                     b.HasIndex("EcommerceId");
 

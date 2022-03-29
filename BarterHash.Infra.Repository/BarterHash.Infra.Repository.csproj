@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BarterHash.Application.TokenService\BarterHash.Application.TokenService.csproj" />
     <ProjectReference Include="..\BarterHash.Domain\BarterHash.Domain.csproj" />
   </ItemGroup>
 

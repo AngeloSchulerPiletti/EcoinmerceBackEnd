@@ -19,6 +19,9 @@ namespace BarterHash.Infra.Repository.Database.Context
             modelBuilder.ApplyConfiguration(new UserMap());
 
             modelBuilder.Entity<User>()
+                .HasKey(a => new { a.Email, a.UserName, a.Id });
+
+            modelBuilder.Entity<User>()
                 .HasOne(a => a.Ecommerce)
                 .WithMany(a => a.Users)
                 .HasForeignKey(a => a.EcommerceId);

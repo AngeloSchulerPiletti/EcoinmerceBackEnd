@@ -8,7 +8,7 @@ builder.Services.AddApiVersioning();
 builder.Services.AddDbContext<PurchaseContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddDbContext<EcommerceContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); // Will need it? Or should use the profiles?
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

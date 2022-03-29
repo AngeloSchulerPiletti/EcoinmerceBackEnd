@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BarterHash.Infra.Repository.Migrations.Purchase
 {
-    public partial class InitialPurchaseTable : Migration
+    public partial class CreationPurchaseTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
