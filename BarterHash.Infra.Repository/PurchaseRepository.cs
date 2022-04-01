@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
 using BarterHash.Domain.Entities.Purchase;
 using BarterHash.Domain.Objects.DTO;
-using BarterHash.Domain.Objects.VO;
+using BarterHash.Domain.Objects.VO.Responses;
 using BarterHash.Infra.Repository.Database.Context;
 using BarterHash.Infra.Repository.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace BarterHash.Infra.Repository
 {

@@ -1,6 +1,6 @@
 ﻿using BarterHash.Domain.Entities.Purchase;
 using BarterHash.Domain.Objects.DTO;
-using BarterHash.Domain.Objects.VO;
+using BarterHash.Domain.Objects.VO.Responses;
 
 namespace BarterHash.Infra.Repository.Interfaces
 {

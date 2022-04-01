@@ -1,4 +1,5 @@
 ﻿using BarterHash.Domain.Objects.DTO.Ecommerce;
+using BarterHash.Domain.Objects.VO.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BarterHash.InternalApi.Controllers
