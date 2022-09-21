@@ -1,4 +1,4 @@
-﻿using Ecoinmerce.Domain.Entities.Purchase;
+﻿using Ecoinmerce.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

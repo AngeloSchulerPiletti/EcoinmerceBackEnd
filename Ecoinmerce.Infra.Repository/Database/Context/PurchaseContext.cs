@@ -1,4 +1,4 @@
-﻿using Ecoinmerce.Domain.Entities.Purchase;
+﻿using Ecoinmerce.Domain.Entities;
 using Ecoinmerce.Infra.Repository.Database.Map;
 using Microsoft.EntityFrameworkCore;
 

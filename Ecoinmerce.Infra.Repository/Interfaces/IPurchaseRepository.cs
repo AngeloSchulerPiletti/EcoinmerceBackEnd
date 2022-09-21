@@ -1,4 +1,4 @@
-﻿using Ecoinmerce.Domain.Entities.Purchase;
+﻿using Ecoinmerce.Domain.Entities;
 using Ecoinmerce.Domain.Objects.DTO.PurchaseDTO;
 using Ecoinmerce.Domain.Objects.VO.Responses;
 
