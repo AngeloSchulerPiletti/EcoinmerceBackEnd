@@ -20,7 +20,7 @@ namespace Ecoinmerce.InternalApi.Controllers
         }
 
         [HttpPost]
-        [Route("/signup")]
+        [Route("signup")]
         public IActionResult SignupUserWithEcommerce([FromBody] NewUserAndEcommerceDTO newUserAndEcommerceDTO)
         {
             MessageBagVO result = _signupBusiness.CheckIfUserNameAndEmailIsBeingUsed(newUserAndEcommerceDTO.User);
