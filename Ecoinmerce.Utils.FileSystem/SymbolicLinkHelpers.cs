@@ -15,6 +15,7 @@ public static class SymbolicLinkHelpers
 
     private const int CREATION_DISPOSITION_OPEN_EXISTING = 3;
     private const int FILE_FLAG_BACKUP_SEMANTICS = 0x02000000;
+
     public static bool IsLink(string path)
     {
         var fi = new FileInfo(path);

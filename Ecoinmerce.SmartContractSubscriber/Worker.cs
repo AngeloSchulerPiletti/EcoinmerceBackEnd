@@ -1,6 +1,8 @@
-using Ecoinmerce.Domain.Entities.Purchase;
+using Ecoinmerce.Domain.Entities;
 using Ecoinmerce.Domain.Objects.DTO.PurchaseDTO;
+using Ecoinmerce.Infra.Blockchain;
 using Ecoinmerce.Infra.Repository.Interfaces;
+using Microsoft.Extensions.Options;
 using Nethereum.Contracts;
 using Nethereum.JsonRpc.WebSocketStreamingClient;
 using Nethereum.RPC.Reactive.Eth.Subscriptions;
@@ -14,9 +16,10 @@ namespace Ecoinmerce.SmartContractSubscriber
         private readonly StreamingWebSocketClient _client;
         private readonly IPurchaseRepository _repository;
 
-        public Worker(IPurchaseRepository repository)
+        public Worker(IPurchaseRepository repository, IOptions<BlockchainSettings> blockchainSettings)
         {
-            _client = new StreamingWebSocketClient("ws://127.0.0.1:7545");
+            BlockchainSettingsBlockchain connectionSettings = blockchainSettings.Value.Blockchain;
+            _client = new StreamingWebSocketClient($"{connectionSettings.WsUrl}:{connectionSettings.Port}");
             _repository = repository;
         }
 

@@ -1,5 +1,6 @@
 using AutoMapper;
 using Ecoinmerce.Domain.AutoMapperProfiles;
+using Ecoinmerce.Infra.Blockchain;
 using Ecoinmerce.Infra.Repository;
 using Ecoinmerce.Infra.Repository.Database.Context;
 using Ecoinmerce.Infra.Repository.Interfaces;
@@ -8,6 +9,18 @@ using Microsoft.EntityFrameworkCore;
 
 IHost host = Host.CreateDefaultBuilder(args)
     .UseWindowsService()
+    //.ConfigureAppConfiguration(config =>
+    //{
+    //    var relativePath = $"..\\..\\..\\..\\";
+    //    var absolutePath = Path.GetFullPath(relativePath);
+
+    //    IConfigurationRoot builder = new ConfigurationBuilder()
+    //          .SetBasePath(absolutePath)
+    //          .AddJsonFile($"blockchainSettings.json", optional: false, reloadOnChange: true)
+    //          .Build();
+
+    //    config.AddConfiguration(builder);
+    //})
     .ConfigureServices((hostContext, services) =>
     {
         IConfiguration configuration = hostContext.Configuration;
@@ -23,6 +36,16 @@ IHost host = Host.CreateDefaultBuilder(args)
         services.AddSingleton(mapper);
 
         services.AddHostedService<Worker>().AddSingleton<IPurchaseRepository, PurchaseRepository>();
+
+        var relativePath = $"..\\";
+        var absolutePath = Path.GetFullPath(relativePath);
+
+        IConfigurationRoot builder = new ConfigurationBuilder()
+              .SetBasePath(absolutePath)
+              .AddJsonFile($"blockchainSettings.json", optional: false, reloadOnChange: true)
+              .Build();
+
+        services.Configure<BlockchainSettings>(builder);
     })
     .Build();
 
