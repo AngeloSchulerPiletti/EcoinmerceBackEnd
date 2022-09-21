@@ -1,4 +1,3 @@
-using Ecoinmerce.Domain.ContractInterface;
 using Ecoinmerce.Domain.Entities.Purchase;
 using Ecoinmerce.Domain.Objects.DTO.PurchaseDTO;
 using Ecoinmerce.Infra.Repository.Interfaces;
@@ -6,6 +5,7 @@ using Nethereum.Contracts;
 using Nethereum.JsonRpc.WebSocketStreamingClient;
 using Nethereum.RPC.Reactive.Eth.Subscriptions;
 using Nethereum.Web3;
+using SmartContracts.Contracts.ShoppingHandler.ContractDefinition;
 
 namespace Ecoinmerce.SmartContractSubscriber
 {
