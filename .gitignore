@@ -3,8 +3,6 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-!*/SmartContracts/bin/*
-
 # AppSettings
 appsettings.json
 */appsettings.json
@@ -367,3 +365,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+
+!*/SmartContracts/bin/*
