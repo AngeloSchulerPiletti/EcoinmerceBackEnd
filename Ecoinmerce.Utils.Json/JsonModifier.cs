@@ -10,9 +10,9 @@ public class JsonModifier<SettingsType>
     private readonly string _json;
     public SettingsType ParsedClass;
 
-    public JsonModifier(string filePath)
+    public JsonModifier(string filePath, bool isLink = false)
     {
-        _filePath = SymbolicLinkHelpers.IsLink(filePath) ? SymbolicLinkHelpers.GetRealPath(filePath) : filePath;
+        _filePath = isLink ? SymbolicLinkHelpers.GetRealPath(filePath) : filePath;
         _json = File.ReadAllText(_filePath);
         ParsedClass = JsonSerializer.Deserialize<SettingsType>(_json);
     }
