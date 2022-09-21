@@ -9,18 +9,6 @@ using Microsoft.EntityFrameworkCore;
 
 IHost host = Host.CreateDefaultBuilder(args)
     .UseWindowsService()
-    //.ConfigureAppConfiguration(config =>
-    //{
-    //    var relativePath = $"..\\..\\..\\..\\";
-    //    var absolutePath = Path.GetFullPath(relativePath);
-
-    //    IConfigurationRoot builder = new ConfigurationBuilder()
-    //          .SetBasePath(absolutePath)
-    //          .AddJsonFile($"blockchainSettings.json", optional: false, reloadOnChange: true)
-    //          .Build();
-
-    //    config.AddConfiguration(builder);
-    //})
     .ConfigureServices((hostContext, services) =>
     {
         IConfiguration configuration = hostContext.Configuration;
