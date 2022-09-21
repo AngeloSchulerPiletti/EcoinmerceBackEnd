@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Ecoinmerce.Domain.Entities.Purchase;
+using Ecoinmerce.Domain.Entities;
 using Ecoinmerce.Domain.Objects.DTO.PurchaseDTO;
 
 namespace Ecoinmerce.Domain.AutoMapperProfiles
