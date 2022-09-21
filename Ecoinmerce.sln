@@ -19,6 +19,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecoinmerce.Application.Toke
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecoinmerce.Infra.MailService", "Ecoinmerce.Infra.MailService\Ecoinmerce.Infra.MailService.csproj", "{E755EA64-F80E-409E-86D3-0240C6EEC37F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecoinmerce.Infra.Blockchain", "Ecoinmerce.Infra.Blockchain\Ecoinmerce.Infra.Blockchain.csproj", "{D2DC38E5-3DF2-4C9C-85EC-A4A13BA61A79}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecoinmerce.SmartContracts", "Ecoinmerce.SmartContracts\Ecoinmerce.SmartContracts.csproj", "{4E7106C2-B628-4DAE-9CBA-F6FA295D47E5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecoinmerce.Utils.Json", "Ecoinmerce.Utils.Json\Ecoinmerce.Utils.Json.csproj", "{E0B0277B-3771-4FD0-BB4F-D731CAC764BA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{51357F9D-B5E4-4ADA-A3DB-E09CA5352A0F}"
+	ProjectSection(SolutionItems) = preProject
+		blockchainSettings.json = blockchainSettings.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecoinmerce.Utils.FileSystem", "Ecoinmerce.Utils.FileSystem\Ecoinmerce.Utils.FileSystem.csproj", "{3FBAEDF9-5150-4049-8A6F-188C25ABFF76}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +70,22 @@ Global
 		{E755EA64-F80E-409E-86D3-0240C6EEC37F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E755EA64-F80E-409E-86D3-0240C6EEC37F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E755EA64-F80E-409E-86D3-0240C6EEC37F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2DC38E5-3DF2-4C9C-85EC-A4A13BA61A79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2DC38E5-3DF2-4C9C-85EC-A4A13BA61A79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2DC38E5-3DF2-4C9C-85EC-A4A13BA61A79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2DC38E5-3DF2-4C9C-85EC-A4A13BA61A79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E7106C2-B628-4DAE-9CBA-F6FA295D47E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E7106C2-B628-4DAE-9CBA-F6FA295D47E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E7106C2-B628-4DAE-9CBA-F6FA295D47E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E7106C2-B628-4DAE-9CBA-F6FA295D47E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0B0277B-3771-4FD0-BB4F-D731CAC764BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0B0277B-3771-4FD0-BB4F-D731CAC764BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0B0277B-3771-4FD0-BB4F-D731CAC764BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0B0277B-3771-4FD0-BB4F-D731CAC764BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FBAEDF9-5150-4049-8A6F-188C25ABFF76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FBAEDF9-5150-4049-8A6F-188C25ABFF76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FBAEDF9-5150-4049-8A6F-188C25ABFF76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FBAEDF9-5150-4049-8A6F-188C25ABFF76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
