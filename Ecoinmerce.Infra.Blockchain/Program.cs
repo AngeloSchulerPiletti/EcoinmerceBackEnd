@@ -2,11 +2,15 @@
 using Nethereum.RPC.Eth.DTOs;
 using SmartContracts.Contracts.ShoppingHandler.ContractDefinition;
 using Ecoinmerce.Utils.Json;
+using System.Reflection;
 
 string fileName = "blockchainSettings.json";
 
 //GAMBIARRA TOTAL
-JsonModifier<BlockchainSettings> jsonModifier = new(Path.Combine("..\\..\\..\\", fileName));
+var relativePath = $"..\\..\\..\\..\\{fileName}";
+var absolutePath = Path.GetFullPath(relativePath);
+
+JsonModifier<BlockchainSettings> jsonModifier = new(absolutePath);
 
 Console.WriteLine("Você quer fazer o deploy do SmartContract? (S/N)");
 var deployAnswer = Console.ReadLine();

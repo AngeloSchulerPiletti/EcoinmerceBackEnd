@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="..\blockchainSettings.json" Link="blockchainSettings.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Nethereum.Accounts" Version="4.8.0">
       <TreatAsUsed>true</TreatAsUsed>
     </PackageReference>
