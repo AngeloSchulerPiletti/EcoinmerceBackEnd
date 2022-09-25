@@ -18,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Ecoinmerce.Application\Ecoinmerce.Application.csproj" />
     <ProjectReference Include="..\Ecoinmerce.Domain\Ecoinmerce.Domain.csproj" />
     <ProjectReference Include="..\Ecoinmerce.Infra.Repository\Ecoinmerce.Infra.Repository.csproj" />
   </ItemGroup>

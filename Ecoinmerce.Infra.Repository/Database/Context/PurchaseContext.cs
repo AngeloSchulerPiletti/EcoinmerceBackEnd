@@ -13,7 +13,6 @@ namespace Ecoinmerce.Infra.Repository.Database.Context
         public DbSet<Purchase> Purchases { get; set; }
         public DbSet<PurchaseCheck> PurchaseChecks { get; set; }
         public DbSet<PurchaseEvent> PurchaseEvents { get; set; }
-        public DbSet<PurchaseNotice> PurchaseNotices { get; set; }
         public DbSet<PurchaseEventFail> PurchaseEventFails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -21,7 +20,6 @@ namespace Ecoinmerce.Infra.Repository.Database.Context
             modelBuilder.ApplyConfiguration(new PurchaseMap());
             modelBuilder.ApplyConfiguration(new PurchaseCheckMap());
             modelBuilder.ApplyConfiguration(new PurchaseEventMap());
-            modelBuilder.ApplyConfiguration(new PurchaseNoticeMap());
             modelBuilder.ApplyConfiguration(new PurchaseEventFailMap());
 
             modelBuilder.Entity<Purchase>()
@@ -35,9 +33,10 @@ namespace Ecoinmerce.Infra.Repository.Database.Context
                 .HasForeignKey<Purchase>(a => a.PurchaseEventId);
 
             modelBuilder.Entity<Purchase>()
-                .HasOne(a => a.PurchaseNotice)
+                .HasOne(a => a.PurchaseEventFail)
                 .WithOne(a => a.Purchase)
-                .HasForeignKey<Purchase>(a => a.PurchaseNoticeId);
+                .HasForeignKey<Purchase>(a => a.PurchaseEventFailId);
+
         }
     }
 }

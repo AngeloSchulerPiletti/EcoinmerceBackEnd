@@ -16,8 +16,12 @@ namespace Ecoinmerce.Infra.Repository.Database.Map
                 .HasMaxLength(42)
                 .IsRequired();
 
-            builder.Property(x => x.PurchaseIdentifier)
-                .HasMaxLength(70)
+            builder.Property(x => x.BlockHash)
+                .HasMaxLength(64)
+                .IsRequired();
+
+            builder.Property(x => x.TransactionHash)
+                .HasMaxLength(64)
                 .IsRequired();
 
             builder.Property(x => x.Observation)

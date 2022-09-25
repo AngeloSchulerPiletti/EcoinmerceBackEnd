@@ -8,12 +8,16 @@ namespace Ecoinmerce.Infra.Repository.Database.Map
     {
         public void Configure(EntityTypeBuilder<PurchaseEvent> builder)
         {
-            builder.Property(x => x.PurchaseAmountPaidInEther)
-                .HasColumnType("decimal")
-                .HasPrecision(28, 18)
+            builder.Property(x => x.PurchaseIdentifier)
+                .HasMaxLength(70)
                 .IsRequired();
 
-            builder.Property(x => x.DateTimePurchasePayment)
+            //builder.Property(x => x.AmountPaidInGwei)
+            //    .HasColumnType("decimal")
+            //    .HasPrecision(28, 18)
+            //    .IsRequired();
+
+            builder.Property(x => x.PaidAt)
                 .IsRequired();
         }
 

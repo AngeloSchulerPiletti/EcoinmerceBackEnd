@@ -1,15 +1,15 @@
-﻿namespace Ecoinmerce.Domain.Entities;
+﻿using Ecoinmerce.Domain.Entities.Interfaces;
+using System.Text.Json.Serialization;
 
-public class PurchaseCheck
+namespace Ecoinmerce.Domain.Entities;
+
+public class PurchaseCheck : IBaseTimestampEntity
 {
-    public PurchaseCheck()
-    {
-        CheckOverCounter = 0;
-    }
-
-    public long PurchaseCheckId { get; set; }
+    public uint Id { get; set; }
     public int CheckOverCounter { get; set; } // Precisa contabilizar a cada busca no banco
-    public DateTime? LastCheckTime { get; set; }
-    public DateTime? FirstCheckDate { get; set; }
+    public DateTime? CreatedAt { get; set; }
+    public DateTime? UpdatedAt { get; set; }
+
+    [JsonIgnore]
     public virtual Purchase Purchase { get; set; }
 }

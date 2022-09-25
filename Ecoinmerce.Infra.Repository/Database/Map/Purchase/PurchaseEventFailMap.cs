@@ -8,16 +8,8 @@ namespace Ecoinmerce.Infra.Repository.Database.Map
     {
         public void Configure(EntityTypeBuilder<PurchaseEventFail> builder)
         {
-            builder.Property(x => x.BlockHash)
-                .HasMaxLength(64)
-                .IsRequired();
-
             builder.Property(x => x.LogAddress)
                 .HasMaxLength(42)
-                .IsRequired();
-
-            builder.Property(x => x.TransactionHash)
-                .HasMaxLength(64)
                 .IsRequired();
 
             builder.Property(x => x.Observation)

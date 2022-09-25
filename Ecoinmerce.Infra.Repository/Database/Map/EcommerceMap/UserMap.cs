@@ -4,20 +4,20 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Ecoinmerce.Infra.Repository.Database.Map.EcommerceMap
 {
-    public class UserMap : IEntityTypeConfiguration<User>
+    public class UserMap : IEntityTypeConfiguration<EcommerceAdmin>
     {
-        public void Configure(EntityTypeBuilder<User> builder)
+        public void Configure(EntityTypeBuilder<EcommerceAdmin> builder)
         {
-            builder.Property(x => x.UserName)
+            builder.Property(x => x.Username)
                 .HasMaxLength(40)
                 .IsRequired();
 
-            builder.Property(x => x.Name)
-                .HasMaxLength(60)
+            builder.Property(x => x.FirstName)
+                .HasMaxLength(20)
                 .IsRequired();
 
-            builder.Property(x => x.Role)
-                .HasMaxLength(30)
+            builder.Property(x => x.FirstName)
+                .HasMaxLength(40)
                 .IsRequired();
 
             builder.Property(x => x.Email)

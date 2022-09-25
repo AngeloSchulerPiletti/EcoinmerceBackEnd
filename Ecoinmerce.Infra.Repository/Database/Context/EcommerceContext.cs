@@ -11,33 +11,50 @@ namespace Ecoinmerce.Infra.Repository.Database.Context
         }
 
         public DbSet<Ecommerce> Ecommerces { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<EcommerceAdmin> Users { get; set; }
         public DbSet<EcommerceManager> EcommerceManagers { get; set; }
+        public DbSet<EtherWallet> EtherWallets { get; set; }
+        public DbSet<ApiCredential> ApiCredentials { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new EcommerceMap());
             modelBuilder.ApplyConfiguration(new UserMap());
 
-            modelBuilder.Entity<User>()
-                .HasKey(a => new { a.Email, a.UserName, a.Id });
+            modelBuilder.Entity<EcommerceAdmin>()
+                .HasIndex(x => new { x.Username } )
+                .IsUnique();
 
-            modelBuilder.Entity<User>()
+            modelBuilder.Entity<EcommerceAdmin>()
                 .HasOne(a => a.Ecommerce)
-                .WithMany(a => a.Users)
+                .WithMany(a => a.Admins)
                 .HasForeignKey(a => a.EcommerceId);
 
-            modelBuilder.Entity<EcommerceManager>()
-                .HasOne(a => a.Ecommerce)
-                .WithOne(a => a.EcommerceManager)
+            modelBuilder.Entity<Ecommerce>()
+                .HasOne(a => a.Manager)
+                .WithOne(a => a.Ecommerce)
+                .HasForeignKey<Ecommerce>(a => a.ManagerId)
                 .HasForeignKey<EcommerceManager>(a => a.EcommerceId);
 
-            modelBuilder.Entity<EcommerceManager>()
-                .HasOne(a => a.Manager)
-                .WithOne(a => a.Manager)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasPrincipalKey<User>(a => a.Id)
-                .HasForeignKey<EcommerceManager>(a => a.ManagerId);
+            modelBuilder.Entity<Ecommerce>()
+                .HasOne(a => a.ApiCredentials)
+                .WithOne(a => a.Ecommerce)
+                .HasForeignKey<Ecommerce>(a => a.ApiCredentialsId);
+
+            modelBuilder.Entity<EtherWallet>()
+                .HasOne(a => a.Ecommerce)
+                .WithMany(x => x.EtherWallets)
+                .HasForeignKey(x => x.EcommerceId);
+
+            modelBuilder.Entity<RoleBond>()
+                .HasOne(a => a.Role)
+                .WithMany(a => a.RoleBonds)
+                .HasForeignKey(a => a.RoleId);
+
+            modelBuilder.Entity<RoleBond>()
+                .HasOne(a => a.EcommerceAdmin)
+                .WithMany(a => a.RoleBonds)
+                .HasForeignKey(a => a.EcommerceAdminId);
         }
     }
 }
