@@ -30,7 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{51357F
 		blockchainSettings.json = blockchainSettings.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecoinmerce.Utils.FileSystem", "Ecoinmerce.Utils.FileSystem\Ecoinmerce.Utils.FileSystem.csproj", "{3FBAEDF9-5150-4049-8A6F-188C25ABFF76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecoinmerce.Utils.FileSystem", "Ecoinmerce.Utils.FileSystem\Ecoinmerce.Utils.FileSystem.csproj", "{3FBAEDF9-5150-4049-8A6F-188C25ABFF76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
