@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Ecoinmerce.Domain.Entities.ApiCredential" BaseTypeListCollapsed="true">
+    <Position X="9" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAACAAAACAAAAAAEAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Entities\Ecommerce\ApiCredential.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Right" Position="0.196" />
+  </Class>
+  <Class Name="Ecoinmerce.Domain.Entities.Ecommerce" BaseTypeListCollapsed="true">
+    <Position X="7" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACJAAIICAAgAgEACJIAQAAECAABIABAAABIAAAAAA=</HashCode>
+      <FileName>Entities\Ecommerce\Ecommerce.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Right" Position="4.749" />
+  </Class>
+  <Class Name="Ecoinmerce.Domain.Entities.EcommerceAdmin" BaseTypeListCollapsed="true">
+    <Position X="9" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQBCBEAIQCAAAAAAASAEAAAAEAAAAAACAAABAwAAAAk=</HashCode>
+      <FileName>Entities\Ecommerce\EcommerceAdmin.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Right" Position="3.984" />
+  </Class>
+  <Class Name="Ecoinmerce.Domain.Entities.EcommerceManager" BaseTypeListCollapsed="true">
+    <Position X="5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IQBCBEAIQCAAAAAAASAEAAAAEAAAAAACAAABIwCAAAg=</HashCode>
+      <FileName>Entities\Ecommerce\EcommerceManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Bottom" Position="0.134" />
+  </Class>
+  <Class Name="Ecoinmerce.Domain.Entities.EtherWallet" BaseTypeListCollapsed="true">
+    <Position X="7" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAQAACAAAACAEAAQAAAAAAAACAAAAAgAAAAA=</HashCode>
+      <FileName>Entities\Ecommerce\EtherWallet.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Right" Position="1.959" />
+  </Class>
+  <Class Name="Ecoinmerce.Domain.Entities.Role">
+    <Position X="10.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACEAAAAAAgCAAAECAgAAQAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Entities\Role\Role.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Right" Position="2.465" />
+  </Class>
+  <Class Name="Ecoinmerce.Domain.Entities.RoleBond">
+    <Position X="12.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAIAACAAAAAAEAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Role\RoleBond.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ecoinmerce.Domain.Entities.Purchase">
+    <Position X="4.75" Y="11.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>EAACABAAAAAgAAgAAAAQARIAAAAAAAAABBAACEAAAAA=</HashCode>
+      <FileName>Entities\Purchase\Purchase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ecoinmerce.Domain.Entities.PurchaseCheck" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="11.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAAAAACAAAACAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Purchase\PurchaseCheck.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Ecoinmerce.Domain.Entities.PurchaseEvent" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="11.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAEAAAAACAAAACAAAAAAAAAAAAABAAAAAAAEAAA=</HashCode>
+      <FileName>Entities\Purchase\PurchaseEvent.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Ecoinmerce.Domain.Entities.PurchaseEventFail">
+    <Position X="11.75" Y="11.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAAAAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Purchase\PurchaseEventFail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Ecoinmerce.Domain.Entities.Interfaces.IBaseAccessToken">
+    <Position X="16.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Interfaces\IBaseAccessToken.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Ecoinmerce.Domain.Entities.Interfaces.IBaseAgentEntity">
+    <Position X="12.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Entities\Interfaces\IBaseAgentEntity.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Ecoinmerce.Domain.Entities.Interfaces.IBaseAuthenticable">
+    <Position X="14.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQBAAAAAQAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Interfaces\IBaseAuthenticable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Ecoinmerce.Domain.Entities.Interfaces.IBaseConfirmable">
+    <Position X="12.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAACAAAAAAACAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Entities\Interfaces\IBaseConfirmable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Ecoinmerce.Domain.Entities.Interfaces.IBaseTimestampEntity">
+    <Position X="14.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAACAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Interfaces\IBaseTimestampEntity.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
