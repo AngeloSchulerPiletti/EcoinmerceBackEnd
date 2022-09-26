@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Ecoinmerce.Infra.Repository.GenericRepository
+namespace Ecoinmerce.Infra.Repository
 {
     //Talvez precise dar SaveChanges() nas paradas
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class

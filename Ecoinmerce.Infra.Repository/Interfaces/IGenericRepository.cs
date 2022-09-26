@@ -1,4 +1,4 @@
-﻿namespace Ecoinmerce.Infra.Repository.GenericRepository
+﻿namespace Ecoinmerce.Infra.Repository.Interfaces
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {
