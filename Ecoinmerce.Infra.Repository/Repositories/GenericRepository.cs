@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Ecoinmerce.Infra.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
-namespace Ecoinmerce.Infra.Repository
+namespace Ecoinmerce.Infra.Repository.Repositories
 {
-    //Talvez precise dar SaveChanges() nas paradas
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
         private readonly DbContext _context;

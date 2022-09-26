@@ -1,10 +1,11 @@
 using Ecoinmerce.Domain.Entities;
-using Ecoinmerce.Domain.Objects.DTO.PurchaseDTO;
 using Ecoinmerce.Infra.Blockchain;
 using Ecoinmerce.Infra.Repository.Interfaces;
 using Microsoft.Extensions.Options;
 using Nethereum.Contracts;
 using Nethereum.JsonRpc.WebSocketStreamingClient;
+using Nethereum.Model;
+using Nethereum.RPC.Eth.DTOs;
 using Nethereum.RPC.Reactive.Eth.Subscriptions;
 using Nethereum.Web3;
 using SmartContracts.Contracts.ShoppingHandler.ContractDefinition;
@@ -14,13 +15,33 @@ namespace Ecoinmerce.SmartContractSubscriber
     public class Worker : BackgroundService
     {
         private readonly StreamingWebSocketClient _client;
-        private readonly IPurchaseRepository _repository;
+        private readonly IPurchaseRepository _purchaseRepository;
+        private readonly IPurchaseEventFailRepository _purchaseEventFailRepository;
 
-        public Worker(IPurchaseRepository repository, IOptions<BlockchainSettings> blockchainSettings)
+        public Worker(IPurchaseRepository purchaseRepository,
+                      IPurchaseEventFailRepository purchaseEventFailRepository,
+                      IOptions<BlockchainSettings> blockchainSettings)
         {
             BlockchainSettingsBlockchain connectionSettings = blockchainSettings.Value.Blockchain;
             _client = new StreamingWebSocketClient($"{connectionSettings.WsUrl}:{connectionSettings.Port}");
-            _repository = repository;
+
+            _purchaseRepository = purchaseRepository;
+            _purchaseEventFailRepository = purchaseEventFailRepository;
+        }
+
+        private void HandleError(FilterLog log, string message)
+        {
+            Console.WriteLine("Error registered at DB");
+
+            PurchaseEventFail purchaseEventFail = new()
+            {
+                LogAddress = log.Address,
+                BlockHash = log.BlockHash,
+                Observation = message
+            };
+
+            _purchaseEventFailRepository.Insert(purchaseEventFail);
+            _purchaseRepository.SaveChanges();
         }
 
         public async override Task StartAsync(CancellationToken cancellationToken)
@@ -52,36 +73,36 @@ namespace Ecoinmerce.SmartContractSubscriber
 
                     if (decoded != null)
                     {
-                        PaymentEventDTO paymentEventDTO = new(
-                            decoded.Event.PurchaseIdentifier,
-                            0,
-                            0,
-                            decoded.Event.EcommerceWallet,
-                            decoded.Event.CostumerWallet,
-                            DateTime.Now,
-                            Web3.Convert.FromWei(decoded.Event.PaymentAmount)
-                        );
-                        Purchase purchase = _repository.SavePaymentEvent(paymentEventDTO);
-
-                        if (purchase == null)
+                        PurchaseEvent purchaseEvent = new()
                         {
-                            Console.WriteLine("Error registered at DB");
-                            _repository.SavePurchaseEventFail(new PurchaseEventFailDTO(log.Address, log.BlockHash, log.TransactionHash));
-                        }
-                        else Console.WriteLine("Payment saved!");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Error registered at DB");
-                        _repository.SavePurchaseEventFail(new PurchaseEventFailDTO(log.Address, log.BlockHash, log.TransactionHash));
-                    }
-                }
+                            AmountPaidInEther = Web3.Convert.FromWei(decoded.Event.PaymentAmount),
+                            PurchaseIdentifier = decoded.Event.PurchaseIdentifier
+                        };
 
+                        Purchase purchase = new()
+                        {
+                            BlockHash = decoded.Log.BlockHash,
+                            CostumerWalletAddress = decoded.Event.CostumerWallet,
+                            EcommerceWalletAddress = decoded.Event.EcommerceWallet,
+                            Failed = false,
+                            PurchaseEvent = purchaseEvent
+                        };
+
+                        _purchaseRepository.Insert(purchase);
+                        bool saveResult = _purchaseRepository.SaveChanges();
+
+                        if (saveResult)
+                        {
+                            Console.WriteLine("Payment saved!");
+                            return;
+                        }
+                    }
+
+                    HandleError(log, "Error registering event at database");
+                }
                 catch (Exception ex)
                 {
-                    // Talvez se um evento que não seja do tipo PaymentDone for emitido, caia aqui, então testa isso depois...
-                    Console.WriteLine("Error registered at DB");
-                    _repository.SavePurchaseEventFail(new PurchaseEventFailDTO(log.Address, log.BlockHash, log.TransactionHash, ex.Message));
+                    HandleError(log, ex.Message);
                 }
             });
 
