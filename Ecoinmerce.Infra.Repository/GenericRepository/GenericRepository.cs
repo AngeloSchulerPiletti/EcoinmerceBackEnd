@@ -16,21 +16,16 @@ namespace Ecoinmerce.Infra.Repository.GenericRepository
 
         public void Delete(TEntity entity)
         {
-            _context.Remove(entity);
+            _dbSet.Remove(entity);
         }
 
-        public void Delete(object id)
+        public void Delete(uint id)
         {
-            TEntity entity = _dbSet.Find(id);
+            TEntity entity = GetById(id);
             Delete(entity);
         }
 
-        public IEnumerable<TEntity> GetAll()
-        {
-            return _dbSet.ToList();
-        }
-
-        public TEntity GetById(object id)
+        public TEntity GetById(uint id)
         {
             return _dbSet.Find(id);
         }
@@ -40,10 +35,30 @@ namespace Ecoinmerce.Infra.Repository.GenericRepository
             _dbSet.Add(entity);
         }
 
-        public void Update(TEntity entity)
+        public bool SaveChanges()
         {
-            _dbSet.Attach(entity);
-            _context.Entry(entity).State = EntityState.Modified;
+            try
+            {
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            try
+            {
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

@@ -2,10 +2,11 @@
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {
-        IEnumerable<TEntity> GetAll();
-        TEntity GetById(object id);
+        TEntity GetById(uint id);
         void Insert(TEntity entity);
-        void Update(TEntity entity);
         void Delete(TEntity entity);
+        public void Delete(uint id);
+        public bool SaveChanges();
+        public Task<bool> SaveChangesAsync();
     }
 }
