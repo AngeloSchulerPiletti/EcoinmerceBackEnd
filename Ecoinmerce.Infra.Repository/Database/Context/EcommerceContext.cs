@@ -11,7 +11,7 @@ namespace Ecoinmerce.Infra.Repository.Database.Context
         }
 
         public DbSet<Ecommerce> Ecommerces { get; set; }
-        public DbSet<EcommerceAdmin> Users { get; set; }
+        public DbSet<EcommerceAdmin> EcommerceAdmins { get; set; }
         public DbSet<EcommerceManager> EcommerceManagers { get; set; }
         public DbSet<EtherWallet> EtherWallets { get; set; }
         public DbSet<ApiCredential> ApiCredentials { get; set; }
