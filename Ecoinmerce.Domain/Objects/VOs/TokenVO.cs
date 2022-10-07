@@ -1,6 +1,6 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 
-namespace Ecoinmerce.Domain.Objects.VO
+namespace Ecoinmerce.Domain.Objects.VOs
 {
     public class TokenVO
     {
