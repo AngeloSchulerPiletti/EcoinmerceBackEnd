@@ -1,14 +1,8 @@
-﻿namespace Ecoinmerce.Domain.Objects.VO.Responses
+﻿namespace Ecoinmerce.Domain.Objects.VOs.Responses;
+public interface IMessageBaseVO
 {
-    public class MessageBaseVO
-    {
-        public MessageBaseVO( bool isError = true, string title = null)
-        {
-            Title = title;
-            IsError = isError;
-        }
-
-        public string Title { get; set; }
-        public bool IsError { get; }
-    }
+    public string Title { get; set; }
+    public bool IsError { get; }
+    public string ErrorCode { get; }
+    public List<string> Messages { get; }
 }
