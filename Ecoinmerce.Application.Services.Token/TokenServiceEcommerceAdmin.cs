@@ -63,6 +63,11 @@ public class TokenServiceEcommerceAdmin : BaseTokenService, ITokenServiceEcommer
         return new TokenVO(_tokenHandler.WriteToken(token), token);
     }
 
+    public new string HashPassword(string nakedPassword, byte[] salt)
+    {
+        return BaseTokenService.HashPassword(nakedPassword, salt);
+    }
+
     public EcommerceAdmin HashPasswordWithNewSalt(EcommerceAdmin newAdmin, string nakedPassword)
     {
         try

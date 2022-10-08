@@ -8,6 +8,7 @@ public interface ITokenServiceEcommerceManager
 {
     public TokenVO GenerateAccessToken(EcommerceManager user);
     public TokenVO GenerateRefreshToken(EcommerceManager user);
+    public string HashPassword(string nakedPassword, byte[] salt);
     public EcommerceManager HashPasswordWithNewSalt(EcommerceManager newEcommerceManager, string nakedPassword);
     public string ValidateTokenAndGetClaim(string token, string claimName);
 }
