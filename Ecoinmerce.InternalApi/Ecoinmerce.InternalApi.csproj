@@ -22,12 +22,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Ecoinmerce.Application.Services.Token\Ecoinmerce.Application.Services.Token.csproj" />
     <ProjectReference Include="..\Ecoinmerce.Application.Services\Ecoinmerce.Application.Services.csproj" />
+    <ProjectReference Include="..\Ecoinmerce.Application\Ecoinmerce.Application.csproj" />
     <ProjectReference Include="..\Ecoinmerce.Domain\Ecoinmerce.Domain.csproj" />
     <ProjectReference Include="..\Ecoinmerce.Infra.Repository\Ecoinmerce.Infra.Repository.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
