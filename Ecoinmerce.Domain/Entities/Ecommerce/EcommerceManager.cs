@@ -1,4 +1,5 @@
 ﻿using Ecoinmerce.Domain.Entities.Interfaces;
+using Ecoinmerce.Domain.Objects.VOs;
 using System.Text.Json.Serialization;
 
 namespace Ecoinmerce.Domain.Entities;
@@ -34,4 +35,21 @@ public class EcommerceManager : IBaseAuthenticable, IBaseConfirmable
         AccessTokenExpiry = null;
     }
 
+    public void CleanRefreshToken()
+    {
+        RefreshToken = null;
+        RefreshTokenExpiry = null;
+    }
+
+    public void SetAccessToken(TokenVO token)
+    {
+        AccessToken = token.Token;
+        AccessTokenExpiry = token.TokenData.ValidTo;
+    }
+
+    public void SetRefreshToken(TokenVO token)
+    {
+        RefreshToken = token.Token;
+        RefreshTokenExpiry = token.TokenData.ValidTo;
+    }
 }
