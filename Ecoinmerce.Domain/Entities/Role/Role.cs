@@ -1,4 +1,5 @@
 ﻿using Ecoinmerce.Domain.Entities.Interfaces;
+using Newtonsoft.Json;
 
 namespace Ecoinmerce.Domain.Entities;
 
@@ -13,6 +14,6 @@ public class Role : IBaseTimestampEntity, IBaseAgentEntity
     public DateTime? UpdatedAt { get; set; }
     public string CreatedBy { get; set; }
     public string UpdatedBy { get; set; }
-
+    [JsonIgnore]
     public virtual List<RoleBond> RoleBonds { get; set; }
 }
