@@ -18,12 +18,4 @@ public class EcommerceAdminController : ControllerBase
     {
         _ecommerceAdminBusiness = ecommerceAdminBusiness;
     }
-
-    [Route("login")]
-    [HttpPost]
-    public IActionResult Login([FromBody] LoginDTO loginDTO)
-    {
-        MessageBagSingleEntityVO<EcommerceAdmin> messageBagAdmin = _ecommerceAdminBusiness.Login(loginDTO);
-        return messageBagAdmin.IsError ? BadRequest(messageBagAdmin) : Ok(messageBagAdmin);
-    }
 }
