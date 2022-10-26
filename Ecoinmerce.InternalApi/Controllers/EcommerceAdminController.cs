@@ -1,8 +1,4 @@
 ﻿using Ecoinmerce.Application.Interfaces;
-using Ecoinmerce.Domain.Entities;
-using Ecoinmerce.Domain.Objects.DTOs;
-using Ecoinmerce.Domain.Objects.VOs.Responses;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecoinmerce.InternalApi.Controllers;
