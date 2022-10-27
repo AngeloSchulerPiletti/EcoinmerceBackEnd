@@ -40,10 +40,10 @@ public class RegisterManagerDTOValidator : AbstractValidator<RegisterManagerDTO>
 
         RuleFor(x => x.Cellphone)
             .NotEmpty().WithMessage("Adicione seu celular")
-            .Matches(@"^\([0-9]{2}\) 9[0-9]{4}-[0-9]{4}$").WithMessage("Celular inválido");
+            .Matches(@"^[0-9]{2}9[0-9]{8}$").WithMessage("Celular inválido");
 
         RuleFor(x => x.Phone)
-            .Matches(@"^\([0-9]{2}\) 9[0-9]{4}-[0-9]{4}$").WithMessage("Celular inválido")
+            .Matches(@"^[0-9]{10}$").WithMessage("Telefone inválido")
             .When(x => x.Phone != null);
 
         RuleFor(x => x.Cpf)
