@@ -4,11 +4,11 @@ using System.Text.Json;
 
 namespace Ecoinmerce.Infra.ViaCep;
 
-public class ViaCepService : IViaCepService
+public static class ViaCepService
 {
-    private readonly string _baseUrl = "https://viacep.com.br";
+    private const string _baseUrl = "https://viacep.com.br";
 
-    public ViaCepResponseVO GetCompleteAddress(string cep)
+    public static ViaCepResponseVO GetCompleteAddress(string cep)
     {
         string completeUrl = $"{_baseUrl}/ws/{cep}/json/";
 
