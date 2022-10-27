@@ -36,4 +36,5 @@ public class RegisterEcommerceDTO
     public int? AverageTotalEmployees { get; set; }
     public int? AverageAnualBiling { get; set; }
     public string Cnpj { get; set; }
+    public string WalletAddress { get; set; }
 }
