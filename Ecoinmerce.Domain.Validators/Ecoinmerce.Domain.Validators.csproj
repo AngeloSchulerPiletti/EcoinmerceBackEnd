@@ -10,4 +10,9 @@
     <PackageReference Include="FluentValidation" Version="11.2.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Ecoinmerce.Domain\Ecoinmerce.Domain.csproj" />
+    <ProjectReference Include="..\Ecoinmerce.Infra.ViaCep\Ecoinmerce.Infra.ViaCep.csproj" />
+  </ItemGroup>
+
 </Project>
