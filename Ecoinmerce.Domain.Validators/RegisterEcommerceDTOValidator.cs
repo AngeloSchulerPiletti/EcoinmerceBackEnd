@@ -1,4 +1,5 @@
 ﻿using Ecoinmerce.Domain.Objects.DTOs;
+using Ecoinmerce.Domain.Objects.VOs.Responses;
 using Ecoinmerce.Infra.ViaCep;
 using FluentValidation;
 
@@ -11,7 +12,7 @@ public class RegisterEcommerceDTOValidator : AbstractValidator<RegisterEcommerce
         RuleFor(x => x.Cep)
             .NotEmpty().WithMessage("Preencha o CEP")
             .Length(8).WithMessage("CEP inválido")
-            .Must(x => ViaCepService.GetCompleteAddress(x) != null).WithMessage("CEP inválido");
+            .Must(x => IsCep(x)).WithMessage("CEP inválido");
 
         RuleFor(x => x.Phone)
             .NotEmpty().WithMessage("Adicione seu telefone")
@@ -44,6 +45,12 @@ public class RegisterEcommerceDTOValidator : AbstractValidator<RegisterEcommerce
         RuleFor(x => x.WalletAddress)
             .Matches(@"^0x[A-Za-z0-9]{40}$").WithMessage("Endereço de wallet inválido")
             .When(x => x.WalletAddress != null);
+    }
+
+    public static bool IsCep(string cep)
+    {
+        (ViaCepResponseVO response, bool serverOut) = ViaCepService.GetCompleteAddress(cep);
+        return response != null || serverOut;
     }
 
     public static bool IsCnpj(string cnpj)
