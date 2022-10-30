@@ -1,9 +1,12 @@
-﻿using Ecoinmerce.Application.Interfaces;
+﻿using AutoMapper;
+using Ecoinmerce.Application.Interfaces;
 using Ecoinmerce.Application.Services.Token.Interfaces;
 using Ecoinmerce.Domain.Entities;
 using Ecoinmerce.Domain.Objects.DTOs;
 using Ecoinmerce.Domain.Objects.VOs;
 using Ecoinmerce.Domain.Objects.VOs.Responses;
+using Ecoinmerce.Domain.Validators;
+using Ecoinmerce.Domain.Validators.Interfaces;
 using Ecoinmerce.Infra.Repository.Interfaces;
 
 namespace Ecoinmerce.Application;
@@ -11,12 +14,27 @@ namespace Ecoinmerce.Application;
 public class EcommerceManagerBusiness : IEcommerceManagerBusiness
 {
     private readonly IEcommerceManagerRepository _ecommerceManagerRepository;
+    private readonly IEcommerceAdminRepository _ecommerceAdminRepository;
     private readonly ITokenServiceEcommerceManager _tokenServiceEcommerceManager;
+    private readonly IGenericValidatorExecutor _genericValidator;
+    private readonly IMapper _mapper;
 
-    public EcommerceManagerBusiness(IEcommerceManagerRepository ecommerceManagerRepository, ITokenServiceEcommerceManager tokenServiceEcommerceManager)
+    public EcommerceManagerBusiness(IEcommerceManagerRepository ecommerceManagerRepository,
+                                    ITokenServiceEcommerceManager tokenServiceEcommerceManager,
+                                    IEcommerceAdminRepository ecommerceAdminRepository,
+                                    IGenericValidatorExecutor genericValidator,
+                                    IMapper mapper)
     {
+        _mapper = mapper;
         _ecommerceManagerRepository = ecommerceManagerRepository;
+        _ecommerceAdminRepository = ecommerceAdminRepository;
         _tokenServiceEcommerceManager = tokenServiceEcommerceManager;
+        _genericValidator = genericValidator;
+    }
+
+    public bool IsUsernameAvailable(string username)
+    {
+        return _ecommerceAdminRepository.AnyUsername(username) || _ecommerceManagerRepository.AnyUsername(username);
     }
 
     public MessageBagSingleEntityVO<EcommerceManager> Login(LoginDTO loginDTO)
@@ -41,5 +59,44 @@ public class EcommerceManagerBusiness : IEcommerceManagerBusiness
         _ecommerceManagerRepository.SaveChangesAsync();
 
         return new MessageBagSingleEntityVO<EcommerceManager>("Login realizado com sucesso", "Sucesso", false, manager);
+    }
+
+    public MessageBagSingleEntityVO<EcommerceManager> Register(RegisterManagerDTO registerManagerDTO, Ecommerce ecommerce)
+    {
+        EcommerceManager ecommerceManager = _mapper.Map<EcommerceManager>(registerManagerDTO);
+
+        ecommerceManager.Ecommerce = ecommerce;
+
+        if (!IsUsernameAvailable(ecommerceManager.Username))
+        {
+            MessageBagSingleEntityVO<EcommerceManager> error = new("Informções inválidas", "Erro de cadastro", true);
+            error.DictionaryMessages.Add("Username", "Outro usuários está utilizando esse username");
+            return error;
+        }
+
+        bool passwordHashResult = _tokenServiceEcommerceManager.HashPasswordWithNewSalt(ref ecommerceManager, registerManagerDTO.NakedPassword);
+        if (!passwordHashResult) return new MessageBagSingleEntityVO<EcommerceManager>("Tivemos um problema ao tratar sua senha", "Desculpe! Tivemos um erro");
+
+        TokenVO accessTokenVO = _tokenServiceEcommerceManager.GenerateAccessToken(ecommerceManager);
+        ecommerceManager.SetAccessToken(accessTokenVO);
+
+        TokenVO refreshTokenVO = _tokenServiceEcommerceManager.GenerateRefreshToken(ecommerceManager);
+        ecommerceManager.SetRefreshToken(refreshTokenVO);
+
+        TokenVO confirmationTokenVO = _tokenServiceEcommerceManager.GenerateConfirmationToken(ecommerceManager);
+        ecommerceManager.SetConfirmationToken(confirmationTokenVO);
+
+        // Envia o email de confirmação async
+
+        _ecommerceManagerRepository.Insert(ecommerceManager);
+        bool saveResult = _ecommerceManagerRepository.SaveChanges();
+        return saveResult ?
+            new MessageBagSingleEntityVO<EcommerceManager>(null, "Cadastro realizado com sucesso!", false, ecommerceManager) :
+            new MessageBagSingleEntityVO<EcommerceManager>("Tivemos um erro interno. Já estamos trabalhando nisso!", "Desculpe pelo incômodo");
+    }
+
+    public MessageBagVO Validate(RegisterManagerDTO registerManagerDTO)
+    {
+        return _genericValidator.ValidatorResultIterator(registerManagerDTO, new RegisterManagerDTOValidator());
     }
 }

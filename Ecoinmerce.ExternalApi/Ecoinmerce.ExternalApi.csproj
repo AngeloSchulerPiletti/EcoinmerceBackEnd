@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Ecoinmerce.Domain\Ecoinmerce.Domain.csproj" />
+    <ProjectReference Include="..\Ecoinmerce.Infra.MailService\Ecoinmerce.Infra.MailService.csproj" />
     <ProjectReference Include="..\Ecoinmerce.Infra.Repository\Ecoinmerce.Infra.Repository.csproj" />
   </ItemGroup>
 

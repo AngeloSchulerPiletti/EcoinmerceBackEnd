@@ -24,7 +24,10 @@
     <ProjectReference Include="..\Ecoinmerce.Application.Services\Ecoinmerce.Application.Services.csproj" />
     <ProjectReference Include="..\Ecoinmerce.Application\Ecoinmerce.Application.csproj" />
     <ProjectReference Include="..\Ecoinmerce.Domain\Ecoinmerce.Domain.csproj" />
+    <ProjectReference Include="..\Ecoinmerce.Infra.MailService\Ecoinmerce.Infra.MailService.csproj" />
     <ProjectReference Include="..\Ecoinmerce.Infra.Repository\Ecoinmerce.Infra.Repository.csproj" />
+    <ProjectReference Include="..\Ecoinmerce.Services.Mapper\Ecoinmerce.Services.Mapper.csproj" />
+    <ProjectReference Include="..\Ecoinmerce.Services.WalletManager\Ecoinmerce.Services.WalletManager.csproj" />
   </ItemGroup>
 
 </Project>

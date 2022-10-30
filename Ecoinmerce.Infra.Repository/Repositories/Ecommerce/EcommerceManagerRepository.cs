@@ -14,6 +14,11 @@ public class EcommerceManagerRepository : GenericRepository<EcommerceManager>, I
         _ecommerceContext = ecommerceContext;
     }
 
+    public bool AnyUsername(string username)
+    {
+        return _ecommerceContext.EcommerceManagers.Where(x => x.Username == username).Any();
+    }
+
     public EcommerceManager GetByEmail(string email)
     {
         return _ecommerceContext.EcommerceManagers.FirstOrDefault(x => x.Email == email);

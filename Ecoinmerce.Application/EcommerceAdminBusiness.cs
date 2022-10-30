@@ -1,10 +1,12 @@
-﻿using Ecoinmerce.Application.Interfaces;
+﻿using AutoMapper;
+using Ecoinmerce.Application.Interfaces;
 using Ecoinmerce.Application.Services.Token;
 using Ecoinmerce.Application.Services.Token.Interfaces;
 using Ecoinmerce.Domain.Entities;
 using Ecoinmerce.Domain.Objects.DTOs;
 using Ecoinmerce.Domain.Objects.VOs;
 using Ecoinmerce.Domain.Objects.VOs.Responses;
+using Ecoinmerce.Domain.Validators.Interfaces;
 using Ecoinmerce.Infra.Repository;
 using Ecoinmerce.Infra.Repository.Interfaces;
 
@@ -12,13 +14,28 @@ namespace Ecoinmerce.Application;
 
 public class EcommerceAdminBusiness : IEcommerceAdminBusiness
 {
+    private readonly IEcommerceManagerRepository _ecommerceManagerRepository;
     private readonly IEcommerceAdminRepository _ecommerceAdminRepository;
     private readonly ITokenServiceEcommerceAdmin _tokenServiceEcommerceAdmin;
+    private readonly IMapper _mapper;
+    private readonly IGenericValidatorExecutor _genericValidator;
 
-    public EcommerceAdminBusiness(IEcommerceAdminRepository ecommerceAdminRepository, ITokenServiceEcommerceAdmin tokenServiceEcommerceAdmin)
+    public EcommerceAdminBusiness(IEcommerceAdminRepository ecommerceAdminRepository,
+                                  IEcommerceManagerRepository ecommerceManagerRepository,
+                                  ITokenServiceEcommerceAdmin tokenServiceEcommerceAdmin,
+                                  IMapper mapper,
+                                  IGenericValidatorExecutor genericValidator)
     {
         _ecommerceAdminRepository = ecommerceAdminRepository;
+        _ecommerceManagerRepository = ecommerceManagerRepository;
         _tokenServiceEcommerceAdmin = tokenServiceEcommerceAdmin;
+        _mapper = mapper;
+        _genericValidator = genericValidator;
+    }
+
+    public bool IsUsernameAvailable(string username)
+    {
+        return _ecommerceAdminRepository.AnyUsername(username) || _ecommerceManagerRepository.AnyUsername(username);
     }
 
     public MessageBagSingleEntityVO<EcommerceAdmin> Login(LoginDTO loginDTO)

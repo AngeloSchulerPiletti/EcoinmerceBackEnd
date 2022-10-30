@@ -16,8 +16,8 @@ public class EcommerceManager : IBaseAuthenticable, IBaseConfirmable
     public bool IsDeleted { get; set; }
     public string Email { get; set; }
     public bool IsEmailConfirmed { get; set; }
-    public string TokenConfirmation { get; set; }
-    public DateTime? TokenConfirmationExpiry { get; set; }
+    public string ConfirmationToken { get; set; }
+    public DateTime? ConfirmationTokenExpiry { get; set; }
     public string AccessToken { get; set; }
     public DateTime? AccessTokenExpiry { get; set; }
     public string Password { get; set; }
@@ -45,6 +45,12 @@ public class EcommerceManager : IBaseAuthenticable, IBaseConfirmable
     {
         AccessToken = token.Token;
         AccessTokenExpiry = token.TokenData.ValidTo;
+    }
+
+    public void SetConfirmationToken(TokenVO token)
+    {
+        ConfirmationToken = token.Token;
+        ConfirmationTokenExpiry = token.TokenData.ValidTo;
     }
 
     public void SetRefreshToken(TokenVO token)

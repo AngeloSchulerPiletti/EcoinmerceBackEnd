@@ -1,9 +1,10 @@
 ﻿using Ecoinmerce.Domain.Entities.Interfaces;
+using Ecoinmerce.Domain.Objects.VOs;
 using System.Text.Json.Serialization;
 
 namespace Ecoinmerce.Domain.Entities;
 
-public class Ecommerce : IBaseConfirmable, IBaseAccessToken
+public class Ecommerce
 {
     public uint Id { get; set; }
     public string FantasyName { get; set; }
@@ -15,14 +16,8 @@ public class Ecommerce : IBaseConfirmable, IBaseAccessToken
     public int? AverageTotalEmployees { get; set; }
     public int? AverageAnualBiling { get; set; }
     public string Cnpj { get; set; }
-    public string AccessToken { get; set; }
-    public DateTime? AccessTokenExpiry { get; set; }
     public bool IsEmailConfirmed { get; set; }
-    [JsonIgnore]
-    public string TokenConfirmation { get; set; }
-    public DateTime? TokenConfirmationExpiry { get; set; }
     // Eccomerce image futuramente
-    //Add option to create the wallet inside to access the dashboard
     public uint ManagerId { get; set; }
     public uint ApiCredentialsId { get; set; }
     [JsonIgnore]

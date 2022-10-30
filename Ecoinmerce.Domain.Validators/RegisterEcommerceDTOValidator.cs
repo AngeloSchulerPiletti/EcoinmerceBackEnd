@@ -45,6 +45,11 @@ public class RegisterEcommerceDTOValidator : AbstractValidator<RegisterEcommerce
         RuleFor(x => x.WalletAddress)
             .Matches(@"^0x[A-Za-z0-9]{40}$").WithMessage("Endereço de wallet inválido")
             .When(x => x.WalletAddress != null);
+
+        RuleFor(x => x.WalletName)
+            .NotEmpty().WithMessage("Dê um nome para a sua wallet")
+            .MaximumLength(20).WithMessage("O nome da wallet não pode ter mais de 20 caracteres")
+            .Matches(@"^[A-Za-z0-9 ]+$").WithMessage("Endereço de wallet inválido");
     }
 
     public static bool IsCep(string cep)

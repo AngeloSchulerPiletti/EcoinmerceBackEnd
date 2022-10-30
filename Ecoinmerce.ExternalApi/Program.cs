@@ -1,3 +1,4 @@
+using Ecoinmerce.Infra.MailService;
 using Ecoinmerce.Infra.Repository.Database.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,7 +11,7 @@ builder.Services.AddApiVersioning();
 builder.Services.AddDbContext<PurchaseContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddDbContext<EcommerceContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); // Will need it? Or should use the profiles?
+builder.Services.AddSingleton(builder.Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

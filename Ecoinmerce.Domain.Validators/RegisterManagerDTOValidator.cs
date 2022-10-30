@@ -38,6 +38,10 @@ public class RegisterManagerDTOValidator : AbstractValidator<RegisterManagerDTO>
             .NotEmpty().WithMessage("Preencha seu último nome")
             .Matches(@"^[a-zA-ZàèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇ ]+$").WithMessage("Último nome inválido");
 
+        RuleFor(x => x.Username)
+            .NotEmpty().WithMessage("Preencha seu username")
+            .Matches(@"^[a-zA-Z_\-]+$").WithMessage("Utilize apenas letras, \"-\" e \"_\"");
+
         RuleFor(x => x.Cellphone)
             .NotEmpty().WithMessage("Adicione seu celular")
             .Matches(@"^[0-9]{2}9[0-9]{8}$").WithMessage("Celular inválido");

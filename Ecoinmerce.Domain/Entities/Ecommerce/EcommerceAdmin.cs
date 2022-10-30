@@ -17,8 +17,8 @@ public class EcommerceAdmin : IBaseAuthenticable, IBaseConfirmable
     public byte[] Salt { get; set; }
     [JsonIgnore]
     public string Password { get; set; }
-    public string TokenConfirmation { get; set; }
-    public DateTime? TokenConfirmationExpiry { get; set; }
+    public string ConfirmationToken { get; set; }
+    public DateTime? ConfirmationTokenExpiry { get; set; }
     public string AccessToken { get; set; }
     public DateTime? AccessTokenExpiry { get; set; }
     public string RefreshToken { get; set; }
@@ -61,5 +61,11 @@ public class EcommerceAdmin : IBaseAuthenticable, IBaseConfirmable
     {
         _stringfiedRoles ??= String.Join('+', RoleBonds);
         return _stringfiedRoles;
+    }
+
+    public void SetConfirmationToken(TokenVO token)
+    {
+        ConfirmationToken = token.Token;
+        ConfirmationTokenExpiry = token.TokenData.ValidTo;
     }
 }

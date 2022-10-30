@@ -14,6 +14,11 @@ public class EcommerceAdminRepository : GenericRepository<EcommerceAdmin>, IEcom
         _ecommerceContext = ecommerceContext;
     }
 
+    public bool AnyUsername(string username)
+    {
+        return _ecommerceContext.EcommerceAdmins.Where(x => x.Username == username).Any();
+    }
+
     public EcommerceAdmin GetByEmail(string email)
     {
         return _ecommerceContext.EcommerceAdmins.FirstOrDefault(x => x.Email == email);

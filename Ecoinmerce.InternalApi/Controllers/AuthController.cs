@@ -2,7 +2,6 @@
 using Ecoinmerce.Domain.Entities;
 using Ecoinmerce.Domain.Objects.DTOs;
 using Ecoinmerce.Domain.Objects.VOs.Responses;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecoinmerce.InternalApi.Controllers;
@@ -14,11 +13,15 @@ public class AuthController : ControllerBase
 {
     private readonly IEcommerceAdminBusiness _ecommerceAdminBusiness;
     private readonly IEcommerceManagerBusiness _ecommerceManagerBusiness;
+    private readonly IEcommerceBusiness _ecommerceBusiness;
 
-    public AuthController(IEcommerceAdminBusiness ecommerceAdminBusiness, IEcommerceManagerBusiness ecommerceManagerBusiness)
+    public AuthController(IEcommerceAdminBusiness ecommerceAdminBusiness, 
+                          IEcommerceManagerBusiness ecommerceManagerBusiness, 
+                          IEcommerceBusiness ecommerceBusiness)
     {
         _ecommerceAdminBusiness = ecommerceAdminBusiness;
         _ecommerceManagerBusiness = ecommerceManagerBusiness;
+        _ecommerceBusiness = ecommerceBusiness;
     }
 
     [Route("manager/login")]
@@ -41,6 +44,16 @@ public class AuthController : ControllerBase
     [HttpPost]
     public IActionResult Register([FromBody] RegisterDTO registerDTO)
     {
+        MessageBagVO messageBagManagerValidation = _ecommerceManagerBusiness.Validate(registerDTO.Manager);
+        if (messageBagManagerValidation.IsError) return BadRequest(messageBagManagerValidation);
 
+        MessageBagVO messageBagEcommerceValidation = _ecommerceBusiness.Validate(registerDTO.Ecommerce);
+        if (messageBagEcommerceValidation.IsError) return BadRequest(messageBagEcommerceValidation);
+
+        MessageBagSingleEntityVO<Ecommerce> messageBagEcommerce = _ecommerceBusiness.Register(registerDTO.Ecommerce);
+        if(messageBagEcommerce.IsError) return BadRequest(messageBagEcommerce);
+
+        MessageBagSingleEntityVO<EcommerceManager> messageBagManager = _ecommerceManagerBusiness.Register(registerDTO.Manager, messageBagEcommerce.Entity);
+        return messageBagManager.IsError ? BadRequest(messageBagManager) : Ok(messageBagManager);
     }
 }

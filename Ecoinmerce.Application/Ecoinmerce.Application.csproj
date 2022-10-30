@@ -8,8 +8,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Ecoinmerce.Application.Services.Token\Ecoinmerce.Application.Services.Token.csproj" />
+    <ProjectReference Include="..\Ecoinmerce.Domain.Validators\Ecoinmerce.Domain.Validators.csproj" />
     <ProjectReference Include="..\Ecoinmerce.Domain\Ecoinmerce.Domain.csproj" />
     <ProjectReference Include="..\Ecoinmerce.Infra.Repository\Ecoinmerce.Infra.Repository.csproj" />
+    <ProjectReference Include="..\Ecoinmerce.Services.WalletManager\Ecoinmerce.Services.WalletManager.csproj" />
   </ItemGroup>
 
 </Project>
