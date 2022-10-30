@@ -28,22 +28,6 @@ public class TokenServiceEcommerceAdmin : BaseTokenService, ITokenServiceEcommer
         _signingCredentials = new(new SymmetricSecurityKey(_key), SecurityAlgorithms.HmacSha256Signature);
     }
 
-    public TokenVO GenerateRefreshToken(EcommerceAdmin admin)
-    {
-        SecurityTokenDescriptor tokenDescriptor = new()
-        {
-            Subject = new ClaimsIdentity(new[]
-            {
-                   new Claim("Username", admin.Username),
-                   new Claim(ClaimTypes.Email, admin.Email),
-                }),
-            Expires = DateTime.Now.AddDays(2),
-            SigningCredentials = _signingCredentials,
-        };
-        SecurityToken token = _tokenHandler.CreateToken(tokenDescriptor);
-        return new TokenVO(_tokenHandler.WriteToken(token), token);
-    }
-
     public TokenVO GenerateAccessToken(EcommerceAdmin admin)
     {
         string roles = admin.GetStringfiedRoles();
@@ -63,12 +47,49 @@ public class TokenServiceEcommerceAdmin : BaseTokenService, ITokenServiceEcommer
         return new TokenVO(_tokenHandler.WriteToken(token), token);
     }
 
+    public TokenVO GenerateConfirmationToken(EcommerceAdmin admin)
+    {
+        SecurityTokenDescriptor tokenDescriptor = new()
+        {
+            Subject = new ClaimsIdentity(new[]
+            {
+                    new Claim(ClaimTypes.Email, admin.Email)
+                }),
+            Expires = DateTime.Now.AddDays(2),
+            SigningCredentials = _signingCredentials,
+        };
+        SecurityToken token = _tokenHandler.CreateToken(tokenDescriptor);
+        return new TokenVO(_tokenHandler.WriteToken(token), token);
+    }
+
+    public TokenVO GenerateRefreshToken(EcommerceAdmin admin)
+    {
+        SecurityTokenDescriptor tokenDescriptor = new()
+        {
+            Subject = new ClaimsIdentity(new[]
+            {
+                   new Claim("Username", admin.Username),
+                   new Claim(ClaimTypes.Email, admin.Email),
+                }),
+            Expires = DateTime.Now.AddDays(2),
+            SigningCredentials = _signingCredentials,
+        };
+        SecurityToken token = _tokenHandler.CreateToken(tokenDescriptor);
+        return new TokenVO(_tokenHandler.WriteToken(token), token);
+    }
+
+    public Claim GetEmailFromConfirmationToken(string token)
+    {
+        JwtSecurityToken tokenData = _tokenHandler.ReadJwtToken(token);
+        return tokenData.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Email);
+    }
+
     public new string HashPassword(string nakedPassword, byte[] salt)
     {
         return BaseTokenService.HashPassword(nakedPassword, salt);
     }
 
-    public EcommerceAdmin HashPasswordWithNewSalt(EcommerceAdmin newAdmin, string nakedPassword)
+    public bool HashPasswordWithNewSalt(ref EcommerceAdmin newAdmin, string nakedPassword)
     {
         try
         {
@@ -77,11 +98,11 @@ public class TokenServiceEcommerceAdmin : BaseTokenService, ITokenServiceEcommer
             string hashedPassword = HashPassword(nakedPassword, newAdmin.Salt);
 
             newAdmin.Password = hashedPassword;
-            return newAdmin;
+            return true;
         }
         catch (Exception)
         {
-            return null;
+            return false;
         }
     }
 

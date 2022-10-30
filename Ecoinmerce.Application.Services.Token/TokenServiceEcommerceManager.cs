@@ -28,31 +28,15 @@ public class TokenServiceEcommerceManager : BaseTokenService, ITokenServiceEcomm
         _signingCredentials = new(new SymmetricSecurityKey(_key), SecurityAlgorithms.HmacSha256Signature);
     }
 
-    public TokenVO GenerateRefreshToken(EcommerceManager admin)
+    public TokenVO GenerateAccessToken(EcommerceManager manager)
     {
         SecurityTokenDescriptor tokenDescriptor = new()
         {
             Subject = new ClaimsIdentity(new[]
             {
-                   new Claim("Username", admin.Username),
-                   new Claim(ClaimTypes.Email, admin.Email),
-            }),
-            Expires = DateTime.Now.AddDays(2),
-            SigningCredentials = _signingCredentials,
-        };
-        SecurityToken token = _tokenHandler.CreateToken(tokenDescriptor);
-        return new TokenVO(_tokenHandler.WriteToken(token), token);
-    }
-
-    public TokenVO GenerateAccessToken(EcommerceManager admin)
-    {
-        SecurityTokenDescriptor tokenDescriptor = new()
-        {
-            Subject = new ClaimsIdentity(new[]
-            {
-                   new Claim(ClaimTypes.Name, admin.FirstName),
-                   new Claim("Username", admin.Username),
-                   new Claim(ClaimTypes.Email, admin.Email),
+                   new Claim(ClaimTypes.Name, manager.FirstName),
+                   new Claim("Username", manager.Username),
+                   new Claim(ClaimTypes.Email, manager.Email),
                 }),
             Expires = DateTime.Now.AddHours(12),
             SigningCredentials = _signingCredentials,
@@ -61,25 +45,62 @@ public class TokenServiceEcommerceManager : BaseTokenService, ITokenServiceEcomm
         return new TokenVO(_tokenHandler.WriteToken(token), token);
     }
 
+    public TokenVO GenerateConfirmationToken(EcommerceAdmin manager)
+    {
+        SecurityTokenDescriptor tokenDescriptor = new()
+        {
+            Subject = new ClaimsIdentity(new[]
+            {
+                    new Claim(ClaimTypes.Email, manager.Email)
+                }),
+            Expires = DateTime.Now.AddDays(2),
+            SigningCredentials = _signingCredentials,
+        };
+        SecurityToken token = _tokenHandler.CreateToken(tokenDescriptor);
+        return new TokenVO(_tokenHandler.WriteToken(token), token);
+    }
+
+    public TokenVO GenerateRefreshToken(EcommerceManager manager)
+    {
+        SecurityTokenDescriptor tokenDescriptor = new()
+        {
+            Subject = new ClaimsIdentity(new[]
+            {
+                   new Claim("Username", manager.Username),
+                   new Claim(ClaimTypes.Email, manager.Email),
+            }),
+            Expires = DateTime.Now.AddDays(2),
+            SigningCredentials = _signingCredentials,
+        };
+        SecurityToken token = _tokenHandler.CreateToken(tokenDescriptor);
+        return new TokenVO(_tokenHandler.WriteToken(token), token);
+    }
+
+    public Claim GetEmailFromConfirmationToken(string token)
+    {
+        JwtSecurityToken tokenData = _tokenHandler.ReadJwtToken(token);
+        return tokenData.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Email);
+    }
+
     public new string HashPassword(string nakedPassword, byte[] salt)
     {
         return BaseTokenService.HashPassword(nakedPassword, salt);
     }
 
-    public EcommerceManager HashPasswordWithNewSalt(EcommerceManager newAdmin, string nakedPassword)
+    public bool HashPasswordWithNewSalt(ref EcommerceManager newManager, string nakedPassword)
     {
         try
         {
-            newAdmin.Salt = RandomNumberGenerator.GetBytes(40);
+            newManager.Salt = RandomNumberGenerator.GetBytes(40);
 
-            string hashedPassword = HashPassword(nakedPassword, newAdmin.Salt);
+            string hashedPassword = HashPassword(nakedPassword, newManager.Salt);
 
-            newAdmin.Password = hashedPassword;
-            return newAdmin;
+            newManager.Password = hashedPassword;
+            return true;
         }
         catch (Exception)
         {
-            return null;
+            return false;
         }
     }
 
