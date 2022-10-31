@@ -1,12 +1,14 @@
 ﻿using Ecoinmerce.Domain.Entities;
 using Ecoinmerce.Infra.Repository.Database.Map;
+using Ecoinmerce.Infra.Respository.Database.Context;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ecoinmerce.Infra.Repository.Database.Context;
 
-public class PurchaseContext : DbContext
+public class PurchaseContext : BaseContext
 {
-    public PurchaseContext(DbContextOptions<PurchaseContext> options) : base(options)
+    public PurchaseContext(DbContextOptions options, IHttpContextAccessor httpContextAccessor) : base(options, httpContextAccessor)
     {
     }
 
