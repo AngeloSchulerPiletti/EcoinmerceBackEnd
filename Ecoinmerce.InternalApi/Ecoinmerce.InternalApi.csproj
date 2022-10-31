@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Ecoinmerce.Application.Services.Text\Ecoinmerce.Application.Services.Text.csproj" />
     <ProjectReference Include="..\Ecoinmerce.Application.Services.Token\Ecoinmerce.Application.Services.Token.csproj" />
     <ProjectReference Include="..\Ecoinmerce.Application.Services\Ecoinmerce.Application.Services.csproj" />
     <ProjectReference Include="..\Ecoinmerce.Application\Ecoinmerce.Application.csproj" />
