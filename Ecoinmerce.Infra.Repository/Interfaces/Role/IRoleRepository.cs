@@ -1,5 +1,7 @@
-﻿namespace Ecoinmerce.Infra.Repository.Interfaces;
+﻿using Ecoinmerce.Domain.Entities;
 
-public interface IRoleRepository
+namespace Ecoinmerce.Infra.Repository.Interfaces;
+
+public interface IRoleRepository : IGenericRepository<Role>
 {
 }

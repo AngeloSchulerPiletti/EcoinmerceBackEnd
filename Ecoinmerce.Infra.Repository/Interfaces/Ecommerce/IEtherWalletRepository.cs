@@ -1,6 +1,8 @@
-﻿namespace Ecoinmerce.Infra.Repository.Interfaces;
+﻿using Ecoinmerce.Domain.Entities;
 
-public interface IEtherWalletRepository
+namespace Ecoinmerce.Infra.Repository.Interfaces;
+
+public interface IEtherWalletRepository : IGenericRepository<EtherWallet>
 {
     public int GetLastEtherWalletId();
 }

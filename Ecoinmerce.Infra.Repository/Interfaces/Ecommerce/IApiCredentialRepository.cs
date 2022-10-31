@@ -1,5 +1,7 @@
-﻿namespace Ecoinmerce.Infra.Repository.Interfaces;
+﻿using Ecoinmerce.Domain.Entities;
 
-public interface IApiCredentialRepository
+namespace Ecoinmerce.Infra.Repository.Interfaces;
+
+public interface IApiCredentialRepository : IGenericRepository<ApiCredential>
 {
 }

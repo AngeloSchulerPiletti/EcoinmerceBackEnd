@@ -8,7 +8,8 @@ namespace Ecoinmerce.Infra.Repository;
 public class EtherWalletRepository : GenericRepository<EtherWallet>, IEtherWalletRepository
 {
     private readonly EcommerceContext _ecommerceContext;
-    public EtherWalletRepository(EcommerceContext ecommerceContext, DbContext context) : base(context)
+
+    public EtherWalletRepository(EcommerceContext ecommerceContext) : base(ecommerceContext)
     {
         _ecommerceContext = ecommerceContext;
     }
