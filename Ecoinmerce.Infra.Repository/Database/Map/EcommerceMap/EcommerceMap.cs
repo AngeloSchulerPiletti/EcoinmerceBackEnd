@@ -21,8 +21,18 @@ public class EcommerceMap : IEntityTypeConfiguration<Ecommerce>
             .HasMaxLength(18)
             .IsRequired();
 
-        builder.Property(x => x.AccessToken)
-            .HasMaxLength(260)
+        builder.Property(x => x.Cep)
+            .HasMaxLength(8)
+            .IsRequired();
+
+        builder.Property(x => x.Phone)
+            .HasMaxLength(12);
+
+        builder.Property(x => x.SocialReason)
+            .HasMaxLength(128);
+
+        builder.Property(x => x.Website)
+            .HasMaxLength(600)
             .IsRequired();
     }
 }

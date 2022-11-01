@@ -19,7 +19,8 @@ namespace Ecoinmerce.Infra.Repository.Database.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new EcommerceMap());
-            modelBuilder.ApplyConfiguration(new UserMap());
+            modelBuilder.ApplyConfiguration(new EcommerceAdminMap());
+            modelBuilder.ApplyConfiguration(new EcommerceManagerMap());
 
             modelBuilder.Entity<EcommerceAdmin>()
                 .HasIndex(x => new { x.Username } )
