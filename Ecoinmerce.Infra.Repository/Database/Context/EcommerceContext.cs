@@ -42,9 +42,9 @@ namespace Ecoinmerce.Infra.Repository.Database.Context
                 .HasForeignKey<EcommerceManager>(a => a.EcommerceId);
 
             modelBuilder.Entity<Ecommerce>()
-                .HasOne(a => a.ApiCredentials)
+                .HasMany(a => a.ApiCredentials)
                 .WithOne(a => a.Ecommerce)
-                .HasForeignKey<Ecommerce>(a => a.ApiCredentialsId);
+                .HasForeignKey(a => a.EcommerceId);
 
             modelBuilder.Entity<EtherWallet>()
                 .HasOne(a => a.Ecommerce)
