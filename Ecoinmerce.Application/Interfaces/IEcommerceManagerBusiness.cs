@@ -8,5 +8,6 @@ public interface IEcommerceManagerBusiness
 {
     public MessageBagSingleEntityVO<EcommerceManager> Login(LoginDTO loginDTO);
     public MessageBagSingleEntityVO<EcommerceManager> Register(RegisterManagerDTO registerManagerDTO, Ecommerce ecommerce);
+    public void SendConfirmationEmailAsync(EcommerceManager manager);
     public MessageBagVO Validate(RegisterManagerDTO registerManagerDTO);
 }

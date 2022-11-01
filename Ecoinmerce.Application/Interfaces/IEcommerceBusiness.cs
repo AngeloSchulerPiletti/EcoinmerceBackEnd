@@ -9,5 +9,6 @@ public interface IEcommerceBusiness
 {
 
     public MessageBagSingleEntityVO<Ecommerce> Register(RegisterEcommerceDTO registerEcommerceDTO);
+    public void SendWelcomeEmailAsync(Ecommerce ecommerce);
     public MessageBagVO Validate(RegisterEcommerceDTO registerEcommerceDTO);
 }

@@ -54,6 +54,11 @@ public class AuthController : ControllerBase
         if(messageBagEcommerce.IsError) return BadRequest(messageBagEcommerce);
 
         MessageBagSingleEntityVO<EcommerceManager> messageBagManager = _ecommerceManagerBusiness.Register(registerDTO.Manager, messageBagEcommerce.Entity);
-        return messageBagManager.IsError ? BadRequest(messageBagManager) : Ok(messageBagManager);
+        if (messageBagManager.IsError) return BadRequest(messageBagManager);
+
+        _ecommerceManagerBusiness.SendConfirmationEmailAsync(messageBagManager.Entity);
+        _ecommerceBusiness.SendWelcomeEmailAsync(messageBagEcommerce.Entity);
+
+        return Ok(messageBagManager);
     }
 }

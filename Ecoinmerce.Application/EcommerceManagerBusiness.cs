@@ -7,7 +7,9 @@ using Ecoinmerce.Domain.Objects.VOs;
 using Ecoinmerce.Domain.Objects.VOs.Responses;
 using Ecoinmerce.Domain.Validators;
 using Ecoinmerce.Domain.Validators.Interfaces;
+using Ecoinmerce.Infra.MailService.Interfaces;
 using Ecoinmerce.Infra.Repository.Interfaces;
+using System.Net.Mail;
 
 namespace Ecoinmerce.Application;
 
@@ -17,15 +19,18 @@ public class EcommerceManagerBusiness : IEcommerceManagerBusiness
     private readonly IEcommerceAdminRepository _ecommerceAdminRepository;
     private readonly ITokenServiceEcommerceManager _tokenServiceEcommerceManager;
     private readonly IGenericValidatorExecutor _genericValidator;
+    private readonly IUserMail _mailService;
     private readonly IMapper _mapper;
 
     public EcommerceManagerBusiness(IEcommerceManagerRepository ecommerceManagerRepository,
                                     ITokenServiceEcommerceManager tokenServiceEcommerceManager,
                                     IEcommerceAdminRepository ecommerceAdminRepository,
+                                    IUserMail mailService,
                                     IGenericValidatorExecutor genericValidator,
                                     IMapper mapper)
     {
         _mapper = mapper;
+        _mailService = mailService;
         _ecommerceManagerRepository = ecommerceManagerRepository;
         _ecommerceAdminRepository = ecommerceAdminRepository;
         _tokenServiceEcommerceManager = tokenServiceEcommerceManager;
@@ -86,13 +91,23 @@ public class EcommerceManagerBusiness : IEcommerceManagerBusiness
         TokenVO confirmationTokenVO = _tokenServiceEcommerceManager.GenerateConfirmationToken(ecommerceManager);
         ecommerceManager.SetConfirmationToken(confirmationTokenVO);
 
-        // Envia o email de confirmação async
-
         _ecommerceManagerRepository.Insert(ecommerceManager);
         bool saveResult = _ecommerceManagerRepository.SaveChanges();
         return saveResult ?
             new MessageBagSingleEntityVO<EcommerceManager>(null, "Cadastro realizado com sucesso!", false, ecommerceManager) :
             new MessageBagSingleEntityVO<EcommerceManager>("Tivemos um erro interno. Já estamos trabalhando nisso!", "Desculpe pelo incômodo");
+    }
+
+    public void SendConfirmationEmailAsync(EcommerceManager manager)
+    {
+        MailMessage mailMessage = new()
+        {
+            Subject = $"Bem vindo, {manager.FirstName}",
+            Body = $"Test body - {manager.ConfirmationToken}",
+        };
+        mailMessage.To.Add(manager.Email);
+
+        _mailService.SendMailAsync(mailMessage);
     }
 
     public MessageBagVO Validate(RegisterManagerDTO registerManagerDTO)
