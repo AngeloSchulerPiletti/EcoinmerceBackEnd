@@ -13,7 +13,7 @@ public class EtherWalletRepository : GenericRepository<EtherWallet>, IEtherWalle
         _ecommerceContext = ecommerceContext;
     }
 
-    public uint GetLastEtherWalletId()
+    public int GetLastEtherWalletId()
     {
         return _ecommerceContext.EtherWallets.Select(x => x.Id).Last();
     }

@@ -2,5 +2,5 @@
 
 public interface IEtherWalletRepository
 {
-    public uint GetLastEtherWalletId();
+    public int GetLastEtherWalletId();
 }
