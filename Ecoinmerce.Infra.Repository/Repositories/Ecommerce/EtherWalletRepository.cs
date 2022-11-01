@@ -3,7 +3,7 @@ using Ecoinmerce.Infra.Repository.Database.Context;
 using Ecoinmerce.Infra.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Ecoinmerce.Infra.Repository.Repositories;
+namespace Ecoinmerce.Infra.Repository;
 
 public class EtherWalletRepository : GenericRepository<EtherWallet>, IEtherWalletRepository
 {
