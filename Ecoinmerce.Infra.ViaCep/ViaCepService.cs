@@ -1,5 +1,4 @@
 ﻿using Ecoinmerce.Domain.Objects.VOs.Responses;
-using Ecoinmerce.Infra.ViaCep.Interfaces;
 using System.Text.Json;
 
 namespace Ecoinmerce.Infra.ViaCep;
