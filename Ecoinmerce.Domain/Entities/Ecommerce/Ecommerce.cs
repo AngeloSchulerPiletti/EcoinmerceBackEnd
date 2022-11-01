@@ -1,10 +1,8 @@
-﻿using Ecoinmerce.Domain.Entities.Interfaces;
-using Ecoinmerce.Domain.Objects.VOs;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace Ecoinmerce.Domain.Entities;
 
-public class Ecommerce
+public class Ecommerce : BaseTimestampEntity
 {
     public int Id { get; set; }
     public string FantasyName { get; set; }

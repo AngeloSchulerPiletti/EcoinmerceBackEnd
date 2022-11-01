@@ -1,13 +1,15 @@
 ﻿using Ecoinmerce.Domain.Entities;
+using Ecoinmerce.Infra.Respository.Database.Map;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Ecoinmerce.Infra.Repository.Database.Map;
 
-public class EcommerceMap : IEntityTypeConfiguration<Ecommerce>
+public class EcommerceMap : CreateBaseTimestampEntityMap<Ecommerce>, IEntityTypeConfiguration<Ecommerce>
 {
-    public void Configure(EntityTypeBuilder<Ecommerce> builder)
+    public new void Configure(EntityTypeBuilder<Ecommerce> builder)
     {
+        base.Configure(builder);
 
         builder.Property(x => x.Email)
             .HasMaxLength(60)

@@ -2,7 +2,7 @@
 namespace Ecoinmerce.Domain.Entities;
 
 
-public class Purchase
+public class Purchase : BaseTimestampAgentEntity
 {
 
     // Information

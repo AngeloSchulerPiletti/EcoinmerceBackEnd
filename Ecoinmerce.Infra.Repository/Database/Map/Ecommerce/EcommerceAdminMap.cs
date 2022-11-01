@@ -5,10 +5,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Ecoinmerce.Infra.Repository.Database.Map
 {
-    public class EcommerceAdminMap : IEntityTypeConfiguration<EcommerceAdmin>
+    public class EcommerceAdminMap : CreateBaseTimestampAgentEntityMap<EcommerceAdmin>, IEntityTypeConfiguration<EcommerceAdmin>
     {
-        public void Configure(EntityTypeBuilder<EcommerceAdmin> builder)
+        public new void Configure(EntityTypeBuilder<EcommerceAdmin> builder)
         {
+            base.Configure(builder);
+
             builder.Property(x => x.Username)
                 .HasMaxLength(40)
                 .IsRequired();

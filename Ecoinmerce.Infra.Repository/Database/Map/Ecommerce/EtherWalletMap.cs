@@ -1,13 +1,16 @@
 ﻿using Ecoinmerce.Domain.Entities;
+using Ecoinmerce.Infra.Respository.Database.Map;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Ecoinmerce.Infra.Repository.Database.Map;
 
-public class EtherWalletMap : IEntityTypeConfiguration<EtherWallet>
+public class EtherWalletMap : CreateBaseTimestampAgentEntityMap<EtherWallet>, IEntityTypeConfiguration<EtherWallet>
 {
-    public void Configure(EntityTypeBuilder<EtherWallet> builder)
+    public new void Configure(EntityTypeBuilder<EtherWallet> builder)
     {
+        base.Configure(builder);
+
         builder.Property(x => x.Address)
             .HasMaxLength(42)
             .IsRequired();

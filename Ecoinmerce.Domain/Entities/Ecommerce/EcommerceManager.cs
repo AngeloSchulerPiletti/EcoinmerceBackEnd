@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Ecoinmerce.Domain.Entities;
 
-public class EcommerceManager : IBaseAuthenticable, IBaseConfirmable
+public class EcommerceManager : BaseTimestampEntity, IBaseAuthenticable, IBaseConfirmable
 {
     public int Id { get; set; }
     public string FirstName { get; set; }

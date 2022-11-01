@@ -1,9 +1,8 @@
-﻿using Ecoinmerce.Domain.Entities.Interfaces;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace Ecoinmerce.Domain.Entities;
 
-public class EtherWallet : BaseTimestampEntity
+public class EtherWallet : BaseTimestampAgentEntity
 {
     public int Id { get; set; }
     public string Name { get; set; }
