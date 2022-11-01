@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Ecoinmerce.Infra.Repository.Database.Map.EcommerceMap
+namespace Ecoinmerce.Infra.Repository.Database.Map
 {
     public class EcommerceAdminMap : IEntityTypeConfiguration<EcommerceAdmin>
     {
