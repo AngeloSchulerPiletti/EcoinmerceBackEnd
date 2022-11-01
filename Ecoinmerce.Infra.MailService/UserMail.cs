@@ -1,5 +1,4 @@
 ﻿using Ecoinmerce.Infra.MailService.Interfaces;
-using Microsoft.Extensions.Configuration;
 using System.Net.Mail;
 
 namespace Ecoinmerce.Infra.MailService;
@@ -18,8 +17,11 @@ public class UserMail : IUserMail
     public UserMail(EmailConfiguration emailConfiguration)
     {
         _emailConfiguration = emailConfiguration;
-        _smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-        _smtpClient.Credentials = new System.Net.NetworkCredential(_emailConfiguration.User, _emailConfiguration.Password);
+        _smtpClient = new SmtpClient()
+        {
+            DeliveryMethod = SmtpDeliveryMethod.Network,
+            Credentials = new System.Net.NetworkCredential(_emailConfiguration.User, _emailConfiguration.Password)
+        };
     }
 
     public bool SendMail(MailMessage mail)
