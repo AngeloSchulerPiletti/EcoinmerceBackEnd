@@ -23,6 +23,7 @@ namespace Ecoinmerce.Infra.Repository.Database.Context
             modelBuilder.ApplyConfiguration(new EcommerceManagerMap());
             modelBuilder.ApplyConfiguration(new RoleMap());
             modelBuilder.ApplyConfiguration(new RoleBondMap());
+            modelBuilder.ApplyConfiguration(new EtherWalletMap());
 
             modelBuilder.Entity<EcommerceAdmin>()
                 .HasIndex(x => new { x.Username } )
