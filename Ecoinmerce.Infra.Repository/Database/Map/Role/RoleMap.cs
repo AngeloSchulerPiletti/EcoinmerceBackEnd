@@ -1,13 +1,16 @@
 ﻿using Ecoinmerce.Domain.Entities;
+using Ecoinmerce.Infra.Respository.Database.Map;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Ecoinmerce.Infra.Repository.Database.Map;
 
-public class RoleMap : IEntityTypeConfiguration<Role>
+public class RoleMap : CreateBaseTimestampAgentEntityMap<Role>, IEntityTypeConfiguration<Role>
 {
-    public void Configure(EntityTypeBuilder<Role> builder)
+    public new void Configure(EntityTypeBuilder<Role> builder)
     {
+        base.Configure(builder);
+
         builder.Property(x => x.IsActive)
             .HasDefaultValue(true)
             .IsRequired();

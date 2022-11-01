@@ -35,10 +35,19 @@ public class EcommerceContext : DbContext
             .WithMany(a => a.Admins)
             .HasForeignKey(a => a.EcommerceId);
 
+        modelBuilder.Entity<EcommerceManager>()
+            .HasOne(a => a.Ecommerce)
+            .WithOne(a => a.Manager)
+            .HasForeignKey<EcommerceManager>(a => a.EcommerceId);
+
+        modelBuilder.Entity<Ecommerce>()
+            .HasMany(a => a.Admins)
+            .WithOne(a => a.Ecommerce)
+            .HasForeignKey(a => a.EcommerceId);
+
         modelBuilder.Entity<Ecommerce>()
             .HasOne(a => a.Manager)
             .WithOne(a => a.Ecommerce)
-            .HasForeignKey<Ecommerce>(a => a.ManagerId)
             .HasForeignKey<EcommerceManager>(a => a.EcommerceId);
 
         modelBuilder.Entity<Ecommerce>()
