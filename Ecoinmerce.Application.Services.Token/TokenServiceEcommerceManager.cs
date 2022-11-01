@@ -45,7 +45,7 @@ public class TokenServiceEcommerceManager : BaseTokenService, ITokenServiceEcomm
         return new TokenVO(_tokenHandler.WriteToken(token), token);
     }
 
-    public TokenVO GenerateConfirmationToken(EcommerceAdmin manager)
+    public TokenVO GenerateConfirmationToken(EcommerceManager manager)
     {
         SecurityTokenDescriptor tokenDescriptor = new()
         {
