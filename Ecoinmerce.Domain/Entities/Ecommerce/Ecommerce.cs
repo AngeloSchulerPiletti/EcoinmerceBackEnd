@@ -6,7 +6,7 @@ namespace Ecoinmerce.Domain.Entities;
 
 public class Ecommerce
 {
-    public uint Id { get; set; }
+    public int Id { get; set; }
     public string FantasyName { get; set; }
     public string SocialReason { get; set; }
     public string Website { get; set; }
@@ -17,11 +17,10 @@ public class Ecommerce
     public int? AverageAnualBiling { get; set; }
     public string Cnpj { get; set; }
     public bool IsEmailConfirmed { get; set; }
-    // Eccomerce image futuramente
-    public uint ManagerId { get; set; }
-    public uint ApiCredentialsId { get; set; }
+    // Ecommerce image futuramente
+    public int ManagerId { get; set; }
     [JsonIgnore]
-    public virtual ApiCredential ApiCredentials { get; set; }
+    public virtual List<ApiCredential> ApiCredentials { get; set; }
     [JsonIgnore]
     public virtual List<EtherWallet> EtherWallets { get; set; }
     [JsonIgnore]
