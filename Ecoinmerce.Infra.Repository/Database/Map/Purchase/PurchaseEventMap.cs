@@ -15,10 +15,10 @@ public class PurchaseEventMap : CreateBaseTimestampEntityMap<PurchaseEvent>, IEn
             .HasMaxLength(70)
             .IsRequired();
 
-        //builder.Property(x => x.AmountPaidInGwei)
-        //    .HasColumnType("decimal")
-        //    .HasPrecision(28, 18)
-        //    .IsRequired();
+        builder.Property(x => x.AmountPaidInEther)
+            .HasColumnType("decimal")
+            .HasPrecision(18, 28) //This is probably wrong
+            .IsRequired();
 
         builder.Property(x => x.PaidAt)
             .IsRequired();

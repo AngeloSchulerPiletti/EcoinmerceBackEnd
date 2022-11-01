@@ -15,6 +15,10 @@ public class PurchaseEventFailMap : CreateBaseTimestampEntityMap<PurchaseEventFa
             .HasMaxLength(42)
             .IsRequired();
 
+        builder.Property(x => x.BlockHash)
+            .HasMaxLength(100)
+            .IsRequired();
+
         builder.Property(x => x.Observation)
            .HasMaxLength(2000);
     }
