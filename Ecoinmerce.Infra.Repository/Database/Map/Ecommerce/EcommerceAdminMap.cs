@@ -1,4 +1,5 @@
 ﻿using Ecoinmerce.Domain.Entities;
+using Ecoinmerce.Infra.Respository.Database.Map;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

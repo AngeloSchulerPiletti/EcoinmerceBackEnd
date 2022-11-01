@@ -2,19 +2,18 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Ecoinmerce.Infra.Repository.Database.Map
+namespace Ecoinmerce.Infra.Repository.Database.Map;
+
+public class PurchaseEventFailMap : IEntityTypeConfiguration<PurchaseEventFail>
 {
-    public class PurchaseEventFailMap : IEntityTypeConfiguration<PurchaseEventFail>
+    public void Configure(EntityTypeBuilder<PurchaseEventFail> builder)
     {
-        public void Configure(EntityTypeBuilder<PurchaseEventFail> builder)
-        {
-            builder.Property(x => x.LogAddress)
-                .HasMaxLength(42)
-                .IsRequired();
+        builder.Property(x => x.LogAddress)
+            .HasMaxLength(42)
+            .IsRequired();
 
-            builder.Property(x => x.Observation)
-               .HasMaxLength(2000);
-        }
-
+        builder.Property(x => x.Observation)
+           .HasMaxLength(2000);
     }
+
 }
