@@ -1,5 +1,5 @@
 ﻿using Ecoinmerce.Domain.Entities;
-using Ecoinmerce.Infra.Repository.Database.Map.EcommerceMap;
+using Ecoinmerce.Infra.Repository.Database.Map;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ecoinmerce.Infra.Repository.Database.Context
@@ -21,6 +21,8 @@ namespace Ecoinmerce.Infra.Repository.Database.Context
             modelBuilder.ApplyConfiguration(new EcommerceMap());
             modelBuilder.ApplyConfiguration(new EcommerceAdminMap());
             modelBuilder.ApplyConfiguration(new EcommerceManagerMap());
+            modelBuilder.ApplyConfiguration(new RoleMap());
+            modelBuilder.ApplyConfiguration(new RoleBondMap());
 
             modelBuilder.Entity<EcommerceAdmin>()
                 .HasIndex(x => new { x.Username } )
