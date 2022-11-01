@@ -17,7 +17,7 @@ public class PurchaseEventMap : CreateBaseTimestampEntityMap<PurchaseEvent>, IEn
 
         builder.Property(x => x.AmountPaidInEther)
             .HasColumnType("decimal")
-            .HasPrecision(18, 28) //This is probably wrong
+            .HasPrecision(28, 18)
             .IsRequired();
 
         builder.Property(x => x.PaidAt)
