@@ -4,11 +4,11 @@ namespace Ecoinmerce.Domain.Entities;
 
 public class RoleBond
 {
-    public uint Id { get; set; }
-    public uint EcommerceAdminId { get; set; }
+    public int Id { get; set; }
+    public int EcommerceAdminId { get; set; }
     [JsonIgnore]
     public virtual EcommerceAdmin EcommerceAdmin { get; set; }
-    public uint RoleId { get; set; }
+    public int RoleId { get; set; }
     [JsonIgnore]
     public virtual Role Role { get; set; }
 }

@@ -6,7 +6,7 @@ namespace Ecoinmerce.Domain.Entities;
 
 public class EcommerceManager : IBaseAuthenticable, IBaseConfirmable
 {
-    public uint Id { get; set; }
+    public int Id { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Username { get; set; }
@@ -25,7 +25,7 @@ public class EcommerceManager : IBaseAuthenticable, IBaseConfirmable
     public byte[] Salt { get; set; }
     public string RefreshToken { get; set; }
     public DateTime? RefreshTokenExpiry { get; set; }
-    public uint EcommerceId { get; set; }
+    public int EcommerceId { get; set; }
     [JsonIgnore]
     public virtual Ecommerce Ecommerce { get; set; }
 
