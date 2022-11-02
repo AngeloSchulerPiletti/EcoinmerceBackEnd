@@ -9,6 +9,7 @@ using Ecoinmerce.Application.Services.Token.Interfaces;
 using Ecoinmerce.Domain.Validators;
 using Ecoinmerce.Domain.Validators.Interfaces;
 using Ecoinmerce.Infra.Api.Management.Middleware;
+using Ecoinmerce.Infra.Blockchain;
 using Ecoinmerce.Infra.MailService;
 using Ecoinmerce.Infra.MailService.Interfaces;
 using Ecoinmerce.Infra.Repository;
@@ -36,6 +37,17 @@ builder.Services.AddDbContext<EcommerceContext>(options => options.UseLazyLoadin
 builder.Services.AddSingleton(builder.Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
 builder.Services.AddSingleton(builder.Configuration.GetSection("HdWalletCredentials").Get<HdWalletCredentials>());
 
+
+var relativePath = $"..\\";
+var absolutePath = Path.GetFullPath(relativePath);
+
+IConfigurationRoot sharedConfiguration = new ConfigurationBuilder()
+      .SetBasePath(absolutePath)
+      .AddJsonFile($"blockchainSettings.json", optional: false, reloadOnChange: true)
+      .Build();
+
+builder.Services.Configure<BlockchainSettings>(sharedConfiguration);
+
 builder.Services.AddSingleton<IHdWalletManager, HdWalletManager>();
 
 builder.Services.AddAutoMapper(typeof(EcommerceMappingProfiles));
@@ -54,6 +66,7 @@ builder.Services.AddScoped<IEcommerceBusiness, EcommerceBusiness>();
 builder.Services.AddScoped<IEcommerceAdminBusiness, EcommerceAdminBusiness>();
 builder.Services.AddScoped<IEcommerceManagerBusiness, EcommerceManagerBusiness>();
 builder.Services.AddScoped<IApiCredentialBusiness, ApiCredentialBusiness>();
+builder.Services.AddScoped<ISmartContractBusiness, SmartContractBusiness>();
 
 builder.Services.AddScoped<IEtherWalletRepository, EtherWalletRepository>();
 builder.Services.AddScoped<IEcommerceRepository, EcommerceRepository>();
