@@ -6,6 +6,7 @@ using Ecoinmerce.Application.Services.Text;
 using Ecoinmerce.Application.Services.Text.Interfaces;
 using Ecoinmerce.Application.Services.Token;
 using Ecoinmerce.Application.Services.Token.Interfaces;
+using Ecoinmerce.Domain.Settings;
 using Ecoinmerce.Domain.Validators;
 using Ecoinmerce.Domain.Validators.Interfaces;
 using Ecoinmerce.Infra.Api.Management.Middleware;
@@ -36,6 +37,7 @@ builder.Services.AddDbContext<EcommerceContext>(options => options.UseLazyLoadin
 
 builder.Services.AddSingleton(builder.Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
 builder.Services.AddSingleton(builder.Configuration.GetSection("HdWalletCredentials").Get<HdWalletCredentials>());
+builder.Services.AddSingleton(builder.Configuration.GetSection("ApiCredentials").Get<ApiCredentialSetting>());
 
 
 var relativePath = $"..\\";
@@ -57,6 +59,7 @@ builder.Services.AddSingleton<IGenericValidatorExecutor, GenericValidatorExecuto
 builder.Services.AddSingleton<IStringFormatterService, StringFormatterService>();
 builder.Services.AddSingleton<ITokenServiceEcommerceAdmin, TokenServiceEcommerceAdmin>();
 builder.Services.AddSingleton<ITokenServiceEcommerceManager, TokenServiceEcommerceManager>();
+builder.Services.AddSingleton<ITokenServiceEcommerce, TokenServiceEcommerce>();
 
 builder.Services.AddSingleton<IPaginationService, PaginationService>();
 builder.Services.AddSingleton<IUserMail, UserMail>();
