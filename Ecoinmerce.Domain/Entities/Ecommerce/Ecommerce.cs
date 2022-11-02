@@ -14,6 +14,7 @@ public class Ecommerce : BaseTimestampEntity
     public int? AverageTotalEmployees { get; set; }
     public int? AverageAnualBiling { get; set; }
     public string Cnpj { get; set; }
+    public bool? IsDeleted { get; set; }
     public bool IsEmailConfirmed { get; set; }
     // Ecommerce image futuramente
     public int ManagerId { get; set; }

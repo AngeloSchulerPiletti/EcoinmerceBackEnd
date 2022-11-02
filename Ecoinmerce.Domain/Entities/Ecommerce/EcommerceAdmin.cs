@@ -23,7 +23,7 @@ public class EcommerceAdmin : BaseTimestampAgentEntity, IBaseAuthenticable, IBas
     public DateTime? AccessTokenExpiry { get; set; }
     public string RefreshToken { get; set; }
     public DateTime? RefreshTokenExpiry { get; set; }
-    public bool IsDeleted { get; set; }
+    public bool? IsDeleted { get; set; }
     public int EcommerceId { get; set; }
     [JsonIgnore]
     public virtual Ecommerce Ecommerce { get; set; }

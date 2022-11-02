@@ -48,6 +48,10 @@ namespace Ecoinmerce.Infra.Repository.Database.Map
             builder.Property(x => x.Salt)
                 .HasMaxLength(50)
                 .IsRequired();
+
+            builder.Property(x => x.IsDeleted)
+                .HasDefaultValue(false)
+                .IsRequired();
         }
     }
 

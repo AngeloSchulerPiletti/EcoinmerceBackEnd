@@ -13,7 +13,7 @@ public class EcommerceManager : BaseTimestampEntity, IBaseAuthenticable, IBaseCo
     public string Cpf { get; set; }
     public string Cellphone { get; set; }
     public string Phone { get; set; }
-    public bool IsDeleted { get; set; }
+    public bool? IsDeleted { get; set; }
     public string Email { get; set; }
     public bool IsEmailConfirmed { get; set; }
     public string ConfirmationToken { get; set; }

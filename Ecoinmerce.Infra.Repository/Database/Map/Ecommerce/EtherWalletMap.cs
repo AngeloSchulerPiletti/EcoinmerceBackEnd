@@ -24,5 +24,9 @@ public class EtherWalletMap : CreateBaseTimestampAgentEntityMap<EtherWallet>, IE
         builder.Property(x => x.Name)
             .HasMaxLength(50)
             .IsRequired();
+
+        builder.Property(x => x.IsDeleted)
+            .HasDefaultValue(false)
+            .IsRequired();
     }
 }

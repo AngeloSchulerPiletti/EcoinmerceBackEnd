@@ -36,5 +36,9 @@ public class EcommerceMap : CreateBaseTimestampEntityMap<Ecommerce>, IEntityType
         builder.Property(x => x.Website)
             .HasMaxLength(600)
             .IsRequired();
+
+        builder.Property(x => x.IsDeleted)
+            .HasDefaultValue(false)
+            .IsRequired();
     }
 }
