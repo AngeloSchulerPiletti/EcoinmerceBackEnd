@@ -32,6 +32,14 @@ public class EcommerceContext : BaseContext
             .HasIndex(x => new { x.Username } )
             .IsUnique();
 
+        modelBuilder.Entity<EcommerceManager>()
+            .HasIndex(x => new { x.Username })
+            .IsUnique();
+
+        modelBuilder.Entity<Ecommerce>()
+            .HasIndex(x => new { x.Cnpj, x.Email })
+            .IsUnique();
+
         modelBuilder.Entity<EcommerceAdmin>()
             .HasOne(a => a.Ecommerce)
             .WithMany(a => a.Admins)
