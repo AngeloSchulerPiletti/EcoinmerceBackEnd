@@ -21,5 +21,8 @@ public class ApiCredentialMap : CreateBaseTimestampAgentEntityMap<ApiCredential>
 
         builder.Property(x => x.Description)
             .HasMaxLength(200);
+
+        builder.Property(x => x.ValidityInDays)
+            .IsRequired();
     }
 }

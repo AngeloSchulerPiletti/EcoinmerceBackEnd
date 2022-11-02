@@ -20,7 +20,7 @@ public class ApiCredentialBusiness : IApiCredentialBusiness
 
     public MessageBagSingleEntityVO<ApiCredential> CreateApiCredential(Ecommerce ecommerce, ApiCredential apiCredential)
     {
-        TokenVO token = _tokenServiceEcommerce.GenerateApiToken(ecommerce);
+        TokenVO token = _tokenServiceEcommerce.GenerateApiToken(ecommerce, apiCredential.ValidityInDays);
         apiCredential.AccessToken = token.Token;
         apiCredential.AccessTokenExpiry = token.TokenData.ValidTo;
 

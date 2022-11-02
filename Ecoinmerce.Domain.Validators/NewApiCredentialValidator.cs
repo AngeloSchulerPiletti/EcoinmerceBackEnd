@@ -31,6 +31,10 @@ public class NewApiCredentialValidator : AbstractValidator<ApiCredential>
         RuleFor(x => x.Id)
             .Empty().WithMessage("Não preencha esse campo");
 
+        RuleFor(x => x.ValidityInDays)
+            .NotEmpty().WithMessage("Preencha esse campo")
+            .Must(x => x > 0 && x < 90).WithMessage("A credencial deve durar de 1 à 90 dias");
+
         RuleFor(x => x.Name)
             .NotEmpty().WithMessage("Preencha esse campo")
             .MaximumLength(50).WithMessage("Esse campo deve ter até caracteres");

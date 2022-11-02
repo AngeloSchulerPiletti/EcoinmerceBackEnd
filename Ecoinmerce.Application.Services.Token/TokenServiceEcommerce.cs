@@ -28,7 +28,7 @@ public class TokenServiceEcommerce : BaseTokenService, ITokenServiceEcommerce
         _signingCredentials = new(new SymmetricSecurityKey(_key), SecurityAlgorithms.HmacSha256Signature);
     }
 
-    public TokenVO GenerateApiToken(Ecommerce ecommerce)
+    public TokenVO GenerateApiToken(Ecommerce ecommerce, int validityInDays)
     {
         SecurityTokenDescriptor tokenDescriptor = new()
         {
@@ -36,7 +36,7 @@ public class TokenServiceEcommerce : BaseTokenService, ITokenServiceEcommerce
             {
                 new Claim(ClaimTypes.Email, ecommerce.Email),
             }),
-            Expires = DateTime.Now.AddDays(90),
+            Expires = DateTime.Now.AddDays(validityInDays),
             SigningCredentials = _signingCredentials,
         };
         SecurityToken token = _tokenHandler.CreateToken(tokenDescriptor);
