@@ -13,4 +13,8 @@
     <PackageReference Include="Nethereum.Web3" Version="4.11.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Ecoinmerce.Domain\Ecoinmerce.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

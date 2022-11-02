@@ -1,6 +1,6 @@
-﻿namespace Ecoinmerce.Services.WalletManager;
+﻿namespace Ecoinmerce.Domain.Settings;
 
-public class HdWalletCredentials
+public class HdWalletCredentialSetting
 {
     public string SeedWords { get; set; }
     public string Password { get; set; }
