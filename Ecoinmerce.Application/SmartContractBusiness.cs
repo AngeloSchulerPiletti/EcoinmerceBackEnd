@@ -1,5 +1,4 @@
 ﻿using Ecoinmerce.Application.Interfaces;
-using Ecoinmerce.Domain.Objects.VOs.Responses;
 using Ecoinmerce.Infra.Blockchain;
 
 namespace Ecoinmerce.Application;

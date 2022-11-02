@@ -1,6 +1,4 @@
-﻿using Ecoinmerce.Domain.Objects.VOs.Responses;
-
-namespace Ecoinmerce.Application.Interfaces;
+﻿namespace Ecoinmerce.Application.Interfaces;
 
 public interface ISmartContractBusiness
 {
