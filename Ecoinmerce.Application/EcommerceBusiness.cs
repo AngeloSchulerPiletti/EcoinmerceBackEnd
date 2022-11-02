@@ -63,7 +63,19 @@ public class EcommerceBusiness : IEcommerceBusiness
 
     public MessageBagVO Validate(RegisterEcommerceDTO registerEcommerceDTO)
     {
-        return _genericValidator.ValidatorResultIterator(registerEcommerceDTO, new RegisterEcommerceDTOValidator());
+        MessageBagVO messageBagBaseValidation = _genericValidator.ValidatorResultIterator(registerEcommerceDTO, new RegisterEcommerceDTOValidator());
+        if (messageBagBaseValidation.IsError) return messageBagBaseValidation;
+
+        MessageBagVO messageBagCnpjValidation = ValidateUniqueCnpj(registerEcommerceDTO.Cnpj);
+        if(messageBagCnpjValidation.IsError) return messageBagCnpjValidation;
+
+        MessageBagVO messageBagEmailValidation = ValidateUniqueEmail(registerEcommerceDTO.Email);
+        if (messageBagEmailValidation.IsError) return messageBagEmailValidation;
+
+        messageBagBaseValidation.Messages.Add("Cnpj válido");
+        messageBagBaseValidation.Messages.Add("Email válido");
+        return messageBagBaseValidation;
+
     }
 
     private EtherWallet CreateEtherWallet(RegisterEcommerceDTO registerEcommerceDTO)
@@ -89,5 +101,28 @@ public class EcommerceBusiness : IEcommerceBusiness
             };
         }
         return wallet;
+    }
+    private MessageBagVO ValidateUniqueCnpj(string cnpj)
+    {
+        MessageBagVO messageBag = new();
+        if (_ecommerceRepository.CnpjIsBeingUsed(cnpj))
+        {
+            messageBag.DictionaryMessages.Add("cnpj", "Já está sendo usado");
+            return messageBag;
+        }
+        messageBag.IsError = false;
+        return messageBag;
+    }
+
+    private MessageBagVO ValidateUniqueEmail(string email)
+    {
+        MessageBagVO messageBag = new();
+        if (_ecommerceRepository.EmailIsBeingUsed(email))
+        {
+            messageBag.DictionaryMessages.Add("email", "Já está sendo usado");
+            return messageBag;
+        }
+        messageBag.IsError = false;
+        return messageBag;
     }
 }
