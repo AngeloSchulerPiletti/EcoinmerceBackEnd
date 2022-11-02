@@ -1,10 +1,4 @@
-using AutoMapper;
-using Ecoinmerce.Infra.Blockchain;
-using Ecoinmerce.Infra.Repository;
-using Ecoinmerce.Infra.Repository.Database.Context;
-using Ecoinmerce.Infra.Repository.Interfaces;
-using Ecoinmerce.SmartContractSubscriber;
-using Microsoft.EntityFrameworkCore;
+using Ecoinmerce.Domain.Settings;
 
 IHost host = Host.CreateDefaultBuilder(args)
     .UseWindowsService()
@@ -28,7 +22,7 @@ IHost host = Host.CreateDefaultBuilder(args)
               .AddJsonFile($"blockchainSettings.json", optional: false, reloadOnChange: true)
               .Build();
 
-        services.Configure<BlockchainSettings>(sharedConfiguration);
+        services.Configure<BlockchainSetting>(sharedConfiguration);
     })
     .Build();
 

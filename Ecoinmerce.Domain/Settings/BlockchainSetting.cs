@@ -1,7 +1,7 @@
 ﻿
-namespace Ecoinmerce.Infra.Blockchain;
+namespace Ecoinmerce.Domain.Settings;
 
-public class BlockchainSettings
+public class BlockchainSetting
 {
     public BlockchainSettingsBlockchain Blockchain { get; set; }
     public BlockchainSettingsAccount Account { get; set; }

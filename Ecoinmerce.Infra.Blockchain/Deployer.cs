@@ -1,4 +1,5 @@
-﻿using Nethereum.Contracts;
+﻿using Ecoinmerce.Domain.Settings;
+using Nethereum.Contracts;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Web3;
 using Nethereum.Web3.Accounts;
@@ -10,10 +11,10 @@ public class Deployer
     private readonly Account _account;
     private readonly Web3 _web3;
 
-    public Deployer(BlockchainSettings appSettings)
+    public Deployer(BlockchainSetting blockchainSetting)
     {
-        string httpUrl = $"{appSettings.Blockchain.HttpUrl}:{appSettings.Blockchain.Port}";
-        _account = new(appSettings.Account.PrivateKey);
+        string httpUrl = $"{blockchainSetting.Blockchain.HttpUrl}:{blockchainSetting.Blockchain.Port}";
+        _account = new(blockchainSetting.Account.PrivateKey);
         _web3 = new(_account, httpUrl);
     }
 

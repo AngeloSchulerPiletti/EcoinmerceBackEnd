@@ -10,7 +10,6 @@ using Ecoinmerce.Domain.Settings;
 using Ecoinmerce.Domain.Validators;
 using Ecoinmerce.Domain.Validators.Interfaces;
 using Ecoinmerce.Infra.Api.Management.Middleware;
-using Ecoinmerce.Infra.Blockchain;
 using Ecoinmerce.Infra.MailService;
 using Ecoinmerce.Infra.MailService.Interfaces;
 using Ecoinmerce.Infra.Repository;
@@ -48,7 +47,7 @@ IConfigurationRoot sharedConfiguration = new ConfigurationBuilder()
       .AddJsonFile($"blockchainSettings.json", optional: false, reloadOnChange: true)
       .Build();
 
-builder.Services.Configure<BlockchainSettings>(sharedConfiguration);
+builder.Services.Configure<BlockchainSetting>(sharedConfiguration);
 
 builder.Services.AddSingleton<IHdWalletManager, HdWalletManager>();
 

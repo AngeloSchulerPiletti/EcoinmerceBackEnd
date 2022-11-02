@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Ecoinmerce.Domain\Ecoinmerce.Domain.csproj" />
     <ProjectReference Include="..\Ecoinmerce.SmartContracts\Ecoinmerce.SmartContracts.csproj" />
     <ProjectReference Include="..\Ecoinmerce.Utils.Json\Ecoinmerce.Utils.Json.csproj" />
   </ItemGroup>
