@@ -14,4 +14,8 @@
     <Folder Include="Templates\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Ecoinmerce.Domain\Ecoinmerce.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

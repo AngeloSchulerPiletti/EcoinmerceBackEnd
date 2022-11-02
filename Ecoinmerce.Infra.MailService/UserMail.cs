@@ -1,4 +1,5 @@
-﻿using Ecoinmerce.Infra.MailService.Interfaces;
+﻿using Ecoinmerce.Domain.Settings;
+using Ecoinmerce.Infra.MailService.Interfaces;
 using System.Net.Mail;
 
 namespace Ecoinmerce.Infra.MailService;
@@ -11,16 +12,16 @@ namespace Ecoinmerce.Infra.MailService;
 ///</summary>
 public class UserMail : IUserMail
 {
-    private readonly EmailConfiguration _emailConfiguration;
+    private readonly EmailSetting _emailSetting;
     private readonly SmtpClient _smtpClient;
 
-    public UserMail(EmailConfiguration emailConfiguration)
+    public UserMail(EmailSetting emailSetting)
     {
-        _emailConfiguration = emailConfiguration;
+        _emailSetting = emailSetting;
         _smtpClient = new SmtpClient()
         {
             DeliveryMethod = SmtpDeliveryMethod.Network,
-            Credentials = new System.Net.NetworkCredential(_emailConfiguration.User, _emailConfiguration.Password)
+            Credentials = new System.Net.NetworkCredential(_emailSetting.User, _emailSetting.Password)
         };
     }
 
@@ -29,7 +30,7 @@ public class UserMail : IUserMail
         try
         {
             _smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-            _smtpClient.Credentials = new System.Net.NetworkCredential(_emailConfiguration.User, _emailConfiguration.Password);
+            _smtpClient.Credentials = new System.Net.NetworkCredential(_emailSetting.User, _emailSetting.Password);
             _smtpClient.Send(mail);
 
             return true;

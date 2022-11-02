@@ -34,7 +34,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<PurchaseContext>(options => options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddDbContext<EcommerceContext>(options => options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
-builder.Services.AddSingleton(builder.Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
+builder.Services.AddSingleton(builder.Configuration.GetSection("EmailSetting").Get<EmailSetting>());
 builder.Services.AddSingleton(builder.Configuration.GetSection("HdWalletCredentials").Get<HdWalletCredentials>());
 builder.Services.AddSingleton(builder.Configuration.GetSection("ApiCredentials").Get<ApiCredentialSetting>());
 
