@@ -23,12 +23,12 @@ IHost host = Host.CreateDefaultBuilder(args)
         var relativePath = $"..\\";
         var absolutePath = Path.GetFullPath(relativePath);
 
-        IConfigurationRoot builder = new ConfigurationBuilder()
+        IConfigurationRoot sharedConfiguration = new ConfigurationBuilder()
               .SetBasePath(absolutePath)
               .AddJsonFile($"blockchainSettings.json", optional: false, reloadOnChange: true)
               .Build();
 
-        services.Configure<BlockchainSettings>(builder);
+        services.Configure<BlockchainSettings>(sharedConfiguration);
     })
     .Build();
 
