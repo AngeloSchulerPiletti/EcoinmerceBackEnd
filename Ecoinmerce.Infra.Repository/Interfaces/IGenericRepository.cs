@@ -2,10 +2,10 @@
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {
-        TEntity GetById(uint id);
+        TEntity GetById(int id);
         void Insert(TEntity entity);
         void Delete(TEntity entity);
-        public void Delete(uint id);
+        public void Delete(int id);
         public bool SaveChanges();
         public Task<bool> SaveChangesAsync();
     }

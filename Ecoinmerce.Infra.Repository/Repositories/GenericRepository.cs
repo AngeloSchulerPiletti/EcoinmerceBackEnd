@@ -19,13 +19,13 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         _dbSet.Remove(entity);
     }
 
-    public void Delete(uint id)
+    public void Delete(int id)
     {
         TEntity entity = GetById(id);
         Delete(entity);
     }
 
-    public TEntity GetById(uint id)
+    public TEntity GetById(int id)
     {
         return _dbSet.Find(id);
     }
