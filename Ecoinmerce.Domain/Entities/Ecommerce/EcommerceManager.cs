@@ -15,7 +15,7 @@ public class EcommerceManager : BaseTimestampEntity, IBaseAuthenticable, IBaseCo
     public string Phone { get; set; }
     public bool? IsDeleted { get; set; }
     public string Email { get; set; }
-    public bool IsEmailConfirmed { get; set; }
+    public bool? IsEmailConfirmed { get; set; }
     public string ConfirmationToken { get; set; }
     public DateTime? ConfirmationTokenExpiry { get; set; }
     public string AccessToken { get; set; }

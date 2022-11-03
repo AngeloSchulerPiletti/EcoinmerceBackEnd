@@ -12,7 +12,7 @@ public class EcommerceAdmin : BaseTimestampAgentEntity, IBaseAuthenticable, IBas
     public string LastName { get; set; }
     public string Username { get; set; }
     public string Email { get; set; }
-    public bool IsEmailConfirmed { get; set; }
+    public bool? IsEmailConfirmed { get; set; }
     [JsonIgnore]
     public byte[] Salt { get; set; }
     [JsonIgnore]

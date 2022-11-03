@@ -44,6 +44,7 @@ public class EcommerceManagerMap : CreateBaseTimestampEntityMap<EcommerceManager
             .IsRequired();
 
         builder.Property(x => x.IsEmailConfirmed)
+            .HasDefaultValue(false)
             .IsRequired();
 
         builder.Property(x => x.Cellphone)

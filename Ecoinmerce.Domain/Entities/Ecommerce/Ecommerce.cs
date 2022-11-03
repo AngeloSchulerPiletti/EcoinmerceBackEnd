@@ -1,8 +1,10 @@
-﻿using System.Text.Json.Serialization;
+﻿using Ecoinmerce.Domain.Entities.Interfaces;
+using Ecoinmerce.Domain.Objects.VOs;
+using System.Text.Json.Serialization;
 
 namespace Ecoinmerce.Domain.Entities;
 
-public class Ecommerce : BaseTimestampEntity
+public class Ecommerce : BaseTimestampEntity, IBaseConfirmable
 {
     public int Id { get; set; }
     public string FantasyName { get; set; }
@@ -15,7 +17,9 @@ public class Ecommerce : BaseTimestampEntity
     public int? AverageAnualBiling { get; set; }
     public string Cnpj { get; set; }
     public bool? IsDeleted { get; set; }
-    public bool IsEmailConfirmed { get; set; }
+    public bool? IsEmailConfirmed { get; set; }
+    public string ConfirmationToken { get; set; }
+    public DateTime? ConfirmationTokenExpiry { get; set; }
     // Ecommerce image futuramente
     public int ManagerId { get; set; }
     [JsonIgnore]
@@ -26,4 +30,10 @@ public class Ecommerce : BaseTimestampEntity
     public virtual EcommerceManager Manager { get; set; }
     [JsonIgnore]
     public virtual List<EcommerceAdmin> Admins { get; set; } = new List<EcommerceAdmin>();
+
+    public void SetConfirmationToken(TokenVO token)
+    {
+        ConfirmationToken = token.Token;
+        ConfirmationTokenExpiry = token.TokenData.ValidTo;
+    }
 }

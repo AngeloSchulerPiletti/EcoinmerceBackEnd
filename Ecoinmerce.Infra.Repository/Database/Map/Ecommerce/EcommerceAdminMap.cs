@@ -45,6 +45,10 @@ namespace Ecoinmerce.Infra.Repository.Database.Map
             builder.Property(x => x.ConfirmationToken)
                 .HasMaxLength(260);
 
+            builder.Property(x => x.IsEmailConfirmed)
+                .HasDefaultValue(false)
+                .IsRequired();
+
             builder.Property(x => x.Salt)
                 .HasMaxLength(100)
                 .IsRequired();
