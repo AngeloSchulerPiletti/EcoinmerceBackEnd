@@ -37,10 +37,10 @@ public class NewApiCredentialValidator : AbstractValidator<ApiCredential>
 
         RuleFor(x => x.Name)
             .NotEmpty().WithMessage("Preencha esse campo")
-            .MaximumLength(50).WithMessage("Esse campo deve ter até caracteres");
+            .MaximumLength(50).WithMessage("Esse campo deve ter até 50 caracteres");
 
         RuleFor(x => x.Description)
-            .MaximumLength(200).WithMessage("Esse campo deve ter até caracteres");
+            .MaximumLength(200).WithMessage("Esse campo deve ter até 200 caracteres");
 
     }
 }
