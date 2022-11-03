@@ -45,4 +45,53 @@ public class ApiCredentialController : ControllerBase
         return messageBagApiCredential.IsError ? BadRequest(messageBagApiCredential) : Ok(messageBagApiCredential);
     }
 
+    [ManagerAuth]
+    [HttpDelete]
+    [Route("delete-credential/{id}")]
+    public IActionResult DeleteCredential(int id)
+    {
+        EcommerceManager manager = (EcommerceManager)HttpContext.Items["Manager"];
+        Ecommerce ecommerce = manager.Ecommerce;
+
+        MessageBagSingleEntityVO<ApiCredential> messageBagApiCredential = _apiCredentialBusiness.GetEcommerceApiCredentialById(ecommerce, id);
+        if(messageBagApiCredential.IsError) return BadRequest(messageBagApiCredential);
+
+        MessageBagVO messageBagDelete = _apiCredentialBusiness.DeleteApiCredential(messageBagApiCredential.Entity);
+        return messageBagDelete.IsError ? BadRequest(messageBagDelete) : Ok(messageBagDelete);
+    }
+
+
+    [ManagerAuth]
+    [HttpPut]
+    [Route("update-credential")]
+    public IActionResult UpdateCredential([FromBody] ApiCredential apiCredentialUpdate)
+    {
+        EcommerceManager manager = (EcommerceManager)HttpContext.Items["Manager"];
+        Ecommerce ecommerce = manager.Ecommerce;
+
+        MessageBagVO messageBagValidation =  _apiCredentialBusiness.ValidateUpdateApiCredential(apiCredentialUpdate);
+        if(messageBagValidation.IsError) return BadRequest(messageBagValidation);
+
+        MessageBagSingleEntityVO<ApiCredential> messageBagApiCredential = _apiCredentialBusiness.GetEcommerceApiCredentialById(ecommerce, apiCredentialUpdate.Id);
+        if (messageBagApiCredential.IsError) return BadRequest(messageBagApiCredential);
+
+        //Atualiza
+
+        return BadRequest();
+    }
+
+    [ManagerAuth]
+    [HttpPost]
+    [Route("renew-credential/{id}")]
+    public IActionResult RenewCredential(int id)
+    {
+        EcommerceManager manager = (EcommerceManager)HttpContext.Items["Manager"];
+        Ecommerce ecommerce = manager.Ecommerce;
+
+        MessageBagSingleEntityVO<ApiCredential> messageBagApiCredential = _apiCredentialBusiness.GetEcommerceApiCredentialById(ecommerce, id);
+        if (messageBagApiCredential.IsError) return BadRequest(messageBagApiCredential);
+
+        MessageBagSingleEntityVO<ApiCredential> messageBagApiCredentialRenew = _apiCredentialBusiness.RenewCredential(ecommerce, messageBagApiCredential.Entity);
+        return messageBagApiCredentialRenew.IsError ? BadRequest(messageBagApiCredentialRenew) : Ok(messageBagApiCredentialRenew);
+    }
 }
