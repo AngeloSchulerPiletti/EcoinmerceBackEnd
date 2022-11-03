@@ -14,4 +14,5 @@ public interface ITokenServiceEcommerceAdmin
     public string HashPassword(string nakedPassword, byte[] salt);
     public bool HashPasswordWithNewSalt(ref EcommerceAdmin newEcommerceAdmin, string nakedPassword);
     public string ValidateTokenAndGetClaim(string token, string claimName);
+    public JwtSecurityToken ValidateToken(string token);
 }

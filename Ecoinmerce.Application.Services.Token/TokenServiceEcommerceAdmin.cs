@@ -106,6 +106,11 @@ public class TokenServiceEcommerceAdmin : BaseTokenService, ITokenServiceEcommer
         }
     }
 
+    public JwtSecurityToken ValidateToken(string token)
+    {
+        return ValidateToken(token, _key);
+    }
+
     public string ValidateTokenAndGetClaim(string token, string claimName)
     {
         return ValidateTokenAndGetClaim(token, _key, claimName);

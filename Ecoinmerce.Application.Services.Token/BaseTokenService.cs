@@ -9,7 +9,7 @@ namespace Ecoinmerce.Application.Services.Token;
 
 public abstract class BaseTokenService
 {
-    public static string HashPassword(string nakedPassword, byte[] salt)
+    protected static string HashPassword(string nakedPassword, byte[] salt)
     {
         return Convert.ToBase64String(
                 KeyDerivation.Pbkdf2(
@@ -22,7 +22,7 @@ public abstract class BaseTokenService
                 );
     }
 
-    public static JwtSecurityToken ValidateToken(string token, byte[] key)
+    protected static JwtSecurityToken ValidateToken(string token, byte[] key)
     {
         if (token == null) return null;
         var tokenHandler = new JwtSecurityTokenHandler();
