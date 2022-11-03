@@ -16,6 +16,6 @@ public class EtherWalletRepository : GenericRepository<EtherWallet>, IEtherWalle
 
     public int GetLastEtherWalletId()
     {
-        return _ecommerceContext.EtherWallets.Select(x => x.Id).Last();
+        return _ecommerceContext.EtherWallets.OrderBy(x => x.Id).Select(x => x.Id).Last();
     }
 }
