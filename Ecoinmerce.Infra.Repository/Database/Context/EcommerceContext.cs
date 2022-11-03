@@ -8,7 +8,7 @@ namespace Ecoinmerce.Infra.Repository.Database.Context;
 
 public class EcommerceContext : BaseContext
 {
-    public EcommerceContext(DbContextOptions options, IHttpContextAccessor httpContextAccessor) : base(options, httpContextAccessor)
+    public EcommerceContext(DbContextOptions<EcommerceContext> options, IHttpContextAccessor httpContextAccessor) : base(options, httpContextAccessor)
     {
     }
 

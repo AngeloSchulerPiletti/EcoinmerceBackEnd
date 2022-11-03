@@ -8,7 +8,7 @@ namespace Ecoinmerce.Infra.Repository.Database.Context;
 
 public class PurchaseContext : BaseContext
 {
-    public PurchaseContext(DbContextOptions options, IHttpContextAccessor httpContextAccessor) : base(options, httpContextAccessor)
+    public PurchaseContext(DbContextOptions<PurchaseContext> options, IHttpContextAccessor httpContextAccessor) : base(options, httpContextAccessor)
     {
     }
 
