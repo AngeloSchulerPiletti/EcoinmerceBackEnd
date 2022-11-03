@@ -28,7 +28,7 @@ namespace Ecoinmerce.Infra.Repository.Database.Map
                 .IsRequired();
 
             builder.Property(x => x.Password)
-                .HasMaxLength(260)
+                .HasMaxLength(100)
                 .IsRequired();
 
             builder.Property(x => x.EcommerceId)
@@ -46,7 +46,7 @@ namespace Ecoinmerce.Infra.Repository.Database.Map
                 .HasMaxLength(260);
 
             builder.Property(x => x.Salt)
-                .HasMaxLength(50)
+                .HasMaxLength(100)
                 .IsRequired();
 
             builder.Property(x => x.IsDeleted)

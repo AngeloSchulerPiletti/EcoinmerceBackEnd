@@ -55,11 +55,11 @@ public class EcommerceManagerMap : CreateBaseTimestampEntityMap<EcommerceManager
             .IsRequired();
 
         builder.Property(x => x.Password)
-            .HasMaxLength(30)
+            .HasMaxLength(100)
             .IsRequired();
 
         builder.Property(x => x.Salt)
-            .HasMaxLength(50)
+            .HasMaxLength(100)
             .IsRequired();
 
         builder.Property(x => x.IsDeleted)
