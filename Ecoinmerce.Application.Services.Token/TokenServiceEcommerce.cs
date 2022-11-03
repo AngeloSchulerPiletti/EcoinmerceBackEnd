@@ -70,4 +70,9 @@ public class TokenServiceEcommerce : BaseTokenService, ITokenServiceEcommerce
         JwtSecurityToken tokenData = _tokenHandler.ReadJwtToken(token);
         return tokenData.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Email);
     }
+
+    public string ValidateTokenAndGetClaim(string token, string claimName)
+    {
+        return ValidateTokenAndGetClaim(token, _key, claimName);
+    }
 }

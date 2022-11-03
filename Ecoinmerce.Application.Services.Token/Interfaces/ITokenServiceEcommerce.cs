@@ -10,4 +10,5 @@ public interface ITokenServiceEcommerce
     public TokenVO GenerateConfirmationToken(Ecommerce ecommerce);
     public Claim GetEmailFromApiToken(string token);
     public Claim GetEmailFromConfirmationToken(string token);
+    public string ValidateTokenAndGetClaim(string token, string claimName);
 }
