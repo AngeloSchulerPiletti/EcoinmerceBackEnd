@@ -37,7 +37,7 @@ public class EcommerceManagerBusiness : IEcommerceManagerBusiness
         _genericValidator = genericValidator;
     }
 
-    public bool IsUsernameAvailable(string username)
+    public bool IsUsernameUnavailable(string username)
     {
         return _ecommerceAdminRepository.AnyUsername(username) || _ecommerceManagerRepository.AnyUsername(username);
     }
@@ -72,7 +72,7 @@ public class EcommerceManagerBusiness : IEcommerceManagerBusiness
 
         ecommerceManager.Ecommerce = ecommerce;
 
-        if (!IsUsernameAvailable(ecommerceManager.Username))
+        if (IsUsernameUnavailable(ecommerceManager.Username))
         {
             MessageBagSingleEntityVO<EcommerceManager> error = new("Informções inválidas", "Erro de cadastro", true);
             error.DictionaryMessages.Add("Username", "Outro usuários está utilizando esse username");
