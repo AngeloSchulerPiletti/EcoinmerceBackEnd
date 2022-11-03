@@ -75,6 +75,9 @@ public class EcommerceAdminBusiness : IEcommerceAdminBusiness
         if (refreshToken == null || refreshToken != admin.RefreshToken)
             return new MessageBagSingleEntityVO<EcommerceAdmin>("Refresh Token não é seu", "Não autorizado");
 
+        if (DateTime.Now > admin.RefreshTokenExpiry)
+            return new MessageBagSingleEntityVO<EcommerceAdmin>("Token expirado", "Erro");
+
         TokenVO tokenVO = _tokenServiceEcommerceAdmin.GenerateAccessToken(admin);
         admin.SetAccessToken(tokenVO);
 
