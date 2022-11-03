@@ -69,6 +69,8 @@ public class EcommerceAdminBusiness : IEcommerceAdminBusiness
             return new MessageBagSingleEntityVO<EcommerceAdmin>("Refresh Token inválido", "Não autorizado");
 
         EcommerceAdmin admin = _ecommerceAdminRepository.GetByEmail(email);
+        if (admin == null)
+            return new MessageBagSingleEntityVO<EcommerceAdmin>("Refresh Token inválido", "Não autorizado");
 
         if (refreshToken == null || refreshToken != admin.RefreshToken)
             return new MessageBagSingleEntityVO<EcommerceAdmin>("Refresh Token não é seu", "Não autorizado");
