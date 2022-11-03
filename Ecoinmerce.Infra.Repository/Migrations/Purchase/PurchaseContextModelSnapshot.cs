@@ -97,7 +97,7 @@ namespace Ecoinmerce.Infra.Repository.Migrations.Purchase
                     b.HasIndex("PurchaseEventId")
                         .IsUnique();
 
-                    b.ToTable("Purchases");
+                    b.ToTable("Purchases", (string)null);
                 });
 
             modelBuilder.Entity("Ecoinmerce.Domain.Entities.PurchaseCheck", b =>
@@ -133,7 +133,7 @@ namespace Ecoinmerce.Infra.Repository.Migrations.Purchase
 
                     b.HasKey("Id");
 
-                    b.ToTable("PurchaseChecks");
+                    b.ToTable("PurchaseChecks", (string)null);
                 });
 
             modelBuilder.Entity("Ecoinmerce.Domain.Entities.PurchaseEvent", b =>
@@ -168,7 +168,7 @@ namespace Ecoinmerce.Infra.Repository.Migrations.Purchase
 
                     b.HasKey("Id");
 
-                    b.ToTable("PurchaseEvents");
+                    b.ToTable("PurchaseEvents", (string)null);
                 });
 
             modelBuilder.Entity("Ecoinmerce.Domain.Entities.PurchaseEventFail", b =>
@@ -205,7 +205,7 @@ namespace Ecoinmerce.Infra.Repository.Migrations.Purchase
 
                     b.HasKey("Id");
 
-                    b.ToTable("PurchaseEventFails");
+                    b.ToTable("PurchaseEventFails", (string)null);
                 });
 
             modelBuilder.Entity("Ecoinmerce.Domain.Entities.Purchase", b =>
