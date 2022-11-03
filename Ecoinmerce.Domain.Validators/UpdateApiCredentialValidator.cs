@@ -33,13 +33,16 @@ public class UpdateApiCredentialValidator : AbstractValidator<ApiCredential>
 
         RuleFor(x => x.ValidityInDays)
             .Must(x => x > 0 && x < 90).WithMessage("A credencial deve durar de 1 à 90 dias")
-            .When(x => x.ValidityInDays != null);
+            .When(x => x.ValidityInDays != null)
+            .NotEmpty().WithMessage("Preencha esse campo corretamente").When(x => x.ValidityInDays != null);
 
         RuleFor(x => x.Name)
-            .MaximumLength(50).WithMessage("Esse campo deve ter até 50 caracteres");
+            .MaximumLength(50).WithMessage("Esse campo deve ter até 50 caracteres")
+            .NotEmpty().WithMessage("Preencha esse campo corretamente").When(x => x.ValidityInDays != null);
 
         RuleFor(x => x.Description)
-            .MaximumLength(200).WithMessage("Esse campo deve ter até 200 caracteres");
+            .MaximumLength(200).WithMessage("Esse campo deve ter até 200 caracteres")
+            .NotEmpty().WithMessage("Preencha esse campo corretamente").When(x => x.ValidityInDays != null);
 
     }
 }
