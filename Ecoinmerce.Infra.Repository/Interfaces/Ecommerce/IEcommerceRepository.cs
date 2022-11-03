@@ -6,5 +6,6 @@ public interface IEcommerceRepository : IGenericRepository<Ecommerce>
 {
     public bool CnpjIsBeingUsed(string cnpj);
     public bool EmailIsBeingUsed(string email);
+    public Ecommerce GetByEmail(string email);
     public int GetTotalApiCredentials(int ecommerceId);
 }

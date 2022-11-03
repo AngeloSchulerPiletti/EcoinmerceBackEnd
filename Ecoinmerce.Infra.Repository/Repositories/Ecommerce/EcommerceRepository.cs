@@ -24,6 +24,11 @@ public class EcommerceRepository : GenericRepository<Ecommerce>, IEcommerceRepos
         return _ecommerceContext.Ecommerces.Any(e => e.Email == email);
     }
 
+    public Ecommerce GetByEmail(string email)
+    {
+        return _ecommerceContext.Ecommerces.FirstOrDefault(x => x.Email == email);
+    }
+
     public int GetTotalApiCredentials(int ecommerceId)
     {
         return _ecommerceContext.ApiCredentials.Where(x => x.Id == ecommerceId).Count();
