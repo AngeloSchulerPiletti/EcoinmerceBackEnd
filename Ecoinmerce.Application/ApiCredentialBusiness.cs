@@ -74,6 +74,18 @@ public class ApiCredentialBusiness : IApiCredentialBusiness
             new MessageBagSingleEntityVO<ApiCredential>("Tivemos um erro ao renovar sua credencial", "Erro nosso!", true);
     }
 
+    public MessageBagSingleEntityVO<ApiCredential> UpdateApiCredential(ApiCredential oldApiCredential, ApiCredential updateApiCredential)
+    {
+        oldApiCredential.ValidityInDays ??= updateApiCredential.ValidityInDays;
+        oldApiCredential.Name ??= updateApiCredential.Name;
+        oldApiCredential.Description ??= updateApiCredential.Description;
+
+        bool saveResult = _apiCredentialRepository.SaveChanges();
+        return saveResult ?
+            new MessageBagSingleEntityVO<ApiCredential>("Credencial atualizada", "Sucesso", false, oldApiCredential) :
+            new MessageBagSingleEntityVO<ApiCredential>("Não foi possível atualizar a credencial", "Erro nosso!");
+    }
+
     public MessageBagVO ValidateMaxCredentials(Ecommerce ecommerce)
     {
         return _ecommerceRepository.GetTotalApiCredentials(ecommerce.Id) >= _apiCredentialSetting.MaxCredentials ?

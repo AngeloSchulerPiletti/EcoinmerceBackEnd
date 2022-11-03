@@ -75,9 +75,8 @@ public class ApiCredentialController : ControllerBase
         MessageBagSingleEntityVO<ApiCredential> messageBagApiCredential = _apiCredentialBusiness.GetEcommerceApiCredentialById(ecommerce, apiCredentialUpdate.Id);
         if (messageBagApiCredential.IsError) return BadRequest(messageBagApiCredential);
 
-        //Atualiza
-
-        return BadRequest();
+        MessageBagSingleEntityVO<ApiCredential> messageBagUpdatedApiCredential = _apiCredentialBusiness.UpdateApiCredential(messageBagApiCredential.Entity, apiCredentialUpdate);
+        return messageBagUpdatedApiCredential.IsError ? BadRequest(messageBagUpdatedApiCredential) : Ok(messageBagUpdatedApiCredential);
     }
 
     [ManagerAuth]
