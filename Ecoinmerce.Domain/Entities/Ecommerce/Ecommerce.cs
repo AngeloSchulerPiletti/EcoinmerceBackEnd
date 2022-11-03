@@ -19,11 +19,11 @@ public class Ecommerce : BaseTimestampEntity
     // Ecommerce image futuramente
     public int ManagerId { get; set; }
     [JsonIgnore]
-    public virtual List<ApiCredential> ApiCredentials { get; set; }
+    public virtual List<ApiCredential> ApiCredentials { get; set; } = new List<ApiCredential>();
     [JsonIgnore]
-    public virtual List<EtherWallet> EtherWallets { get; set; }
+    public virtual List<EtherWallet> EtherWallets { get; set; } = new List<EtherWallet>();
     [JsonIgnore]
     public virtual EcommerceManager Manager { get; set; }
     [JsonIgnore]
-    public virtual List<EcommerceAdmin> Admins { get; set; }
+    public virtual List<EcommerceAdmin> Admins { get; set; } = new List<EcommerceAdmin>();
 }
