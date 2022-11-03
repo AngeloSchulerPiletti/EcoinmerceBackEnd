@@ -47,6 +47,14 @@ public class AuthController : ControllerBase
         return Ok(messageBagManager);
     }
 
+    [Route("ecommerce/confirm-email")]
+    [HttpPost]
+    public IActionResult EcommerceConfirmEmail([FromBody] string confirmationToken)
+    {
+        MessageBagVO messageBagConfirmation = _ecommerceBusiness.ConfirmEmail(confirmationToken);
+        return messageBagConfirmation.IsError ? BadRequest(messageBagConfirmation) : Ok(messageBagConfirmation);
+    }
+
     [Route("manager/login")]
     [HttpPost]
     public IActionResult ManagerLogin([FromBody] LoginDTO loginDTO)
@@ -71,6 +79,14 @@ public class AuthController : ControllerBase
         return messageBagManager.IsError ? BadRequest(messageBagManager) : Ok(messageBagManager);
     }
 
+    [Route("manager/confirm-email")]
+    [HttpPost]
+    public IActionResult ManagerConfirmEmail([FromBody] string confirmationToken)
+    {
+        MessageBagVO messageBagConfirmation = _ecommerceManagerBusiness.ConfirmEmail(confirmationToken);
+        return messageBagConfirmation.IsError ? BadRequest(messageBagConfirmation) : Ok(messageBagConfirmation);
+    }
+
     [Route("admin/login")]
     [HttpPost]
     public IActionResult AdminLogin([FromBody] LoginDTO loginDTO)
@@ -93,5 +109,13 @@ public class AuthController : ControllerBase
     {
         MessageBagSingleEntityVO<EcommerceAdmin> messageBagAdmin = _ecommerceAdminBusiness.RefreshAccessToken(refreshToken);
         return messageBagAdmin.IsError ? BadRequest(messageBagAdmin) : Ok(messageBagAdmin);
+    }
+
+    [Route("admin/confirm-email")]
+    [HttpPost]
+    public IActionResult AdminConfirmEmail([FromBody] string confirmationToken)
+    {
+        MessageBagVO messageBagConfirmation = _ecommerceAdminBusiness.ConfirmEmail(confirmationToken);
+        return messageBagConfirmation.IsError ? BadRequest(messageBagConfirmation) : Ok(messageBagConfirmation);
     }
 }
