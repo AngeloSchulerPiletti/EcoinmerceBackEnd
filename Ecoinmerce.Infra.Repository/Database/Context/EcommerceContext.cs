@@ -51,14 +51,9 @@ public class EcommerceContext : BaseContext
             .HasForeignKey<EcommerceManager>(a => a.EcommerceId);
 
         modelBuilder.Entity<Ecommerce>()
-            .HasMany(a => a.Admins)
-            .WithOne(a => a.Ecommerce)
-            .HasForeignKey(a => a.EcommerceId);
-
-        modelBuilder.Entity<Ecommerce>()
             .HasOne(a => a.Manager)
             .WithOne(a => a.Ecommerce)
-            .HasForeignKey<EcommerceManager>(a => a.EcommerceId);
+            .HasForeignKey<Ecommerce>(a => a.ManagerId);
 
         modelBuilder.Entity<Ecommerce>()
             .HasMany(a => a.ApiCredentials)
