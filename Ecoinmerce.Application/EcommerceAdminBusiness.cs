@@ -61,4 +61,24 @@ public class EcommerceAdminBusiness : IEcommerceAdminBusiness
 
         return new MessageBagSingleEntityVO<EcommerceAdmin>("Login realizado com sucesso", "Sucesso", false, admin);
     }
+
+    public MessageBagSingleEntityVO<EcommerceAdmin> RefreshAccessToken(string refreshToken)
+    {
+        string email = _tokenServiceEcommerceAdmin.ValidateTokenAndGetClaim(refreshToken, "email");
+        if (email == null)
+            return new MessageBagSingleEntityVO<EcommerceAdmin>("Refresh Token inválido", "Não autorizado");
+
+        EcommerceAdmin admin = _ecommerceAdminRepository.GetByEmail(email);
+
+        if (refreshToken == null || refreshToken != admin.RefreshToken)
+            return new MessageBagSingleEntityVO<EcommerceAdmin>("Refresh Token não é seu", "Não autorizado");
+
+        TokenVO tokenVO = _tokenServiceEcommerceAdmin.GenerateAccessToken(admin);
+        admin.SetAccessToken(tokenVO);
+
+        bool saveResult = _ecommerceAdminRepository.SaveChanges();
+        return saveResult ?
+            new MessageBagSingleEntityVO<EcommerceAdmin>("Access token atualizado", "Sucesso", false, admin) :
+            new MessageBagSingleEntityVO<EcommerceAdmin>("Tivemos um erro interno ao salvar o token", "Desculpe!");
+    }
 }

@@ -2,6 +2,7 @@
 using Ecoinmerce.Domain.Entities;
 using Ecoinmerce.Domain.Objects.DTOs;
 using Ecoinmerce.Domain.Objects.VOs.Responses;
+using Ecoinmerce.InternalApi.ControllerAttributes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecoinmerce.InternalApi.Controllers;
@@ -15,8 +16,8 @@ public class AuthController : ControllerBase
     private readonly IEcommerceManagerBusiness _ecommerceManagerBusiness;
     private readonly IEcommerceBusiness _ecommerceBusiness;
 
-    public AuthController(IEcommerceAdminBusiness ecommerceAdminBusiness, 
-                          IEcommerceManagerBusiness ecommerceManagerBusiness, 
+    public AuthController(IEcommerceAdminBusiness ecommerceAdminBusiness,
+                          IEcommerceManagerBusiness ecommerceManagerBusiness,
                           IEcommerceBusiness ecommerceBusiness)
     {
         _ecommerceAdminBusiness = ecommerceAdminBusiness;
@@ -51,7 +52,7 @@ public class AuthController : ControllerBase
         if (messageBagEcommerceValidation.IsError) return BadRequest(messageBagEcommerceValidation);
 
         MessageBagSingleEntityVO<Ecommerce> messageBagEcommerce = _ecommerceBusiness.Register(registerDTO.Ecommerce);
-        if(messageBagEcommerce.IsError) return BadRequest(messageBagEcommerce);
+        if (messageBagEcommerce.IsError) return BadRequest(messageBagEcommerce);
 
         MessageBagSingleEntityVO<EcommerceManager> messageBagManager = _ecommerceManagerBusiness.Register(registerDTO.Manager, messageBagEcommerce.Entity);
         if (messageBagManager.IsError) return BadRequest(messageBagManager);
@@ -60,5 +61,37 @@ public class AuthController : ControllerBase
         _ecommerceBusiness.SendWelcomeEmailAsync(messageBagEcommerce.Entity);
 
         return Ok(messageBagManager);
+    }
+
+    [HttpGet]
+    [ManagerAuth]
+    [Route("manager/check-access-token")]
+    public IActionResult CheckManagerAccessToken()
+    {
+        return Ok();
+    }
+
+    [HttpPost]
+    [Route("manager/refresh-access-token")]
+    public IActionResult RefreshManagerAccessToken([FromBody] string refreshToken)
+    {
+        MessageBagSingleEntityVO<EcommerceManager> messageBagManager = _ecommerceManagerBusiness.RefreshAccessToken(refreshToken);
+        return messageBagManager.IsError ? BadRequest(messageBagManager) : Ok(messageBagManager);
+    }
+
+    [HttpGet]
+    [AdminAuth]
+    [Route("admin/check-access-token")]
+    public IActionResult CheckAdminAccessToken()
+    {
+        return Ok();
+    }
+
+    [HttpPost]
+    [Route("admin/refresh-access-token")]
+    public IActionResult RefreshAdminAccessToken([FromBody] string refreshToken)
+    {
+        MessageBagSingleEntityVO<EcommerceAdmin> messageBagAdmin = _ecommerceAdminBusiness.RefreshAccessToken(refreshToken);
+        return messageBagAdmin.IsError ? BadRequest(messageBagAdmin) : Ok(messageBagAdmin);
     }
 }

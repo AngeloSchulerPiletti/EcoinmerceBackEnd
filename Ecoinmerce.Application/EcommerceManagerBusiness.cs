@@ -9,6 +9,7 @@ using Ecoinmerce.Domain.Validators;
 using Ecoinmerce.Domain.Validators.Interfaces;
 using Ecoinmerce.Infra.MailService.Interfaces;
 using Ecoinmerce.Infra.Repository.Interfaces;
+using System.IdentityModel.Tokens.Jwt;
 using System.Net.Mail;
 
 namespace Ecoinmerce.Application;
@@ -64,6 +65,26 @@ public class EcommerceManagerBusiness : IEcommerceManagerBusiness
         _ecommerceManagerRepository.SaveChangesAsync();
 
         return new MessageBagSingleEntityVO<EcommerceManager>("Login realizado com sucesso", "Sucesso", false, manager);
+    }
+
+    public MessageBagSingleEntityVO<EcommerceManager> RefreshAccessToken(string refreshToken)
+    {
+        string email = _tokenServiceEcommerceManager.ValidateTokenAndGetClaim(refreshToken, "email");
+        if (email == null)
+            return new MessageBagSingleEntityVO<EcommerceManager>("Refresh Token inválido", "Não autorizado");
+
+        EcommerceManager manager = _ecommerceManagerRepository.GetByEmail(email);
+
+        if (refreshToken == null || refreshToken != manager.RefreshToken)
+            return new MessageBagSingleEntityVO<EcommerceManager>("Refresh Token não é seu", "Não autorizado");
+
+        TokenVO tokenVO = _tokenServiceEcommerceManager.GenerateAccessToken(manager);
+        manager.SetAccessToken(tokenVO);
+
+        bool saveResult = _ecommerceManagerRepository.SaveChanges();
+        return saveResult ?
+            new MessageBagSingleEntityVO<EcommerceManager>("Access token atualizado", "Sucesso", false, manager) :
+            new MessageBagSingleEntityVO<EcommerceManager>("Tivemos um erro interno ao salvar o token", "Desculpe!");
     }
 
     public MessageBagSingleEntityVO<EcommerceManager> Register(RegisterManagerDTO registerManagerDTO, Ecommerce ecommerce)

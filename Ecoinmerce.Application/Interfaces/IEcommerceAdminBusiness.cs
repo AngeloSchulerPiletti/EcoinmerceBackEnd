@@ -12,4 +12,5 @@ public interface IEcommerceAdminBusiness
 {
     public bool IsUsernameAvailable(string username);
     public MessageBagSingleEntityVO<EcommerceAdmin> Login(LoginDTO loginDTO);
+    public MessageBagSingleEntityVO<EcommerceAdmin> RefreshAccessToken(string refreshToken);
 }
