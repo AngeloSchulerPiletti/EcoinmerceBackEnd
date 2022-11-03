@@ -25,22 +25,6 @@ public class AuthController : ControllerBase
         _ecommerceBusiness = ecommerceBusiness;
     }
 
-    [Route("manager/login")]
-    [HttpPost]
-    public IActionResult ManagerLogin([FromBody] LoginDTO loginDTO)
-    {
-        MessageBagSingleEntityVO<EcommerceManager> messageBagManager = _ecommerceManagerBusiness.Login(loginDTO);
-        return messageBagManager.IsError ? BadRequest(messageBagManager) : Ok(messageBagManager);
-    }
-
-    [Route("admin/login")]
-    [HttpPost]
-    public IActionResult AdminLogin([FromBody] LoginDTO loginDTO)
-    {
-        MessageBagSingleEntityVO<EcommerceAdmin> messageBagAdmin = _ecommerceAdminBusiness.Login(loginDTO);
-        return messageBagAdmin.IsError ? BadRequest(messageBagAdmin) : Ok(messageBagAdmin);
-    }
-
     [Route("register")]
     [HttpPost]
     public IActionResult Register([FromBody] RegisterDTO registerDTO)
@@ -63,6 +47,14 @@ public class AuthController : ControllerBase
         return Ok(messageBagManager);
     }
 
+    [Route("manager/login")]
+    [HttpPost]
+    public IActionResult ManagerLogin([FromBody] LoginDTO loginDTO)
+    {
+        MessageBagSingleEntityVO<EcommerceManager> messageBagManager = _ecommerceManagerBusiness.Login(loginDTO);
+        return messageBagManager.IsError ? BadRequest(messageBagManager) : Ok(messageBagManager);
+    }
+
     [HttpGet]
     [ManagerAuth]
     [Route("manager/check-access-token")]
@@ -77,6 +69,14 @@ public class AuthController : ControllerBase
     {
         MessageBagSingleEntityVO<EcommerceManager> messageBagManager = _ecommerceManagerBusiness.RefreshAccessToken(refreshToken);
         return messageBagManager.IsError ? BadRequest(messageBagManager) : Ok(messageBagManager);
+    }
+
+    [Route("admin/login")]
+    [HttpPost]
+    public IActionResult AdminLogin([FromBody] LoginDTO loginDTO)
+    {
+        MessageBagSingleEntityVO<EcommerceAdmin> messageBagAdmin = _ecommerceAdminBusiness.Login(loginDTO);
+        return messageBagAdmin.IsError ? BadRequest(messageBagAdmin) : Ok(messageBagAdmin);
     }
 
     [HttpGet]
