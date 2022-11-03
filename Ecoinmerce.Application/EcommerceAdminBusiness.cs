@@ -33,6 +33,30 @@ public class EcommerceAdminBusiness : IEcommerceAdminBusiness
         _genericValidator = genericValidator;
     }
 
+    public MessageBagVO ConfirmEmail(string confirmationToken)
+    {
+        string email = _tokenServiceEcommerceAdmin.ValidateTokenAndGetClaim(confirmationToken, "email");
+        if (email == null) return new MessageBagVO("Token de confirmação inválido", "Erro");
+
+        EcommerceAdmin admin = _ecommerceAdminRepository.GetByEmail(email);
+        if (admin == null) return new MessageBagVO("Token de confirmação inválido", "Erro");
+
+        if (confirmationToken == null || confirmationToken != admin.ConfirmationToken)
+            return new MessageBagVO("Token de confirmação inválido", "Erro");
+
+        if (DateTime.Now > admin.ConfirmationTokenExpiry)
+            return new MessageBagVO("Token de confirmação expirado", "Erro");
+
+        admin.IsEmailConfirmed = true;
+        admin.ConfirmationToken = null;
+        admin.ConfirmationTokenExpiry = null;
+
+        bool saveResult = _ecommerceAdminRepository.SaveChanges();
+        return saveResult ?
+            new MessageBagVO("Email confirmado", "Sucesso", false) :
+            new MessageBagVO("Tivemos um erro interno, já estamos trabalhando nisso!", "Erro interno");
+
+    }
     public bool IsUsernameAvailable(string username)
     {
         return _ecommerceAdminRepository.AnyUsername(username) || _ecommerceManagerRepository.AnyUsername(username);

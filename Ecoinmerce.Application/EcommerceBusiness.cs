@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using Ecoinmerce.Application.Interfaces;
+using Ecoinmerce.Application.Services.Token.Interfaces;
 using Ecoinmerce.Domain.Entities;
 using Ecoinmerce.Domain.Objects.DTOs;
 using Ecoinmerce.Domain.Objects.VOs.Responses;
 using Ecoinmerce.Domain.Validators;
 using Ecoinmerce.Domain.Validators.Interfaces;
 using Ecoinmerce.Infra.MailService.Interfaces;
+using Ecoinmerce.Infra.Repository;
 using Ecoinmerce.Infra.Repository.Interfaces;
 using Ecoinmerce.Services.WalletManager.Interfaces;
 using Nethereum.Web3.Accounts;
@@ -21,13 +23,15 @@ public class EcommerceBusiness : IEcommerceBusiness
     private readonly IEcommerceRepository _ecommerceRepository;
     private readonly IHdWalletManager _hdWalletManager;
     private readonly IUserMail _mailService;
+    private readonly ITokenServiceEcommerce _tokenServiceEcommerce;
 
     public EcommerceBusiness(IGenericValidatorExecutor genericValidator,
                              IHdWalletManager hdWalletManager,
                              IEcommerceRepository ecommerceRepository,
                              IEtherWalletRepository etherWalletRepository,
                              IUserMail mailService,
-                             IMapper mapper)
+                             IMapper mapper,
+                             ITokenServiceEcommerce tokenServiceEcommerce)
     {
         _genericValidator = genericValidator;
         _ecommerceRepository = ecommerceRepository;
@@ -35,6 +39,31 @@ public class EcommerceBusiness : IEcommerceBusiness
         _hdWalletManager = hdWalletManager;
         _mailService = mailService;
         _mapper = mapper;
+        _tokenServiceEcommerce = tokenServiceEcommerce;
+    }
+
+    public MessageBagVO ConfirmEmail(string confirmationToken)
+    {
+        string email = _tokenServiceEcommerce.ValidateTokenAndGetClaim(confirmationToken, "email");
+        if (email == null) return new MessageBagVO("Token de confirmação inválido", "Erro");
+
+        Ecommerce ecommerce = _ecommerceRepository.GetByEmail(email);
+        if (ecommerce == null) return new MessageBagVO("Token de confirmação inválido", "Erro");
+
+        if (confirmationToken == null || confirmationToken != ecommerce.ConfirmationToken)
+            return new MessageBagVO("Token de confirmação inválido", "Erro");
+
+        if (DateTime.Now > ecommerce.ConfirmationTokenExpiry)
+            return new MessageBagVO("Token de confirmação expirado", "Erro");
+
+        ecommerce.IsEmailConfirmed = true;
+        ecommerce.ConfirmationToken = null;
+        ecommerce.ConfirmationTokenExpiry = null;
+
+        bool saveResult = _ecommerceRepository.SaveChanges();
+        return saveResult ?
+            new MessageBagVO("Email confirmado", "Sucesso", false) :
+            new MessageBagVO("Tivemos um erro interno, já estamos trabalhando nisso!", "Erro interno");
     }
 
     public MessageBagSingleEntityVO<Ecommerce> Register(RegisterEcommerceDTO registerEcommerceDTO)

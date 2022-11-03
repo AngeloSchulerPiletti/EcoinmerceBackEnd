@@ -6,6 +6,7 @@ namespace Ecoinmerce.Application.Interfaces;
 
 public interface IEcommerceManagerBusiness
 {
+    public MessageBagVO ConfirmEmail(string confirmationToken);
     public MessageBagSingleEntityVO<EcommerceManager> Login(LoginDTO loginDTO);
     public MessageBagSingleEntityVO<EcommerceManager> RefreshAccessToken(string refreshToken);
     public MessageBagSingleEntityVO<EcommerceManager> Register(RegisterManagerDTO registerManagerDTO, Ecommerce ecommerce);

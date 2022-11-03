@@ -38,6 +38,30 @@ public class EcommerceManagerBusiness : IEcommerceManagerBusiness
         _genericValidator = genericValidator;
     }
 
+    public MessageBagVO ConfirmEmail(string confirmationToken)
+    {
+        string email = _tokenServiceEcommerceManager.ValidateTokenAndGetClaim(confirmationToken, "email");
+        if (email == null) return new MessageBagVO("Token de confirmação inválido", "Erro");
+
+        EcommerceManager manager = _ecommerceManagerRepository.GetByEmail(email);
+        if (manager == null) return new MessageBagVO("Token de confirmação inválido", "Erro");
+
+        if (confirmationToken == null || confirmationToken != manager.ConfirmationToken)
+            return new MessageBagVO("Token de confirmação inválido", "Erro");
+
+        if (DateTime.Now > manager.ConfirmationTokenExpiry)
+            return new MessageBagVO("Token de confirmação expirado", "Erro");
+
+        manager.IsEmailConfirmed = true;
+        manager.ConfirmationToken = null;
+        manager.ConfirmationTokenExpiry = null;
+
+        bool saveResult = _ecommerceManagerRepository.SaveChanges();
+        return saveResult ?
+            new MessageBagVO("Email confirmado", "Sucesso", false) :
+            new MessageBagVO("Tivemos um erro interno, já estamos trabalhando nisso!", "Erro interno");
+    }
+
     public bool IsUsernameUnavailable(string username)
     {
         return _ecommerceAdminRepository.AnyUsername(username) || _ecommerceManagerRepository.AnyUsername(username);
@@ -74,9 +98,14 @@ public class EcommerceManagerBusiness : IEcommerceManagerBusiness
             return new MessageBagSingleEntityVO<EcommerceManager>("Refresh Token inválido", "Não autorizado");
 
         EcommerceManager manager = _ecommerceManagerRepository.GetByEmail(email);
+        if (manager == null)
+            return new MessageBagSingleEntityVO<EcommerceManager>("Refresh Token inválido", "Não autorizado");
 
         if (refreshToken == null || refreshToken != manager.RefreshToken)
             return new MessageBagSingleEntityVO<EcommerceManager>("Refresh Token não é seu", "Não autorizado");
+
+        if (DateTime.Now > manager.RefreshTokenExpiry)
+            return new MessageBagSingleEntityVO<EcommerceManager>("Token expirado", "Erro");
 
         TokenVO tokenVO = _tokenServiceEcommerceManager.GenerateAccessToken(manager);
         manager.SetAccessToken(tokenVO);

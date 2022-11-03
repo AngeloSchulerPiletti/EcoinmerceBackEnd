@@ -10,6 +10,7 @@ namespace Ecoinmerce.Application.Interfaces;
 
 public interface IEcommerceAdminBusiness
 {
+    public MessageBagVO ConfirmEmail(string confirmationToken);
     public bool IsUsernameAvailable(string username);
     public MessageBagSingleEntityVO<EcommerceAdmin> Login(LoginDTO loginDTO);
     public MessageBagSingleEntityVO<EcommerceAdmin> RefreshAccessToken(string refreshToken);
