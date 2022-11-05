@@ -1,6 +1,7 @@
 ﻿using Ecoinmerce.Application.Services.Token.Interfaces;
 using Ecoinmerce.Domain.Entities;
 using Ecoinmerce.Domain.Objects.VOs;
+using Ecoinmerce.Domain.Settings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.Data;
@@ -12,20 +13,21 @@ namespace Ecoinmerce.Application.Services.Token;
 
 public class TokenServiceEcommerce : BaseTokenService, ITokenServiceEcommerce
 {
-    //private readonly IConfiguration _configuration;
     private readonly JwtSecurityTokenHandler _tokenHandler;
-    private readonly byte[] _key;
-    private readonly SigningCredentials _signingCredentials;
+    private readonly byte[] _accessTokenKey;
+    private readonly byte[] _confirmationTokenKey;
+    private readonly SigningCredentials _accessTokenSigningCredentials;
+    private readonly SigningCredentials _confirmationTokenSigningCredentials;
 
-    public TokenServiceEcommerce(IConfiguration configuration) : base()
+    public TokenServiceEcommerce(TokenSecretsSetting tokenSecretsSetting)
     {
-        //_configuration = configuration;
         _tokenHandler = new();
 
-        string tokenSecret = configuration.GetSection("EcommerceTokenSecret").Value;
+        _accessTokenKey = Encoding.ASCII.GetBytes(tokenSecretsSetting.Manager.AccessToken);
+        _confirmationTokenKey = Encoding.ASCII.GetBytes(tokenSecretsSetting.Manager.ConfirmationToken);
 
-        _key = Encoding.ASCII.GetBytes(tokenSecret);
-        _signingCredentials = new(new SymmetricSecurityKey(_key), SecurityAlgorithms.HmacSha256Signature);
+        _accessTokenSigningCredentials = new(new SymmetricSecurityKey(_accessTokenKey), SecurityAlgorithms.HmacSha256Signature);
+        _confirmationTokenSigningCredentials = new(new SymmetricSecurityKey(_confirmationTokenKey), SecurityAlgorithms.HmacSha256Signature);
     }
 
     public TokenVO GenerateApiToken(Ecommerce ecommerce, int validityInDays)
@@ -37,7 +39,7 @@ public class TokenServiceEcommerce : BaseTokenService, ITokenServiceEcommerce
                 new Claim(ClaimTypes.Email, ecommerce.Email),
             }),
             Expires = DateTime.Now.AddDays(validityInDays),
-            SigningCredentials = _signingCredentials,
+            SigningCredentials = _accessTokenSigningCredentials,
         };
         SecurityToken token = _tokenHandler.CreateToken(tokenDescriptor);
         return new TokenVO(_tokenHandler.WriteToken(token), token);
@@ -53,7 +55,7 @@ public class TokenServiceEcommerce : BaseTokenService, ITokenServiceEcommerce
                 new Claim(ClaimTypes.Name, ecommerce.FantasyName)
             }),
             Expires = DateTime.Now.AddDays(90),
-            SigningCredentials = _signingCredentials,
+            SigningCredentials = _confirmationTokenSigningCredentials,
         };
         SecurityToken token = _tokenHandler.CreateToken(tokenDescriptor);
         return new TokenVO(_tokenHandler.WriteToken(token), token);
@@ -71,8 +73,13 @@ public class TokenServiceEcommerce : BaseTokenService, ITokenServiceEcommerce
         return tokenData.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Email);
     }
 
-    public string ValidateTokenAndGetClaim(string token, string claimName)
+    public JwtSecurityToken ValidateAccessToken(string token)
     {
-        return ValidateTokenAndGetClaim(token, _key, claimName);
+        return ValidateToken(token, _accessTokenKey);
+    }
+
+    public JwtSecurityToken ValidateConfirmationToken(string token)
+    {
+        return ValidateToken(token, _confirmationTokenKey);
     }
 }

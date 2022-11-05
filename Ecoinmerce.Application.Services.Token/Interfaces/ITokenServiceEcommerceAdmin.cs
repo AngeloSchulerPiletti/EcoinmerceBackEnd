@@ -13,6 +13,7 @@ public interface ITokenServiceEcommerceAdmin
     public Claim GetEmailFromConfirmationToken(string token);
     public string HashPassword(string nakedPassword, byte[] salt);
     public bool HashPasswordWithNewSalt(ref EcommerceAdmin newEcommerceAdmin, string nakedPassword);
-    public string ValidateTokenAndGetClaim(string token, string claimName);
-    public JwtSecurityToken ValidateToken(string token);
+    public JwtSecurityToken ValidateAccessToken(string token);
+    public JwtSecurityToken ValidateConfirmationToken(string token);
+    public JwtSecurityToken ValidateRefreshToken(string token);
 }

@@ -1,7 +1,7 @@
 ﻿using Ecoinmerce.Application.Services.Token.Interfaces;
 using Ecoinmerce.Domain.Entities;
 using Ecoinmerce.Domain.Objects.VOs;
-using Microsoft.Extensions.Configuration;
+using Ecoinmerce.Domain.Settings;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -12,20 +12,25 @@ namespace Ecoinmerce.Application.Services.Token;
 
 public class TokenServiceEcommerceAdmin : BaseTokenService, ITokenServiceEcommerceAdmin
 {
-    //private readonly IConfiguration _configuration;
     private readonly JwtSecurityTokenHandler _tokenHandler;
-    private readonly byte[] _key;
-    private readonly SigningCredentials _signingCredentials;
+    private readonly byte[] _accessTokenKey;
+    private readonly byte[] _confirmationTokenKey;
+    private readonly byte[] _refreshTokenKey;
+    private readonly SigningCredentials _accessTokenSigningCredentials;
+    private readonly SigningCredentials _confirmationTokenSigningCredentials;
+    private readonly SigningCredentials _refreshTokenSigningCredentials;
 
-    public TokenServiceEcommerceAdmin(IConfiguration configuration) : base()
+    public TokenServiceEcommerceAdmin(TokenSecretsSetting tokenSecretsSetting)
     {
-        //_configuration = configuration;
         _tokenHandler = new();
 
-        string tokenSecret = configuration.GetSection("EcommerceAdminTokenSecret").Value;
+        _accessTokenKey = Encoding.ASCII.GetBytes(tokenSecretsSetting.Admin.AccessToken);
+        _confirmationTokenKey = Encoding.ASCII.GetBytes(tokenSecretsSetting.Admin.ConfirmationToken);
+        _refreshTokenKey = Encoding.ASCII.GetBytes(tokenSecretsSetting.Admin.RefreshToken);
 
-        _key = Encoding.ASCII.GetBytes(tokenSecret);
-        _signingCredentials = new(new SymmetricSecurityKey(_key), SecurityAlgorithms.HmacSha256Signature);
+        _accessTokenSigningCredentials = new(new SymmetricSecurityKey(_accessTokenKey), SecurityAlgorithms.HmacSha256Signature);
+        _confirmationTokenSigningCredentials = new(new SymmetricSecurityKey(_confirmationTokenKey), SecurityAlgorithms.HmacSha256Signature);
+        _refreshTokenSigningCredentials = new(new SymmetricSecurityKey(_refreshTokenKey), SecurityAlgorithms.HmacSha256Signature);
     }
 
     public TokenVO GenerateAccessToken(EcommerceAdmin admin)
@@ -41,7 +46,7 @@ public class TokenServiceEcommerceAdmin : BaseTokenService, ITokenServiceEcommer
                    new Claim(ClaimTypes.Role, roles),
                 }),
             Expires = DateTime.Now.AddHours(12),
-            SigningCredentials = _signingCredentials,
+            SigningCredentials = _accessTokenSigningCredentials,
         };
         SecurityToken token = _tokenHandler.CreateToken(tokenDescriptor);
         return new TokenVO(_tokenHandler.WriteToken(token), token);
@@ -56,7 +61,7 @@ public class TokenServiceEcommerceAdmin : BaseTokenService, ITokenServiceEcommer
                     new Claim(ClaimTypes.Email, admin.Email)
                 }),
             Expires = DateTime.Now.AddDays(2),
-            SigningCredentials = _signingCredentials,
+            SigningCredentials = _confirmationTokenSigningCredentials,
         };
         SecurityToken token = _tokenHandler.CreateToken(tokenDescriptor);
         return new TokenVO(_tokenHandler.WriteToken(token), token);
@@ -72,7 +77,7 @@ public class TokenServiceEcommerceAdmin : BaseTokenService, ITokenServiceEcommer
                    new Claim(ClaimTypes.Email, admin.Email),
                 }),
             Expires = DateTime.Now.AddDays(2),
-            SigningCredentials = _signingCredentials,
+            SigningCredentials = _refreshTokenSigningCredentials,
         };
         SecurityToken token = _tokenHandler.CreateToken(tokenDescriptor);
         return new TokenVO(_tokenHandler.WriteToken(token), token);
@@ -106,13 +111,18 @@ public class TokenServiceEcommerceAdmin : BaseTokenService, ITokenServiceEcommer
         }
     }
 
-    public JwtSecurityToken ValidateToken(string token)
+    public JwtSecurityToken ValidateAccessToken(string token)
     {
-        return ValidateToken(token, _key);
+        return ValidateToken(token, _accessTokenKey);
     }
 
-    public string ValidateTokenAndGetClaim(string token, string claimName)
+    public JwtSecurityToken ValidateConfirmationToken(string token)
     {
-        return ValidateTokenAndGetClaim(token, _key, claimName);
+        return ValidateToken(token, _confirmationTokenKey);
+    }
+
+    public JwtSecurityToken ValidateRefreshToken(string token)
+    {
+        return ValidateToken(token, _refreshTokenKey);
     }
 }
