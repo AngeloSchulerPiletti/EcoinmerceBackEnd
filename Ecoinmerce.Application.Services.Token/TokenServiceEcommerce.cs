@@ -61,13 +61,7 @@ public class TokenServiceEcommerce : BaseTokenService, ITokenServiceEcommerce
         return new TokenVO(_tokenHandler.WriteToken(token), token);
     }
 
-    public Claim GetEmailFromApiToken(string token)
-    {
-        JwtSecurityToken tokenData = _tokenHandler.ReadJwtToken(token);
-        return tokenData.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Email);
-    }
-
-    public Claim GetEmailFromConfirmationToken(string token)
+    public Claim GetEmailFromToken(string token)
     {
         JwtSecurityToken tokenData = _tokenHandler.ReadJwtToken(token);
         return tokenData.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Email);

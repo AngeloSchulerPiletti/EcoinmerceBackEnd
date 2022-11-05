@@ -10,7 +10,7 @@ public interface ITokenServiceEcommerceAdmin
     public TokenVO GenerateAccessToken(EcommerceAdmin admin);
     public TokenVO GenerateConfirmationToken(EcommerceAdmin admin);
     public TokenVO GenerateRefreshToken(EcommerceAdmin admin);
-    public Claim GetEmailFromConfirmationToken(string token);
+    public Claim GetEmailFromToken(string token);
     public string HashPassword(string nakedPassword, byte[] salt);
     public bool HashPasswordWithNewSalt(ref EcommerceAdmin newEcommerceAdmin, string nakedPassword);
     public JwtSecurityToken ValidateAccessToken(string token);
