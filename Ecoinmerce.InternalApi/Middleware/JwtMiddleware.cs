@@ -1,6 +1,7 @@
 ﻿using Ecoinmerce.Application.Services.Token.Interfaces;
 using Ecoinmerce.Domain.Entities;
 using Ecoinmerce.Infra.Repository.Interfaces;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Ecoinmerce.Infra.Api.Management.Middleware;
 
@@ -23,39 +24,47 @@ public class JwtMiddleware
 
         string accessToken = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
-        string adminEmail = tokenServiceAdmin.ValidateTokenAndGetClaim(accessToken, "email");
-        if (adminEmail != null)
+        JwtSecurityToken adminSecurityToken = tokenServiceAdmin.ValidateAccessToken(accessToken);
+        if (adminSecurityToken != null)
         {
-            EcommerceAdmin admin = adminRepository.GetByEmail(adminEmail);
-            if (admin != null)
+            string adminEmail = tokenServiceAdmin.GetEmailFromToken(accessToken).Value;
+            if (adminEmail != null)
             {
-                context.Items["Admin"] = admin;
-
-                if (admin.AccessTokenExpiry != null && admin.AccessTokenExpiry > DateTime.Now) isAccessTokenExpired = false;
-                if (admin.AccessToken != null && admin.AccessToken == accessToken) isAccessTokenValid = true;
-                if (isAccessTokenExpired || !isAccessTokenValid)
+                EcommerceAdmin admin = adminRepository.GetByEmail(adminEmail);
+                if (admin != null)
                 {
-                    admin.CleanAccessToken();
-                    adminRepository.SaveChanges();
+                    context.Items["Admin"] = admin;
+
+                    if (admin.AccessTokenExpiry != null && admin.AccessTokenExpiry > DateTime.Now) isAccessTokenExpired = false;
+                    if (admin.AccessToken != null && admin.AccessToken == accessToken) isAccessTokenValid = true;
+                    if (isAccessTokenExpired || !isAccessTokenValid)
+                    {
+                        admin.CleanAccessToken();
+                        adminRepository.SaveChanges();
+                    }
                 }
             }
         }
         else
         {
-            string managerEmail = tokenServiceManager.ValidateTokenAndGetClaim(accessToken, "email");
-            if (managerEmail != null)
+            JwtSecurityToken managerSecurityToken = tokenServiceManager.ValidateAccessToken(accessToken);
+            if (managerSecurityToken != null)
             {
-                EcommerceManager manager = managerRepository.GetByEmail(managerEmail);
-                if (manager != null)
+                string managerEmail = tokenServiceManager.GetEmailFromToken(accessToken).Value;
+                if (managerEmail != null)
                 {
-                    context.Items["Manager"] = manager;
-
-                    if (manager.AccessTokenExpiry != null && manager.AccessTokenExpiry > DateTime.Now) isAccessTokenExpired = false;
-                    if (manager.AccessToken != null && manager.AccessToken == accessToken) isAccessTokenValid = true;
-                    if (isAccessTokenExpired || !isAccessTokenValid)
+                    EcommerceManager manager = managerRepository.GetByEmail(managerEmail);
+                    if (manager != null)
                     {
-                        manager.CleanAccessToken();
-                        managerRepository.SaveChanges();
+                        context.Items["Manager"] = manager;
+
+                        if (manager.AccessTokenExpiry != null && manager.AccessTokenExpiry > DateTime.Now) isAccessTokenExpired = false;
+                        if (manager.AccessToken != null && manager.AccessToken == accessToken) isAccessTokenValid = true;
+                        if (isAccessTokenExpired || !isAccessTokenValid)
+                        {
+                            manager.CleanAccessToken();
+                            managerRepository.SaveChanges();
+                        }
                     }
                 }
             }
