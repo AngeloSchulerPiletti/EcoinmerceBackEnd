@@ -13,6 +13,7 @@ builder.Services.AddDbContext<PurchaseContext>(options => options.UseLazyLoading
 builder.Services.AddDbContext<EcommerceContext>(options => options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
 builder.Services.AddSingleton(builder.Configuration.GetSection("EmailSetting").Get<EmailSetting>());
+builder.Services.AddSingleton(builder.Configuration.GetSection("TokenSecrets").Get<TokenSecretsSetting>());
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -37,6 +37,7 @@ builder.Services.AddDbContext<EcommerceContext>(options => options.UseLazyLoadin
 builder.Services.AddSingleton(builder.Configuration.GetSection("EmailSetting").Get<EmailSetting>());
 builder.Services.AddSingleton(builder.Configuration.GetSection("HdWalletCredentials").Get<HdWalletCredentialSetting>());
 builder.Services.AddSingleton(builder.Configuration.GetSection("ApiCredentials").Get<ApiCredentialSetting>());
+builder.Services.AddSingleton(builder.Configuration.GetSection("TokenSecrets").Get<TokenSecretsSetting>());
 
 
 var relativePath = $"..\\";
