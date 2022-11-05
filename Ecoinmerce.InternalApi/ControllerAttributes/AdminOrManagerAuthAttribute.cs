@@ -2,6 +2,7 @@
 using Ecoinmerce.Domain.Objects.VOs.Responses;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
+using Castle.Core.Resource;
 
 namespace Ecoinmerce.InternalApi.ControllerAttributes;
 
@@ -22,5 +23,7 @@ public class AdminOrManagerAuthAttribute : Attribute, IAuthorizationFilter
             context.Result = new JsonResult(new MessageBagVO("Token inválido", "Unauthorized", true, "L005")) { StatusCode = StatusCodes.Status401Unauthorized };
         else if (isAccessTokenExpired)
             context.Result = new JsonResult(new MessageBagVO("Token válido, mas já expirou", "Unauthorized", true, "L006")) { StatusCode = StatusCodes.Status401Unauthorized };
+        else if (context.ActionDescriptor.EndpointMetadata.OfType<EmailConfirmedAttribute>().Any() && (manager?.IsEmailConfirmed != true && admin?.IsEmailConfirmed != true))
+            context.Result = new JsonResult(new MessageBagVO("Confirme seu email antes!", "Unauthorized", true, "L007")) { StatusCode = StatusCodes.Status401Unauthorized };
     }
 }
