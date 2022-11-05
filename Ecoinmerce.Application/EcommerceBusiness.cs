@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Ecoinmerce.Application.Interfaces;
+using Ecoinmerce.Application.Services.Token;
 using Ecoinmerce.Application.Services.Token.Interfaces;
 using Ecoinmerce.Domain.Entities;
 using Ecoinmerce.Domain.Objects.DTOs;
@@ -11,6 +12,7 @@ using Ecoinmerce.Infra.Repository;
 using Ecoinmerce.Infra.Repository.Interfaces;
 using Ecoinmerce.Services.WalletManager.Interfaces;
 using Nethereum.Web3.Accounts;
+using System.IdentityModel.Tokens.Jwt;
 using System.Net.Mail;
 
 namespace Ecoinmerce.Application;
@@ -41,10 +43,12 @@ public class EcommerceBusiness : IEcommerceBusiness
         _mapper = mapper;
         _tokenServiceEcommerce = tokenServiceEcommerce;
     }
-
     public MessageBagVO ConfirmEmail(string confirmationToken)
     {
-        string email = _tokenServiceEcommerce.ValidateTokenAndGetClaim(confirmationToken, "email");
+        JwtSecurityToken token = _tokenServiceEcommerce.ValidateConfirmationToken(confirmationToken);
+        if (token == null) return new MessageBagVO("Token de confirmação inválido", "Erro");
+
+        string email = _tokenServiceEcommerce.GetEmailFromToken(confirmationToken).Value;
         if (email == null) return new MessageBagVO("Token de confirmação inválido", "Erro");
 
         Ecommerce ecommerce = _ecommerceRepository.GetByEmail(email);

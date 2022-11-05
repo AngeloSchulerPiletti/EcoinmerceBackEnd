@@ -40,7 +40,11 @@ public class EcommerceManagerBusiness : IEcommerceManagerBusiness
 
     public MessageBagVO ConfirmEmail(string confirmationToken)
     {
-        string email = _tokenServiceEcommerceManager.ValidateTokenAndGetClaim(confirmationToken, "email");
+        JwtSecurityToken token = _tokenServiceEcommerceManager.ValidateConfirmationToken(confirmationToken);
+        if (token == null)
+            return new MessageBagSingleEntityVO<EcommerceManager>("Token de confirmação inválido", "Não autorizado");
+
+        string email = _tokenServiceEcommerceManager.GetEmailFromToken(confirmationToken).Value;
         if (email == null) return new MessageBagVO("Token de confirmação inválido", "Erro");
 
         EcommerceManager manager = _ecommerceManagerRepository.GetByEmail(email);
@@ -93,7 +97,11 @@ public class EcommerceManagerBusiness : IEcommerceManagerBusiness
 
     public MessageBagSingleEntityVO<EcommerceManager> RefreshAccessToken(string refreshToken)
     {
-        string email = _tokenServiceEcommerceManager.ValidateTokenAndGetClaim(refreshToken, "email");
+        JwtSecurityToken token = _tokenServiceEcommerceManager.ValidateRefreshToken(refreshToken);
+        if (token == null)
+            return new MessageBagSingleEntityVO<EcommerceManager>("Refresh Token inválido", "Não autorizado");
+
+        string email = _tokenServiceEcommerceManager.GetEmailFromToken(refreshToken).Value;
         if (email == null)
             return new MessageBagSingleEntityVO<EcommerceManager>("Refresh Token inválido", "Não autorizado");
 

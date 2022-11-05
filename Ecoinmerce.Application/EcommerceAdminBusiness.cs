@@ -9,6 +9,7 @@ using Ecoinmerce.Domain.Objects.VOs.Responses;
 using Ecoinmerce.Domain.Validators.Interfaces;
 using Ecoinmerce.Infra.Repository;
 using Ecoinmerce.Infra.Repository.Interfaces;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Ecoinmerce.Application;
 
@@ -35,7 +36,10 @@ public class EcommerceAdminBusiness : IEcommerceAdminBusiness
 
     public MessageBagVO ConfirmEmail(string confirmationToken)
     {
-        string email = _tokenServiceEcommerceAdmin.ValidateTokenAndGetClaim(confirmationToken, "email");
+        JwtSecurityToken token = _tokenServiceEcommerceAdmin.ValidateConfirmationToken(confirmationToken);
+        if (token == null) return new MessageBagVO("Token de confirmação inválido", "Erro");
+
+        string email = _tokenServiceEcommerceAdmin.GetEmailFromToken(confirmationToken).Value;
         if (email == null) return new MessageBagVO("Token de confirmação inválido", "Erro");
 
         EcommerceAdmin admin = _ecommerceAdminRepository.GetByEmail(email);
@@ -88,7 +92,11 @@ public class EcommerceAdminBusiness : IEcommerceAdminBusiness
 
     public MessageBagSingleEntityVO<EcommerceAdmin> RefreshAccessToken(string refreshToken)
     {
-        string email = _tokenServiceEcommerceAdmin.ValidateTokenAndGetClaim(refreshToken, "email");
+        JwtSecurityToken token = _tokenServiceEcommerceAdmin.ValidateRefreshToken(refreshToken);
+        if(token == null)
+            return new MessageBagSingleEntityVO<EcommerceAdmin>("Refresh Token inválido", "Não autorizado");
+
+        string email = _tokenServiceEcommerceAdmin.GetEmailFromToken(refreshToken).Value;
         if (email == null)
             return new MessageBagSingleEntityVO<EcommerceAdmin>("Refresh Token inválido", "Não autorizado");
 

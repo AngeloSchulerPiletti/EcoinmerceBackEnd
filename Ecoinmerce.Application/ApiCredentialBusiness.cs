@@ -18,6 +18,19 @@ public class ApiCredentialBusiness : IApiCredentialBusiness
     private readonly IGenericValidatorExecutor _genericValidatorExecutor;
     private readonly ApiCredentialSetting _apiCredentialSetting;
 
+    public ApiCredentialBusiness(IApiCredentialRepository apiCredentialRepository, 
+                                 IEcommerceRepository ecommerceRepository, 
+                                 ITokenServiceEcommerce tokenServiceEcommerce, 
+                                 IGenericValidatorExecutor genericValidatorExecutor, 
+                                 ApiCredentialSetting apiCredentialSetting)
+    {
+        _apiCredentialRepository = apiCredentialRepository;
+        _ecommerceRepository = ecommerceRepository;
+        _tokenServiceEcommerce = tokenServiceEcommerce;
+        _genericValidatorExecutor = genericValidatorExecutor;
+        _apiCredentialSetting = apiCredentialSetting;
+    }
+
     public MessageBagSingleEntityVO<ApiCredential> CreateApiCredential(Ecommerce ecommerce, ApiCredential apiCredential)
     {
         TokenVO token = _tokenServiceEcommerce.GenerateApiToken(ecommerce, (int)apiCredential.ValidityInDays);
