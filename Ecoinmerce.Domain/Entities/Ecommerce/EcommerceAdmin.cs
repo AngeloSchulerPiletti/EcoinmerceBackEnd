@@ -28,7 +28,7 @@ public class EcommerceAdmin : BaseTimestampAgentEntity, IBaseAuthenticable, IBas
     [JsonIgnore]
     public virtual Ecommerce Ecommerce { get; set; }
     [JsonIgnore]
-    public virtual List<RoleBond> RoleBonds { get; set; }
+    public virtual List<RoleBond> RoleBonds { get; set; } = new List<RoleBond>();
 
     [NotMapped]
     private string _stringfiedRoles { get; set; } = null;
@@ -59,8 +59,13 @@ public class EcommerceAdmin : BaseTimestampAgentEntity, IBaseAuthenticable, IBas
 
     public string GetStringfiedRoles()
     {
-        _stringfiedRoles ??= String.Join('+', RoleBonds);
-        return _stringfiedRoles;
+        if (RoleBonds.Count > 0)
+        {
+            List<string> roles = RoleBonds.Select(x => x.Role.Name).ToList();
+            _stringfiedRoles ??= String.Join('+', roles);
+            return _stringfiedRoles;
+        }
+        return "";
     }
 
     public void SetConfirmationToken(TokenVO token)
