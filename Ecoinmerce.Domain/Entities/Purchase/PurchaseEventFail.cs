@@ -4,7 +4,7 @@ namespace Ecoinmerce.Domain.Entities;
 
 public class PurchaseEventFail : BaseTimestampEntity
 {
-    public uint Id { get; set; }
+    public int Id { get; set; }
     public string LogAddress { get; set; }
     public string BlockHash { get; set; }
     public string Observation { get; set; }

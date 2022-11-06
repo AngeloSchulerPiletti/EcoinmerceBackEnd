@@ -5,7 +5,7 @@ namespace Ecoinmerce.Domain.Entities;
 
 public class PurchaseEvent : BaseTimestampEntity
 {
-    public uint Id { get; set; }
+    public int Id { get; set; }
     public DateTime PaidAt { get; set; }
     public decimal AmountPaidInEther { get; set; }
     public string PurchaseIdentifier { get; set; }

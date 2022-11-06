@@ -6,7 +6,7 @@ public class Purchase : BaseTimestampAgentEntity
 {
 
     // Information
-    public uint Id { get; set; }
+    public int Id { get; set; }
     public string Observation { get; set; }
     public bool Failed { get; set; }
     public string BlockHash { get; set; }
@@ -17,9 +17,9 @@ public class Purchase : BaseTimestampAgentEntity
     public string CostumerWalletAddress { get; set; }
 
     // Bonds
-    public uint PurchaseCheckId { get; set; }
-    public uint PurchaseEventId { get; set; }
-    public uint PurchaseEventFailId { get; set; }
+    public int PurchaseCheckId { get; set; }
+    public int PurchaseEventId { get; set; }
+    public int PurchaseEventFailId { get; set; }
 
     public virtual PurchaseCheck PurchaseCheck { get; set; }
     public virtual PurchaseEvent PurchaseEvent { get; set; }

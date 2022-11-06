@@ -5,7 +5,7 @@ namespace Ecoinmerce.Domain.Entities;
 
 public class PurchaseCheck : BaseTimestampAgentEntity
 {
-    public uint Id { get; set; }
+    public int Id { get; set; }
     public int CheckOverCounter { get; set; } // Precisa contabilizar a cada busca no banco
 
     [JsonIgnore]
