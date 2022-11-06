@@ -40,8 +40,7 @@ public class EcommerceManagerMap : CreateBaseTimestampEntityMap<EcommerceManager
             .IsRequired();
 
         builder.Property(x => x.ConfirmationToken)
-            .HasMaxLength(260)
-            .IsRequired();
+            .HasMaxLength(260);
 
         builder.Property(x => x.IsEmailConfirmed)
             .HasDefaultValue(false)
