@@ -16,10 +16,10 @@ public class EtherWalletMap : CreateBaseTimestampAgentEntityMap<EtherWallet>, IE
             .IsRequired();
 
         builder.Property(x => x.PrivateKey)
-            .HasMaxLength(64);
+            .HasMaxLength(128);
 
         builder.Property(x => x.PublicKey)
-            .HasMaxLength(64);
+            .HasMaxLength(256);
 
         builder.Property(x => x.Name)
             .HasMaxLength(50)
