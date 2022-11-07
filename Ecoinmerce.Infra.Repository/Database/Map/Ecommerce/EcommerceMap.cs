@@ -47,5 +47,9 @@ public class EcommerceMap : CreateBaseTimestampEntityMap<Ecommerce>, IEntityType
         builder.Property(x => x.IsEmailConfirmed)
             .HasDefaultValue(false)
             .IsRequired();
+
+        builder.Property(x => x.AverageAnnualBilling)
+            .HasColumnType("decimal")
+            .HasPrecision(12, 2);
     }
 }
