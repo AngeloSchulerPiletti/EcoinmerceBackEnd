@@ -17,7 +17,6 @@ public class RegisterManagerDTO
     public string Cpf { get; set; }
     public string Cellphone { get; set; }
     public string Phone { get; set; }
-    public bool IsDeleted { get; set; }
     public string Email { get; set; }
     public string NakedPassword { get; set; }
 }
