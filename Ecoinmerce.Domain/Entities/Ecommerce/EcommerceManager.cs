@@ -20,6 +20,7 @@ public class EcommerceManager : BaseTimestampEntity, IBaseAuthenticable, IBaseCo
     public DateTime? ConfirmationTokenExpiry { get; set; }
     public string AccessToken { get; set; }
     public DateTime? AccessTokenExpiry { get; set; }
+    [JsonIgnore]
     public string Password { get; set; }
     [JsonIgnore]
     public byte[] Salt { get; set; }
