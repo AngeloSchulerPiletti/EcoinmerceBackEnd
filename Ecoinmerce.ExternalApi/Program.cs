@@ -5,6 +5,20 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//THIS NEED TO BE FIXED
+var corsDisabled = "_corsDisabled";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: corsDisabled,
+                      policy =>
+                      {
+                          policy.AllowAnyOrigin()
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+                      });
+});
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddControllers();

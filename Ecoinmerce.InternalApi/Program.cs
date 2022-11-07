@@ -23,6 +23,20 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var corsDisabled = "_corsDisabled";
+
+//THIS NEED TO BE FIXED
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: corsDisabled,
+                      policy =>
+                      {
+                          policy.AllowAnyOrigin()
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+                      });
+});
+
 builder.Services.AddControllers()
                 .AddJsonOptions(x =>
                     x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
