@@ -111,6 +111,8 @@ app.UseHttpsRedirection();
 
 app.UseMiddleware<JwtMiddleware>();
 
+app.UseCors(corsDisabled);
+
 app.MapControllers();
 
 app.Run();

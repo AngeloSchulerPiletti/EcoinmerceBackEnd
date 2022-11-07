@@ -45,6 +45,8 @@ app.UseStaticFiles();
 
 app.UseAuthorization();
 
+app.UseCors(corsDisabled);
+
 app.MapControllers();
 
 
