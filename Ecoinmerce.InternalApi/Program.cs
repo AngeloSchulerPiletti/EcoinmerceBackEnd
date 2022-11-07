@@ -18,7 +18,9 @@ using Ecoinmerce.Infra.Repository.Interfaces;
 using Ecoinmerce.Services.Mapper.AutoMapperProfiles;
 using Ecoinmerce.Services.WalletManager;
 using Ecoinmerce.Services.WalletManager.Interfaces;
+using Ecoinmerce.Utils.Json;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,7 +41,9 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddControllers()
                 .AddJsonOptions(x =>
-                    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+                    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles
+                    )
+                .AddJsonOptions(x => x.JsonSerializerOptions.Converters.Add(new CultureSpecificQuotedDecimalConverter()));
 
 builder.Services.AddApiVersioning();
 
