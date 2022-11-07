@@ -29,7 +29,7 @@ public class RegisterEcommerceDTOValidator : AbstractValidator<RegisterEcommerce
             .NotEmpty().WithMessage("Preencha o email")
             .EmailAddress().WithMessage("Email inválido");
 
-        RuleFor(x => x.AverageAnualBiling)
+        RuleFor(x => x.AverageAnnualBilling)
             .NotEmpty().WithMessage("Preencha o faturamento anual");
 
         RuleFor(x => x.AverageTotalEmployees)

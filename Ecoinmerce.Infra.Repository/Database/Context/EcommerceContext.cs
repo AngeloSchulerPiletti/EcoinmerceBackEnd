@@ -177,7 +177,7 @@ public class EcommerceContext : BaseContext
         return new Ecommerce()
         {
             Id = id,
-            AverageAnualBiling = 10000000,
+            AverageAnnualBilling = 10000000,
             AverageTotalEmployees = 100,
             Cep = "93270420",
             Cnpj = "74544297000192",
