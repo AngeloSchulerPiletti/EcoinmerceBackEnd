@@ -84,7 +84,7 @@ public class EcommerceAdmin : BaseTimestampAgentEntity, IBaseAuthenticable, IBas
         ConfirmationToken = token.Token;
         ConfirmationTokenExpiry = token.TokenData.ValidTo;
     }
-
+    
     public string GetNakedPassword()
     {
         return _nakedPassword;
