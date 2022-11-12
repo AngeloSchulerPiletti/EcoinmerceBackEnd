@@ -17,6 +17,17 @@ public class EcommerceAdmin : BaseTimestampAgentEntity, IBaseAuthenticable, IBas
     public byte[] Salt { get; set; }
     [JsonIgnore]
     public string Password { get; set; }
+    [JsonIgnore]
+    [NotMapped]
+    private string _nakedPassword { get; set; }
+    [NotMapped]
+    public string NakedPassword
+    {
+        set
+        {
+            _nakedPassword = value;
+        }
+    }
     public string ConfirmationToken { get; set; }
     public DateTime? ConfirmationTokenExpiry { get; set; }
     public string AccessToken { get; set; }
@@ -72,5 +83,10 @@ public class EcommerceAdmin : BaseTimestampAgentEntity, IBaseAuthenticable, IBas
     {
         ConfirmationToken = token.Token;
         ConfirmationTokenExpiry = token.TokenData.ValidTo;
+    }
+
+    public string GetNakedPassword()
+    {
+        return _nakedPassword;
     }
 }

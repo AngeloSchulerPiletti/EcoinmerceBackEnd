@@ -25,7 +25,15 @@ public class EcommerceManager : BaseTimestampEntity, IBaseAuthenticable, IBaseCo
     public string Password { get; set; }
     [JsonIgnore]
     [NotMapped]
-    public string NakedPassword { get; set; }
+    private string _nakedPassword { get; set; }
+    [NotMapped]
+    public string NakedPassword
+    {
+        set
+        {
+            _nakedPassword = value;
+        }
+    }
     [JsonIgnore]
     public byte[] Salt { get; set; }
     public string RefreshToken { get; set; }
@@ -62,5 +70,10 @@ public class EcommerceManager : BaseTimestampEntity, IBaseAuthenticable, IBaseCo
     {
         RefreshToken = token.Token;
         RefreshTokenExpiry = token.TokenData.ValidTo;
+    }
+
+    public string GetNakedPassword()
+    {
+        return _nakedPassword;
     }
 }
