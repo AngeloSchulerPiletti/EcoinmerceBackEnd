@@ -18,6 +18,7 @@ public class RegisterManagerDTOValidator : AbstractValidator<RegisterManagerDTO>
     {
         RuleFor(x => x.Email)
             .NotEmpty().WithMessage("Preencha o email")
+            .MaximumLength(60).WithMessage("Até 128 caracteres")
             .EmailAddress().WithMessage("Email inválido");
 
         RuleFor(x => x.NakedPassword)
@@ -32,14 +33,17 @@ public class RegisterManagerDTOValidator : AbstractValidator<RegisterManagerDTO>
 
         RuleFor(x => x.FirstName)
             .NotEmpty().WithMessage("Preencha seu primeiro nome")
+            .MaximumLength(20).WithMessage("Até 20 caracteres")
             .Matches(@"^[a-zA-ZàèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇ ]+$").WithMessage("Primeiro nome inválido");
 
         RuleFor(x => x.LastName)
             .NotEmpty().WithMessage("Preencha seu último nome")
+            .MaximumLength(40).WithMessage("Até 40 caracteres")
             .Matches(@"^[a-zA-ZàèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇ ]+$").WithMessage("Último nome inválido");
 
         RuleFor(x => x.Username)
             .NotEmpty().WithMessage("Preencha seu username")
+            .MaximumLength(30).WithMessage("Até 30 caracteres")
             .Matches(@"^[a-zA-Z_\-]+$").WithMessage("Utilize apenas letras, \"-\" e \"_\"");
 
         RuleFor(x => x.Cellphone)
@@ -53,7 +57,11 @@ public class RegisterManagerDTOValidator : AbstractValidator<RegisterManagerDTO>
         RuleFor(x => x.Cpf)
             .NotEmpty().WithMessage("Preencha o CPF")
             .Matches(@"^[0-9]{11}$").WithMessage("CPF inválido")
-            .Must(x => IsCpfValid(x));
+            .DependentRules(() =>
+            {
+                RuleFor(x => x.Cpf)
+                    .Must(x => IsCpfValid(x));
+            });
     }
 
     public static bool IsCpfValid(string cpf)

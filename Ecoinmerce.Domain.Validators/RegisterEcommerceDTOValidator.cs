@@ -12,14 +12,20 @@ public class RegisterEcommerceDTOValidator : AbstractValidator<RegisterEcommerce
         RuleFor(x => x.Cep)
             .NotEmpty().WithMessage("Preencha o CEP")
             .Length(8).WithMessage("CEP inválido")
-            .Must(x => IsCep(x)).WithMessage("CEP inválido");
+            .Matches(@"^[0-9]{8}$").WithMessage("Apenas números")
+            .DependentRules(() =>
+            {
+                RuleFor(x => x.Cep)
+                    .Must(x => IsCep(x)).WithMessage("CEP inválido");
+            });
 
         RuleFor(x => x.Phone)
             .NotEmpty().WithMessage("Adicione seu telefone")
             .Matches(@"^[0-9]{10}$").WithMessage("Telefone inválido");
 
         RuleFor(x => x.SocialReason)
-            .NotEmpty().WithMessage("Preencha a razão social");
+            .NotEmpty().WithMessage("Preencha a razão social")
+            .MaximumLength(128).WithMessage("Deve ter até 128 caracteres");
 
         RuleFor(x => x.Website)
             .NotEmpty().WithMessage("Preencha o website")
@@ -27,6 +33,7 @@ public class RegisterEcommerceDTOValidator : AbstractValidator<RegisterEcommerce
 
         RuleFor(x => x.Email)
             .NotEmpty().WithMessage("Preencha o email")
+            .MaximumLength(60).WithMessage("Até 128 caracteres")
             .EmailAddress().WithMessage("Email inválido");
 
         RuleFor(x => x.AverageAnnualBilling)
@@ -37,10 +44,17 @@ public class RegisterEcommerceDTOValidator : AbstractValidator<RegisterEcommerce
 
         RuleFor(x => x.Cnpj)
             .NotEmpty().WithMessage("Preencha o CNPJ")
-            .Must(x => IsCnpj(x)).WithMessage("CNPJ inválido");
+            .Length(14).WithMessage("Deve ter exatamente 14 números")
+            .Matches(@"^[0-9]{14}$").WithMessage("Somente números")
+            .DependentRules(() =>
+            {
+                RuleFor(x => x.Cnpj)
+                    .Must(x => IsCnpj(x)).WithMessage("CNPJ inválido");
+            });
 
         RuleFor(x => x.FantasyName)
-            .NotEmpty().WithMessage("Preencha o nome fantasia");
+            .NotEmpty().WithMessage("Preencha o nome fantasia")
+            .MaximumLength(128).WithMessage("Deve ter até 128 caracteres");
 
         RuleFor(x => x.WalletAddress)
             .Matches(@"^0x[A-Za-z0-9]{40}$").WithMessage("Endereço de wallet inválido")
