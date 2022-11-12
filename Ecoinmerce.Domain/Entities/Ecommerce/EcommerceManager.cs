@@ -1,5 +1,6 @@
 ﻿using Ecoinmerce.Domain.Entities.Interfaces;
 using Ecoinmerce.Domain.Objects.VOs;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace Ecoinmerce.Domain.Entities;
@@ -22,6 +23,9 @@ public class EcommerceManager : BaseTimestampEntity, IBaseAuthenticable, IBaseCo
     public DateTime? AccessTokenExpiry { get; set; }
     [JsonIgnore]
     public string Password { get; set; }
+    [JsonIgnore]
+    [NotMapped]
+    public string NakedPassword { get; set; }
     [JsonIgnore]
     public byte[] Salt { get; set; }
     public string RefreshToken { get; set; }
