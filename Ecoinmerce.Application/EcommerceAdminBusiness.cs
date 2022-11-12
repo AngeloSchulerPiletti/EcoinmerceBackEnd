@@ -7,9 +7,13 @@ using Ecoinmerce.Domain.Objects.DTOs;
 using Ecoinmerce.Domain.Objects.VOs;
 using Ecoinmerce.Domain.Objects.VOs.Responses;
 using Ecoinmerce.Domain.Validators.Interfaces;
+using Ecoinmerce.Infra.MailService.Interfaces;
 using Ecoinmerce.Infra.Repository;
 using Ecoinmerce.Infra.Repository.Interfaces;
+using Nethereum.Contracts.Standards.ERC20.TokenList;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Mail;
+using System.Security.Claims;
 
 namespace Ecoinmerce.Application;
 
@@ -19,19 +23,33 @@ public class EcommerceAdminBusiness : IEcommerceAdminBusiness
     private readonly IEcommerceAdminRepository _ecommerceAdminRepository;
     private readonly ITokenServiceEcommerceAdmin _tokenServiceEcommerceAdmin;
     private readonly IMapper _mapper;
+    private readonly IUserMail _mailService;
     private readonly IGenericValidatorExecutor _genericValidator;
 
     public EcommerceAdminBusiness(IEcommerceAdminRepository ecommerceAdminRepository,
                                   IEcommerceManagerRepository ecommerceManagerRepository,
                                   ITokenServiceEcommerceAdmin tokenServiceEcommerceAdmin,
                                   IMapper mapper,
+                                  IUserMail mailService,
                                   IGenericValidatorExecutor genericValidator)
     {
         _ecommerceAdminRepository = ecommerceAdminRepository;
         _ecommerceManagerRepository = ecommerceManagerRepository;
         _tokenServiceEcommerceAdmin = tokenServiceEcommerceAdmin;
         _mapper = mapper;
+        _mailService = mailService;
         _genericValidator = genericValidator;
+    }
+
+    public MessageBagSingleEntityVO<EcommerceAdmin> ChangePassword(EcommerceAdmin ecommerceAdmin, string nakedPassword)
+    {
+        MessageBagVO messageBagAuth = PasswordAndAuthTokensSet(ref ecommerceAdmin, nakedPassword);
+        if (messageBagAuth.IsError) return MessageBagSingleEntityVO<EcommerceAdmin>.MapFromMessageBagVO(messageBagAuth);
+
+        bool saveResult = _ecommerceAdminRepository.SaveChanges();
+        return saveResult ?
+            new MessageBagSingleEntityVO<EcommerceAdmin>("Senha alterada", "Sucesso", false, ecommerceAdmin) :
+            new MessageBagSingleEntityVO<EcommerceAdmin>("Tivemos um erro interno ao salvar", "Desculpe!");
     }
 
     public MessageBagVO ConfirmEmail(string confirmationToken)
@@ -61,6 +79,27 @@ public class EcommerceAdminBusiness : IEcommerceAdminBusiness
             new MessageBagVO("Tivemos um erro interno, já estamos trabalhando nisso!", "Erro interno");
 
     }
+
+    public MessageBagSingleEntityVO<EcommerceAdmin> GetAdminByConfirmationToken(string token)
+    {
+        Claim emailClaim = _tokenServiceEcommerceAdmin.GetEmailFromToken(token);
+        if (emailClaim == null)
+            return new MessageBagSingleEntityVO<EcommerceAdmin>("Token inválido", null);
+
+        EcommerceAdmin admin = _ecommerceAdminRepository.GetByEmail(emailClaim.Value);
+        return admin == null ?
+            new MessageBagSingleEntityVO<EcommerceAdmin>("Token inválido", "Gerente não existe") :
+            new MessageBagSingleEntityVO<EcommerceAdmin>("Administrador encontrado", null, false, admin);
+    }
+
+    public MessageBagSingleEntityVO<EcommerceAdmin> GetAdminByEmail(string email)
+    {
+        EcommerceAdmin admin = _ecommerceAdminRepository.GetByEmail(email);
+        return admin == null ?
+            new MessageBagSingleEntityVO<EcommerceAdmin>("Este email não está cadastrado", "Gerente não encontrado") :
+            new MessageBagSingleEntityVO<EcommerceAdmin>(null, "Administrador encontrado", false, admin);
+    }
+
     public bool IsUsernameAvailable(string username)
     {
         return _ecommerceAdminRepository.AnyUsername(username) || _ecommerceManagerRepository.AnyUsername(username);
@@ -117,5 +156,80 @@ public class EcommerceAdminBusiness : IEcommerceAdminBusiness
         return saveResult ?
             new MessageBagSingleEntityVO<EcommerceAdmin>("Access token atualizado", "Sucesso", false, admin) :
             new MessageBagSingleEntityVO<EcommerceAdmin>("Tivemos um erro interno ao salvar o token", "Desculpe!");
+    }
+
+    public void SendConfirmationEmailAsync(EcommerceAdmin admin)
+    {
+        MailMessage mailMessage = new()
+        {
+            Subject = $"Bem vindo, {admin.FirstName}",
+            Body = $"Test body - {admin.ConfirmationToken}",
+        };
+        mailMessage.To.Add(admin.Email);
+
+        _mailService.SendMailAsync(mailMessage);
+    }
+
+    public void SendForgotPasswordEmailAsync(EcommerceAdmin admin)
+    {
+        MailMessage mailMessage = new()
+        {
+            Subject = $"Bem vindo, {admin.FirstName}",
+            Body = $"Test body forgot password - {admin.ConfirmationToken}",
+        };
+        mailMessage.To.Add(admin.Email);
+
+        _mailService.SendMailAsync(mailMessage);
+    }
+
+    public MessageBagVO SetupForEmailConfirmation(EcommerceAdmin admin, bool saveChanges = false)
+    {
+        TokenVO confirmationTokenVO = _tokenServiceEcommerceAdmin.GenerateConfirmationToken(admin);
+        admin.SetConfirmationToken(confirmationTokenVO);
+
+        if (saveChanges)
+        {
+            bool saveResult = _ecommerceAdminRepository.SaveChanges();
+            return saveResult ?
+                new MessageBagVO(null, "Email de confirmação gerado", false) :
+                new MessageBagVO("Tivemos um erro interno. Já estamos trabalhando nisso!", "Desculpe pelo incômodo");
+        }
+        return new MessageBagVO(null, null, false);
+    }
+
+    public MessageBagVO ValidateConfirmationToken(string token)
+    {
+        JwtSecurityToken securityToken = _tokenServiceEcommerceAdmin.ValidateConfirmationToken(token);
+        return securityToken == null ?
+             new MessageBagSingleEntityVO<EcommerceAdmin>("Token inválido", null) :
+             new MessageBagSingleEntityVO<EcommerceAdmin>("Token válido", null, false);
+    }
+
+    public MessageBagVO ValidateForChangePassword(EcommerceAdmin admin)
+    {
+        return admin.IsEmailConfirmed == true ?
+            new MessageBagVO("Senha pode ser alterada", null, false) :
+            new MessageBagVO("Confirme o email primeiro", "Senha não pode ser altrerada");
+    }
+
+    public MessageBagVO ValidateForResendConfirmationEmail(EcommerceAdmin admin)
+    {
+        return admin.IsEmailConfirmed == true ?
+             new MessageBagVO("Seu email já está confirmado", "Boa notícia!") :
+             new MessageBagVO(null, null, false);
+    }
+
+    private MessageBagVO PasswordAndAuthTokensSet(ref EcommerceAdmin admin, string nakedPassword)
+    {
+        bool passwordHashResult = _tokenServiceEcommerceAdmin.HashPasswordWithNewSalt(ref admin, nakedPassword);
+        if (!passwordHashResult) return new MessageBagVO("Tivemos um problema ao tratar sua senha", "Desculpe! Tivemos um erro");
+
+        TokenVO accessTokenVO = _tokenServiceEcommerceAdmin.GenerateAccessToken(admin);
+        admin.SetAccessToken(accessTokenVO);
+
+        TokenVO refreshTokenVO = _tokenServiceEcommerceAdmin.GenerateRefreshToken(admin);
+        admin.SetRefreshToken(refreshTokenVO);
+
+        return new MessageBagVO(null, null, false);
     }
 }

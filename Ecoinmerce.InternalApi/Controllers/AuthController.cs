@@ -87,6 +87,53 @@ public class AuthController : ControllerBase
         return messageBagConfirmation.IsError ? BadRequest(messageBagConfirmation) : Ok(messageBagConfirmation);
     }
 
+    [Route("manager/resend-email-confirmation")]
+    [HttpPost]
+    public IActionResult ManagerResendConfirmEmail([FromBody] string email)
+    {
+        MessageBagSingleEntityVO<EcommerceManager> messageBagManager = _ecommerceManagerBusiness.GetManagerByEmail(email);
+        if(messageBagManager.IsError) return BadRequest(messageBagManager);
+
+        MessageBagVO messageBagValidate = _ecommerceManagerBusiness.ValidateForResendConfirmationEmail(messageBagManager.Entity);
+        if(messageBagValidate.IsError) return BadRequest(messageBagValidate);
+
+        MessageBagVO messageBagSetup = _ecommerceManagerBusiness.SetupForEmailConfirmation(messageBagManager.Entity, true);
+        if(messageBagSetup.IsError) return BadRequest(messageBagSetup);
+
+        _ecommerceManagerBusiness.SendConfirmationEmailAsync(messageBagManager.Entity);
+
+        return Ok(messageBagSetup);
+    }
+
+    [Route("manager/forgot-password")]
+    [HttpPost]
+    public IActionResult ManagerForgotPassword([FromBody] string email)
+    {
+        MessageBagSingleEntityVO<EcommerceManager> messageBagManager = _ecommerceManagerBusiness.GetManagerByEmail(email);
+        if (messageBagManager.IsError) return BadRequest(messageBagManager);
+
+        MessageBagVO messageBagValidate = _ecommerceManagerBusiness.ValidateForChangePassword(messageBagManager.Entity);
+        if (messageBagValidate.IsError) return BadRequest(messageBagValidate);
+
+        _ecommerceManagerBusiness.SendForgotPasswordEmailAsync(messageBagManager.Entity);
+
+        return Ok(messageBagValidate);
+    }
+
+    [Route("manager/forgot-password/change/{token}")]
+    [HttpPost]
+    public IActionResult ManagerForgotPasswordChange([FromBody] string nakedPassword, string token)
+    {
+        MessageBagVO messageBagValidate = _ecommerceManagerBusiness.ValidateConfirmationToken(token);
+        if(messageBagValidate.IsError) return BadRequest(messageBagValidate);
+
+        MessageBagSingleEntityVO<EcommerceManager> messageBagManager = _ecommerceManagerBusiness.GetManagerByConfirmationToken(token);
+        if (messageBagManager.IsError) return BadRequest(messageBagManager);
+
+        MessageBagSingleEntityVO<EcommerceManager> messageBagPasswordChange = _ecommerceManagerBusiness.ChangePassword(messageBagManager.Entity, nakedPassword);
+        return messageBagPasswordChange.IsError ? BadRequest(messageBagPasswordChange) : Ok(messageBagPasswordChange);
+    }
+
     [Route("admin/login")]
     [HttpPost]
     public IActionResult AdminLogin([FromBody] LoginDTO loginDTO)
@@ -117,5 +164,52 @@ public class AuthController : ControllerBase
     {
         MessageBagVO messageBagConfirmation = _ecommerceAdminBusiness.ConfirmEmail(confirmationToken);
         return messageBagConfirmation.IsError ? BadRequest(messageBagConfirmation) : Ok(messageBagConfirmation);
+    }
+
+    [Route("admin/resend-email-confirmation")]
+    [HttpPost]
+    public IActionResult AdminResendConfirmEmail([FromBody] string email)
+    {
+        MessageBagSingleEntityVO<EcommerceAdmin> messageBagAdmin = _ecommerceAdminBusiness.GetAdminByEmail(email);
+        if (messageBagAdmin.IsError) return BadRequest(messageBagAdmin);
+
+        MessageBagVO messageBagValidate = _ecommerceAdminBusiness.ValidateForResendConfirmationEmail(messageBagAdmin.Entity);
+        if (messageBagValidate.IsError) return BadRequest(messageBagValidate);
+
+        MessageBagVO messageBagSetup = _ecommerceAdminBusiness.SetupForEmailConfirmation(messageBagAdmin.Entity, true);
+        if (messageBagSetup.IsError) return BadRequest(messageBagSetup);
+
+        _ecommerceAdminBusiness.SendConfirmationEmailAsync(messageBagAdmin.Entity);
+
+        return Ok(messageBagSetup);
+    }
+
+    [Route("admin/forgot-password")]
+    [HttpPost]
+    public IActionResult AdminForgotPassword([FromBody] string email)
+    {
+        MessageBagSingleEntityVO<EcommerceAdmin> messageBagAdmin = _ecommerceAdminBusiness.GetAdminByEmail(email);
+        if (messageBagAdmin.IsError) return BadRequest(messageBagAdmin);
+
+        MessageBagVO messageBagValidate = _ecommerceAdminBusiness.ValidateForChangePassword(messageBagAdmin.Entity);
+        if (messageBagValidate.IsError) return BadRequest(messageBagValidate);
+
+        _ecommerceAdminBusiness.SendForgotPasswordEmailAsync(messageBagAdmin.Entity);
+
+        return Ok(messageBagValidate);
+    }
+
+    [Route("admin/forgot-password/change/{token}")]
+    [HttpPost]
+    public IActionResult AdminForgotPasswordChange([FromBody] string nakedPassword, string token)
+    {
+        MessageBagVO messageBagValidate = _ecommerceAdminBusiness.ValidateConfirmationToken(token);
+        if (messageBagValidate.IsError) return BadRequest(messageBagValidate);
+
+        MessageBagSingleEntityVO<EcommerceAdmin> messageBagAdmin = _ecommerceAdminBusiness.GetAdminByConfirmationToken(token);
+        if (messageBagAdmin.IsError) return BadRequest(messageBagAdmin);
+
+        MessageBagSingleEntityVO<EcommerceAdmin> messageBagPasswordChange = _ecommerceAdminBusiness.ChangePassword(messageBagAdmin.Entity, nakedPassword);
+        return messageBagPasswordChange.IsError ? BadRequest(messageBagPasswordChange) : Ok(messageBagPasswordChange);
     }
 }
