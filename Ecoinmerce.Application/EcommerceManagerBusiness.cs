@@ -221,7 +221,7 @@ public class EcommerceManagerBusiness : IEcommerceManagerBusiness
         return new MessageBagVO(null, null, false);
     }
 
-    public MessageBagVO Validate(RegisterManagerDTO registerManagerDTO)
+    public MessageBagVO ValidateRegister(RegisterManagerDTO registerManagerDTO)
     {
         return _genericValidator.ValidatorResultIterator(registerManagerDTO, new RegisterManagerDTOValidator(), "manager");
     }

@@ -16,7 +16,7 @@ public interface IEcommerceManagerBusiness
     public void SendConfirmationEmailAsync(EcommerceManager manager);
     public void SendForgotPasswordEmailAsync(EcommerceManager manager);
     public MessageBagVO SetupForEmailConfirmation(EcommerceManager manager, bool saveChanges = false);
-    public MessageBagVO Validate(RegisterManagerDTO registerManagerDTO);
+    public MessageBagVO ValidateRegister(RegisterManagerDTO registerManagerDTO);
     public MessageBagVO ValidateConfirmationToken(string token);
     public MessageBagVO ValidateForResendConfirmationEmail(EcommerceManager manager);
     public MessageBagVO ValidateForChangePassword(EcommerceManager manager);
