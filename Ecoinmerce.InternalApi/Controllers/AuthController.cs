@@ -29,7 +29,7 @@ public class AuthController : ControllerBase
     [HttpPost]
     public IActionResult Register([FromBody] RegisterDTO registerDTO)
     {
-        MessageBagVO messageBagManagerValidation = _ecommerceManagerBusiness.Validate(registerDTO.Manager);
+        MessageBagVO messageBagManagerValidation = _ecommerceManagerBusiness.ValidateRegister(registerDTO.Manager);
         if (messageBagManagerValidation.IsError) return BadRequest(messageBagManagerValidation);
 
         MessageBagVO messageBagEcommerceValidation = _ecommerceBusiness.Validate(registerDTO.Ecommerce);
