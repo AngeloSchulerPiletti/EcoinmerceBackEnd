@@ -16,7 +16,7 @@ public class MessageBagVO : IMessageBaseVO
     public string Title { get; set; }
     public bool IsError { get; set; }
     public List<string> Messages { get; }
-    public Dictionary<string, object> DictionaryMessages { get; } = new Dictionary<string, object>();
+    public Dictionary<string, object> DictionaryMessages { get; set; } = new();
     public string ErrorCode { get; set; }
 
     public static MessageBagVO MapMessageBagVOFromMessageBagSingleEntityVO<TEntity>(MessageBagSingleEntityVO<TEntity> messageBagSingleEntityVO) where TEntity : class
