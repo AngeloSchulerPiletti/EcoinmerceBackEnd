@@ -170,6 +170,6 @@ public class EcommerceManagerBusiness : IEcommerceManagerBusiness
 
     public MessageBagVO Validate(RegisterManagerDTO registerManagerDTO)
     {
-        return _genericValidator.ValidatorResultIterator(registerManagerDTO, new RegisterManagerDTOValidator());
+        return _genericValidator.ValidatorResultIterator(registerManagerDTO, new RegisterManagerDTOValidator(), "manager");
     }
 }

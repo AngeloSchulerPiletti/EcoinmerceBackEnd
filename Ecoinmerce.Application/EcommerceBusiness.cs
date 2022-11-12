@@ -96,7 +96,7 @@ public class EcommerceBusiness : IEcommerceBusiness
 
     public MessageBagVO Validate(RegisterEcommerceDTO registerEcommerceDTO)
     {
-        MessageBagVO messageBagBaseValidation = _genericValidator.ValidatorResultIterator(registerEcommerceDTO, new RegisterEcommerceDTOValidator());
+        MessageBagVO messageBagBaseValidation = _genericValidator.ValidatorResultIterator(registerEcommerceDTO, new RegisterEcommerceDTOValidator(), "ecommerce");
         if (messageBagBaseValidation.IsError) return messageBagBaseValidation;
 
         MessageBagVO messageBagCnpjValidation = ValidateUniqueCnpj(registerEcommerceDTO.Cnpj);
