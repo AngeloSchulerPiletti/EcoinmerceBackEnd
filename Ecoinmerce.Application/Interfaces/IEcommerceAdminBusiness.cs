@@ -14,14 +14,14 @@ public interface IEcommerceAdminBusiness
     public MessageBagVO ConfirmEmail(string confirmationToken);
     public MessageBagSingleEntityVO<EcommerceAdmin> GetAdminByConfirmationToken(string token);
     public MessageBagSingleEntityVO<EcommerceAdmin> GetAdminByEmail(string email);
-    public bool IsUsernameAvailable(string username);
+    public bool IsUsernameUnavailable(string username);
     public MessageBagSingleEntityVO<EcommerceAdmin> Login(LoginDTO loginDTO);
     public MessageBagSingleEntityVO<EcommerceAdmin> RefreshAccessToken(string refreshToken);
-    //public MessageBagSingleEntityVO<EcommerceAdmin> Register(RegisterAdminDTO registerAdminDTO, Ecommerce ecommerce);
+    public MessageBagSingleEntityVO<EcommerceAdmin> Register(EcommerceAdmin registerEcommerceAdmin, Ecommerce ecommerce);
     public void SendConfirmationEmailAsync(EcommerceAdmin admin);
     public void SendForgotPasswordEmailAsync(EcommerceAdmin admin);
     public MessageBagVO SetupForEmailConfirmation(EcommerceAdmin admin, bool saveChanges = false);
-    //public MessageBagVO Validate(RegisterAdminDTO registerAdminDTO);
+    public MessageBagVO ValidateRegister(EcommerceAdmin admin);
     public MessageBagVO ValidateConfirmationToken(string token);
     public MessageBagVO ValidateForResendConfirmationEmail(EcommerceAdmin admin);
     public MessageBagVO ValidateForChangePassword(EcommerceAdmin admin);

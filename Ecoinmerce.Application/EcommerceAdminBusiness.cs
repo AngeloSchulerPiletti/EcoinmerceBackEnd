@@ -6,6 +6,7 @@ using Ecoinmerce.Domain.Entities;
 using Ecoinmerce.Domain.Objects.DTOs;
 using Ecoinmerce.Domain.Objects.VOs;
 using Ecoinmerce.Domain.Objects.VOs.Responses;
+using Ecoinmerce.Domain.Validators;
 using Ecoinmerce.Domain.Validators.Interfaces;
 using Ecoinmerce.Infra.MailService.Interfaces;
 using Ecoinmerce.Infra.Repository;
@@ -100,7 +101,7 @@ public class EcommerceAdminBusiness : IEcommerceAdminBusiness
             new MessageBagSingleEntityVO<EcommerceAdmin>(null, "Administrador encontrado", false, admin);
     }
 
-    public bool IsUsernameAvailable(string username)
+    public bool IsUsernameUnavailable(string username)
     {
         return _ecommerceAdminRepository.AnyUsername(username) || _ecommerceManagerRepository.AnyUsername(username);
     }
@@ -156,6 +157,29 @@ public class EcommerceAdminBusiness : IEcommerceAdminBusiness
         return saveResult ?
             new MessageBagSingleEntityVO<EcommerceAdmin>("Access token atualizado", "Sucesso", false, admin) :
             new MessageBagSingleEntityVO<EcommerceAdmin>("Tivemos um erro interno ao salvar o token", "Desculpe!");
+    }
+
+    public MessageBagSingleEntityVO<EcommerceAdmin> Register(EcommerceAdmin registerEcommerceAdmin, Ecommerce ecommerce)
+    {
+        registerEcommerceAdmin.Ecommerce = ecommerce;
+
+        if (IsUsernameUnavailable(registerEcommerceAdmin.Username))
+        {
+            MessageBagSingleEntityVO<EcommerceAdmin> error = new("Informções inválidas", "Erro de cadastro", true);
+            error.DictionaryMessages.Add("username", "Outro usuários está utilizando esse username");
+            return error;
+        }
+
+        MessageBagVO messageBagAuth = PasswordAndAuthTokensSet(ref registerEcommerceAdmin, registerEcommerceAdmin.GetNakedPassword());
+        if (messageBagAuth.IsError) return MessageBagSingleEntityVO<EcommerceAdmin>.MapFromMessageBagVO(messageBagAuth);
+
+        SetupForEmailConfirmation(registerEcommerceAdmin);
+
+        _ecommerceAdminRepository.Insert(registerEcommerceAdmin);
+        bool saveResult = _ecommerceAdminRepository.SaveChanges();
+        return saveResult ?
+            new MessageBagSingleEntityVO<EcommerceAdmin>("Verifique seu email", "Cadastro realizado com sucesso!", false, registerEcommerceAdmin) :
+            new MessageBagSingleEntityVO<EcommerceAdmin>("Tivemos um erro interno. Já estamos trabalhando nisso!", "Desculpe pelo incômodo");
     }
 
     public void SendConfirmationEmailAsync(EcommerceAdmin admin)
@@ -217,6 +241,11 @@ public class EcommerceAdminBusiness : IEcommerceAdminBusiness
         return admin.IsEmailConfirmed == true ?
              new MessageBagVO("Seu email já está confirmado", "Boa notícia!") :
              new MessageBagVO(null, null, false);
+    }
+
+    public MessageBagVO ValidateRegister(EcommerceAdmin admin)
+    {
+        return _genericValidator.ValidatorResultIterator(admin, new NewAdminValidator());
     }
 
     private MessageBagVO PasswordAndAuthTokensSet(ref EcommerceAdmin admin, string nakedPassword)

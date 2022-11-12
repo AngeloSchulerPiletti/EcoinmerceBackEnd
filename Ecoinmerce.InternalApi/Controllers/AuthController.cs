@@ -134,6 +134,25 @@ public class AuthController : ControllerBase
         return messageBagPasswordChange.IsError ? BadRequest(messageBagPasswordChange) : Ok(messageBagPasswordChange);
     }
 
+    [Route("admin/register")]
+    [HttpPost]
+    [ManagerAuth]
+    public IActionResult RegisterAdmin([FromBody] EcommerceAdmin admin)
+    {
+        EcommerceManager manager = (EcommerceManager)HttpContext.Items["Manager"];
+        Ecommerce ecommerce = manager.Ecommerce;
+
+        MessageBagVO messageBagAdminValidation = _ecommerceAdminBusiness.ValidateRegister(admin);
+        if (messageBagAdminValidation.IsError) return BadRequest(messageBagAdminValidation);
+
+        MessageBagSingleEntityVO<EcommerceAdmin> messageBagRegister = _ecommerceAdminBusiness.Register(admin, ecommerce);
+        if (messageBagRegister.IsError) return BadRequest(messageBagRegister);
+
+        _ecommerceAdminBusiness.SendConfirmationEmailAsync(messageBagRegister.Entity);
+
+        return Ok(messageBagRegister);
+    }
+
     [Route("admin/login")]
     [HttpPost]
     public IActionResult AdminLogin([FromBody] LoginDTO loginDTO)
