@@ -42,30 +42,30 @@ namespace SmartContracts.Contracts.ShoppingHandler
             ContractHandler = web3.Eth.GetContractHandler(contractAddress);
         }
 
-        public Task<string> ChangeTaxDivisorRequestAsync(ChangeTaxDivisorFunction changeTaxDivisorFunction)
+        public Task<string> ChangeTaxQuocientRequestAsync(ChangeTaxQuocientFunction changeTaxQuocientFunction)
         {
-             return ContractHandler.SendRequestAsync(changeTaxDivisorFunction);
+             return ContractHandler.SendRequestAsync(changeTaxQuocientFunction);
         }
 
-        public Task<TransactionReceipt> ChangeTaxDivisorRequestAndWaitForReceiptAsync(ChangeTaxDivisorFunction changeTaxDivisorFunction, CancellationTokenSource cancellationToken = null)
+        public Task<TransactionReceipt> ChangeTaxQuocientRequestAndWaitForReceiptAsync(ChangeTaxQuocientFunction changeTaxQuocientFunction, CancellationTokenSource cancellationToken = null)
         {
-             return ContractHandler.SendRequestAndWaitForReceiptAsync(changeTaxDivisorFunction, cancellationToken);
+             return ContractHandler.SendRequestAndWaitForReceiptAsync(changeTaxQuocientFunction, cancellationToken);
         }
 
-        public Task<string> ChangeTaxDivisorRequestAsync(BigInteger newTaxDivisor)
+        public Task<string> ChangeTaxQuocientRequestAsync(BigInteger newTaxQuocient)
         {
-            var changeTaxDivisorFunction = new ChangeTaxDivisorFunction();
-                changeTaxDivisorFunction.NewTaxDivisor = newTaxDivisor;
+            var changeTaxQuocientFunction = new ChangeTaxQuocientFunction();
+                changeTaxQuocientFunction.NewTaxQuocient = newTaxQuocient;
             
-             return ContractHandler.SendRequestAsync(changeTaxDivisorFunction);
+             return ContractHandler.SendRequestAsync(changeTaxQuocientFunction);
         }
 
-        public Task<TransactionReceipt> ChangeTaxDivisorRequestAndWaitForReceiptAsync(BigInteger newTaxDivisor, CancellationTokenSource cancellationToken = null)
+        public Task<TransactionReceipt> ChangeTaxQuocientRequestAndWaitForReceiptAsync(BigInteger newTaxQuocient, CancellationTokenSource cancellationToken = null)
         {
-            var changeTaxDivisorFunction = new ChangeTaxDivisorFunction();
-                changeTaxDivisorFunction.NewTaxDivisor = newTaxDivisor;
+            var changeTaxQuocientFunction = new ChangeTaxQuocientFunction();
+                changeTaxQuocientFunction.NewTaxQuocient = newTaxQuocient;
             
-             return ContractHandler.SendRequestAndWaitForReceiptAsync(changeTaxDivisorFunction, cancellationToken);
+             return ContractHandler.SendRequestAndWaitForReceiptAsync(changeTaxQuocientFunction, cancellationToken);
         }
 
         public Task<string> GetBarterHashWalletQueryAsync(GetBarterHashWalletFunction getBarterHashWalletFunction, BlockParameter blockParameter = null)
@@ -93,15 +93,15 @@ namespace SmartContracts.Contracts.ShoppingHandler
             return ContractHandler.QueryAsync<GetEtherBalanceFunction, BigInteger>(getEtherBalanceFunction, blockParameter);
         }
 
-        public Task<BigInteger> GetTaxDivisorQueryAsync(GetTaxDivisorFunction getTaxDivisorFunction, BlockParameter blockParameter = null)
+        public Task<BigInteger> GetTaxQuocientQueryAsync(GetTaxQuocientFunction getTaxQuocientFunction, BlockParameter blockParameter = null)
         {
-            return ContractHandler.QueryAsync<GetTaxDivisorFunction, BigInteger>(getTaxDivisorFunction, blockParameter);
+            return ContractHandler.QueryAsync<GetTaxQuocientFunction, BigInteger>(getTaxQuocientFunction, blockParameter);
         }
 
         
-        public Task<BigInteger> GetTaxDivisorQueryAsync(BlockParameter blockParameter = null)
+        public Task<BigInteger> GetTaxQuocientQueryAsync(BlockParameter blockParameter = null)
         {
-            return ContractHandler.QueryAsync<GetTaxDivisorFunction, BigInteger>(null, blockParameter);
+            return ContractHandler.QueryAsync<GetTaxQuocientFunction, BigInteger>(null, blockParameter);
         }
 
         public Task<string> PurchasePaymentRequestAsync(PurchasePaymentFunction purchasePaymentFunction)
