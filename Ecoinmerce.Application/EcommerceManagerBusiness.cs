@@ -178,7 +178,7 @@ public class EcommerceManagerBusiness : IEcommerceManagerBusiness
         _ecommerceManagerRepository.Insert(ecommerceManager);
         bool saveResult = _ecommerceManagerRepository.SaveChanges();
         return saveResult ?
-            new MessageBagSingleEntityVO<EcommerceManager>(null, "Cadastro realizado com sucesso!", false, ecommerceManager) :
+            new MessageBagSingleEntityVO<EcommerceManager>("Verifique seu email", "Cadastro realizado com sucesso!", false, ecommerceManager) :
             new MessageBagSingleEntityVO<EcommerceManager>("Tivemos um erro interno. Já estamos trabalhando nisso!", "Desculpe pelo incômodo");
     }
 
