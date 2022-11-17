@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Ecoinmerce.Application.Interfaces;
-using Ecoinmerce.Application.Services.Token;
 using Ecoinmerce.Application.Services.Token.Interfaces;
 using Ecoinmerce.Domain.Entities;
 using Ecoinmerce.Domain.Objects.DTOs;
@@ -8,7 +7,6 @@ using Ecoinmerce.Domain.Objects.VOs.Responses;
 using Ecoinmerce.Domain.Validators;
 using Ecoinmerce.Domain.Validators.Interfaces;
 using Ecoinmerce.Infra.MailService.Interfaces;
-using Ecoinmerce.Infra.Repository;
 using Ecoinmerce.Infra.Repository.Interfaces;
 using Ecoinmerce.Services.WalletManager.Interfaces;
 using Nethereum.Web3.Accounts;
@@ -26,6 +24,7 @@ public class EcommerceBusiness : IEcommerceBusiness
     private readonly IHdWalletManager _hdWalletManager;
     private readonly IUserMail _mailService;
     private readonly ITokenServiceEcommerce _tokenServiceEcommerce;
+    private const string _baseIdentifier = "ecommerce";
 
     public EcommerceBusiness(IGenericValidatorExecutor genericValidator,
                              IHdWalletManager hdWalletManager,
@@ -94,13 +93,13 @@ public class EcommerceBusiness : IEcommerceBusiness
         _mailService.SendMailAsync(mailMessage);
     }
 
-    public MessageBagVO Validate(RegisterEcommerceDTO registerEcommerceDTO)
+    public MessageBagVO ValidateRegister(RegisterEcommerceDTO registerEcommerceDTO)
     {
-        MessageBagVO messageBagBaseValidation = _genericValidator.ValidatorResultIterator(registerEcommerceDTO, new RegisterEcommerceDTOValidator(), "ecommerce");
+        MessageBagVO messageBagBaseValidation = _genericValidator.ValidatorResultIterator(registerEcommerceDTO, new RegisterEcommerceDTOValidator(), _baseIdentifier);
         if (messageBagBaseValidation.IsError) return messageBagBaseValidation;
 
         MessageBagVO messageBagCnpjValidation = ValidateUniqueCnpj(registerEcommerceDTO.Cnpj);
-        if(messageBagCnpjValidation.IsError) return messageBagCnpjValidation;
+        if (messageBagCnpjValidation.IsError) return messageBagCnpjValidation;
 
         MessageBagVO messageBagEmailValidation = ValidateUniqueEmail(registerEcommerceDTO.Email);
         if (messageBagEmailValidation.IsError) return messageBagEmailValidation;
@@ -140,7 +139,7 @@ public class EcommerceBusiness : IEcommerceBusiness
         MessageBagVO messageBag = new();
         if (_ecommerceRepository.CnpjIsBeingUsed(cnpj))
         {
-            messageBag.DictionaryMessages.Add("cnpj", "Já está sendo usado");
+            messageBag.DictionaryMessages.Add(_baseIdentifier, new Dictionary<string, string>() { { "cnpj", "Já está sendo usado" } });
             return messageBag;
         }
         messageBag.IsError = false;
@@ -152,7 +151,7 @@ public class EcommerceBusiness : IEcommerceBusiness
         MessageBagVO messageBag = new();
         if (_ecommerceRepository.EmailIsBeingUsed(email))
         {
-            messageBag.DictionaryMessages.Add("email", "Já está sendo usado");
+            messageBag.DictionaryMessages.Add(_baseIdentifier, new Dictionary<string, string>() { { "email", "Já está sendo usado" } });
             return messageBag;
         }
         messageBag.IsError = false;

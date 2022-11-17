@@ -9,7 +9,6 @@ using Ecoinmerce.Domain.Validators;
 using Ecoinmerce.Domain.Validators.Interfaces;
 using Ecoinmerce.Infra.MailService.Interfaces;
 using Ecoinmerce.Infra.Repository.Interfaces;
-using Nethereum.Contracts.Standards.ERC20.TokenList;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Mail;
 using System.Security.Claims;
@@ -24,6 +23,7 @@ public class EcommerceManagerBusiness : IEcommerceManagerBusiness
     private readonly IGenericValidatorExecutor _genericValidator;
     private readonly IUserMail _mailService;
     private readonly IMapper _mapper;
+    private const string _baseIdentifier = "manager";
 
     public EcommerceManagerBusiness(IEcommerceManagerRepository ecommerceManagerRepository,
                                     ITokenServiceEcommerceManager tokenServiceEcommerceManager,
@@ -166,7 +166,7 @@ public class EcommerceManagerBusiness : IEcommerceManagerBusiness
         if (IsUsernameUnavailable(ecommerceManager.Username))
         {
             MessageBagSingleEntityVO<EcommerceManager> error = new("Informções inválidas", "Erro de cadastro", true);
-            error.DictionaryMessages.Add("Username", "Outro usuários está utilizando esse username");
+            error.DictionaryMessages.Add(_baseIdentifier, new Dictionary<string, string>() { { "Username", "Outro usuários está utilizando esse username" } });
             return error;
         }
 
@@ -223,7 +223,7 @@ public class EcommerceManagerBusiness : IEcommerceManagerBusiness
 
     public MessageBagVO ValidateRegister(RegisterManagerDTO registerManagerDTO)
     {
-        return _genericValidator.ValidatorResultIterator(registerManagerDTO, new RegisterManagerDTOValidator(), "manager");
+        return _genericValidator.ValidatorResultIterator(registerManagerDTO, new RegisterManagerDTOValidator(), _baseIdentifier);
     }
 
     public MessageBagVO ValidateConfirmationToken(string token)
