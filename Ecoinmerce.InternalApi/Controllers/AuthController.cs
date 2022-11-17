@@ -32,7 +32,7 @@ public class AuthController : ControllerBase
         MessageBagVO messageBagManagerValidation = _ecommerceManagerBusiness.ValidateRegister(registerDTO.Manager);
         if (messageBagManagerValidation.IsError) return BadRequest(messageBagManagerValidation);
 
-        MessageBagVO messageBagEcommerceValidation = _ecommerceBusiness.Validate(registerDTO.Ecommerce);
+        MessageBagVO messageBagEcommerceValidation = _ecommerceBusiness.ValidateRegister(registerDTO.Ecommerce);
         if (messageBagEcommerceValidation.IsError) return BadRequest(messageBagEcommerceValidation);
 
         MessageBagSingleEntityVO<Ecommerce> messageBagEcommerce = _ecommerceBusiness.Register(registerDTO.Ecommerce);
