@@ -139,7 +139,7 @@ public class EcommerceBusiness : IEcommerceBusiness
         MessageBagVO messageBag = new();
         if (_ecommerceRepository.CnpjIsBeingUsed(cnpj))
         {
-            messageBag.DictionaryMessages.Add(_baseIdentifier, new Dictionary<string, string>() { { "cnpj", "Já está sendo usado" } });
+            messageBag.DictionaryMessages.Add(_baseIdentifier, new Dictionary<string, List<string>>() { { "cnpj", new List<string>() { "Já está sendo usado" } } });
             return messageBag;
         }
         messageBag.IsError = false;
@@ -151,7 +151,7 @@ public class EcommerceBusiness : IEcommerceBusiness
         MessageBagVO messageBag = new();
         if (_ecommerceRepository.EmailIsBeingUsed(email))
         {
-            messageBag.DictionaryMessages.Add(_baseIdentifier, new Dictionary<string, string>() { { "email", "Já está sendo usado" } });
+            messageBag.DictionaryMessages.Add(_baseIdentifier, new Dictionary<string, List<string>>() { { "email", new List<string>() { "Já está sendo usado" } } });
             return messageBag;
         }
         messageBag.IsError = false;

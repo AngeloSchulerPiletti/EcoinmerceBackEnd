@@ -166,7 +166,7 @@ public class EcommerceManagerBusiness : IEcommerceManagerBusiness
         if (IsUsernameUnavailable(ecommerceManager.Username))
         {
             MessageBagSingleEntityVO<EcommerceManager> error = new("Informções inválidas", "Erro de cadastro", true);
-            error.DictionaryMessages.Add(_baseIdentifier, new Dictionary<string, string>() { { "Username", "Outro usuários está utilizando esse username" } });
+            error.DictionaryMessages.Add(_baseIdentifier, new Dictionary<string, List<string>>() { { "Username", new List<string>() { "Outro usuários está utilizando esse username" } } });
             return error;
         }
 
