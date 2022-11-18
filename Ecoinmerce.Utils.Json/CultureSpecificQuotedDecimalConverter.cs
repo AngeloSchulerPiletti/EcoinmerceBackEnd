@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Text;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 
@@ -20,6 +21,11 @@ public class CultureSpecificQuotedDecimalConverter : JsonConverter<decimal>
 
     public override void Write(Utf8JsonWriter writer, decimal value, JsonSerializerOptions options)
     {
-        Write(writer, value, options);
+        StringBuilder builder = new();
+        builder.Append('"');
+        string parsedVal = value.ToString(System.Globalization.CultureInfo.GetCultureInfo("pt-BR"));
+        builder.Append(parsedVal);
+        builder.Append('"');
+        writer.WriteRawValue(builder.ToString());
     }
 }
