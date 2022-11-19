@@ -5,7 +5,6 @@ using Ecoinmerce.Domain.Entities;
 using Ecoinmerce.Domain.Objects.DTOs;
 using Ecoinmerce.Domain.Objects.VOs.Responses;
 using Ecoinmerce.Domain.Validators;
-using Ecoinmerce.Domain.Validators.Interfaces;
 using Ecoinmerce.Infra.MailService.Interfaces;
 using Ecoinmerce.Infra.Repository.Interfaces;
 using Ecoinmerce.Services.WalletManager.Interfaces;
@@ -18,7 +17,6 @@ namespace Ecoinmerce.Application;
 public class EcommerceBusiness : IEcommerceBusiness
 {
     private readonly IMapper _mapper;
-    private readonly IGenericValidatorExecutor _genericValidator;
     private readonly IEtherWalletRepository _etherWalletRepository;
     private readonly IEcommerceRepository _ecommerceRepository;
     private readonly IHdWalletManager _hdWalletManager;
@@ -26,15 +24,13 @@ public class EcommerceBusiness : IEcommerceBusiness
     private readonly ITokenServiceEcommerce _tokenServiceEcommerce;
     private const string _baseIdentifier = "ecommerce";
 
-    public EcommerceBusiness(IGenericValidatorExecutor genericValidator,
-                             IHdWalletManager hdWalletManager,
+    public EcommerceBusiness(IHdWalletManager hdWalletManager,
                              IEcommerceRepository ecommerceRepository,
                              IEtherWalletRepository etherWalletRepository,
                              IUserMail mailService,
                              IMapper mapper,
                              ITokenServiceEcommerce tokenServiceEcommerce)
     {
-        _genericValidator = genericValidator;
         _ecommerceRepository = ecommerceRepository;
         _etherWalletRepository = etherWalletRepository;
         _hdWalletManager = hdWalletManager;
@@ -95,7 +91,7 @@ public class EcommerceBusiness : IEcommerceBusiness
 
     public MessageBagVO ValidateRegister(RegisterEcommerceDTO registerEcommerceDTO)
     {
-        MessageBagVO messageBagBaseValidation = _genericValidator.ValidatorResultIterator(registerEcommerceDTO, new RegisterEcommerceDTOValidator(), _baseIdentifier);
+        MessageBagVO messageBagBaseValidation = GenericValidatorExecutor.ValidatorResultIterator(registerEcommerceDTO, new RegisterEcommerceDTOValidator(), _baseIdentifier);
         if (messageBagBaseValidation.IsError) return messageBagBaseValidation;
 
         MessageBagVO messageBagCnpjValidation = ValidateUniqueCnpj(registerEcommerceDTO.Cnpj);

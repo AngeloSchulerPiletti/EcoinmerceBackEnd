@@ -6,7 +6,6 @@ using Ecoinmerce.Domain.Objects.DTOs;
 using Ecoinmerce.Domain.Objects.VOs;
 using Ecoinmerce.Domain.Objects.VOs.Responses;
 using Ecoinmerce.Domain.Validators;
-using Ecoinmerce.Domain.Validators.Interfaces;
 using Ecoinmerce.Infra.MailService.Interfaces;
 using Ecoinmerce.Infra.Repository.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
@@ -20,7 +19,6 @@ public class EcommerceManagerBusiness : IEcommerceManagerBusiness
     private readonly IEcommerceManagerRepository _ecommerceManagerRepository;
     private readonly IEcommerceAdminRepository _ecommerceAdminRepository;
     private readonly ITokenServiceEcommerceManager _tokenServiceEcommerceManager;
-    private readonly IGenericValidatorExecutor _genericValidator;
     private readonly IUserMail _mailService;
     private readonly IMapper _mapper;
     private const string _baseIdentifier = "manager";
@@ -29,7 +27,6 @@ public class EcommerceManagerBusiness : IEcommerceManagerBusiness
                                     ITokenServiceEcommerceManager tokenServiceEcommerceManager,
                                     IEcommerceAdminRepository ecommerceAdminRepository,
                                     IUserMail mailService,
-                                    IGenericValidatorExecutor genericValidator,
                                     IMapper mapper)
     {
         _mapper = mapper;
@@ -37,7 +34,6 @@ public class EcommerceManagerBusiness : IEcommerceManagerBusiness
         _ecommerceManagerRepository = ecommerceManagerRepository;
         _ecommerceAdminRepository = ecommerceAdminRepository;
         _tokenServiceEcommerceManager = tokenServiceEcommerceManager;
-        _genericValidator = genericValidator;
     }
 
     public MessageBagSingleEntityVO<EcommerceManager> ChangePassword(EcommerceManager ecommerceManager, string nakedPassword)
@@ -223,7 +219,7 @@ public class EcommerceManagerBusiness : IEcommerceManagerBusiness
 
     public MessageBagVO ValidateRegister(RegisterManagerDTO registerManagerDTO)
     {
-        return _genericValidator.ValidatorResultIterator(registerManagerDTO, new RegisterManagerDTOValidator(), _baseIdentifier);
+        return GenericValidatorExecutor.ValidatorResultIterator(registerManagerDTO, new RegisterManagerDTOValidator(), _baseIdentifier);
     }
 
     public MessageBagVO ValidateConfirmationToken(string token)

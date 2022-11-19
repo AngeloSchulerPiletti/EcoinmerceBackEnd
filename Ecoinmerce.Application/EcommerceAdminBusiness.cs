@@ -6,7 +6,6 @@ using Ecoinmerce.Domain.Objects.DTOs;
 using Ecoinmerce.Domain.Objects.VOs;
 using Ecoinmerce.Domain.Objects.VOs.Responses;
 using Ecoinmerce.Domain.Validators;
-using Ecoinmerce.Domain.Validators.Interfaces;
 using Ecoinmerce.Infra.MailService.Interfaces;
 using Ecoinmerce.Infra.Repository.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
@@ -22,21 +21,18 @@ public class EcommerceAdminBusiness : IEcommerceAdminBusiness
     private readonly ITokenServiceEcommerceAdmin _tokenServiceEcommerceAdmin;
     private readonly IMapper _mapper;
     private readonly IUserMail _mailService;
-    private readonly IGenericValidatorExecutor _genericValidator;
 
     public EcommerceAdminBusiness(IEcommerceAdminRepository ecommerceAdminRepository,
                                   IEcommerceManagerRepository ecommerceManagerRepository,
                                   ITokenServiceEcommerceAdmin tokenServiceEcommerceAdmin,
                                   IMapper mapper,
-                                  IUserMail mailService,
-                                  IGenericValidatorExecutor genericValidator)
+                                  IUserMail mailService)
     {
         _ecommerceAdminRepository = ecommerceAdminRepository;
         _ecommerceManagerRepository = ecommerceManagerRepository;
         _tokenServiceEcommerceAdmin = tokenServiceEcommerceAdmin;
         _mapper = mapper;
         _mailService = mailService;
-        _genericValidator = genericValidator;
     }
 
     public MessageBagSingleEntityVO<EcommerceAdmin> ChangePassword(EcommerceAdmin ecommerceAdmin, string nakedPassword)
@@ -242,7 +238,7 @@ public class EcommerceAdminBusiness : IEcommerceAdminBusiness
 
     public MessageBagVO ValidateRegister(EcommerceAdmin admin)
     {
-        return _genericValidator.ValidatorResultIterator(admin, new NewAdminValidator());
+        return GenericValidatorExecutor.ValidatorResultIterator(admin, new NewAdminValidator());
     }
 
     private MessageBagVO PasswordAndAuthTokensSet(ref EcommerceAdmin admin, string nakedPassword)

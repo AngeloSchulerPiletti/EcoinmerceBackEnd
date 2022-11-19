@@ -5,7 +5,6 @@ using Ecoinmerce.Domain.Objects.VOs;
 using Ecoinmerce.Domain.Objects.VOs.Responses;
 using Ecoinmerce.Domain.Settings;
 using Ecoinmerce.Domain.Validators;
-using Ecoinmerce.Domain.Validators.Interfaces;
 using Ecoinmerce.Infra.Repository.Interfaces;
 
 namespace Ecoinmerce.Application;
@@ -15,19 +14,16 @@ public class ApiCredentialBusiness : IApiCredentialBusiness
     private readonly IApiCredentialRepository _apiCredentialRepository;
     private readonly IEcommerceRepository _ecommerceRepository;
     private readonly ITokenServiceEcommerce _tokenServiceEcommerce;
-    private readonly IGenericValidatorExecutor _genericValidatorExecutor;
     private readonly ApiCredentialSetting _apiCredentialSetting;
 
     public ApiCredentialBusiness(IApiCredentialRepository apiCredentialRepository, 
                                  IEcommerceRepository ecommerceRepository, 
                                  ITokenServiceEcommerce tokenServiceEcommerce, 
-                                 IGenericValidatorExecutor genericValidatorExecutor, 
                                  ApiCredentialSetting apiCredentialSetting)
     {
         _apiCredentialRepository = apiCredentialRepository;
         _ecommerceRepository = ecommerceRepository;
         _tokenServiceEcommerce = tokenServiceEcommerce;
-        _genericValidatorExecutor = genericValidatorExecutor;
         _apiCredentialSetting = apiCredentialSetting;
     }
 
@@ -108,11 +104,11 @@ public class ApiCredentialBusiness : IApiCredentialBusiness
 
     public MessageBagVO ValidateNewApiCredential(ApiCredential apiCredential)
     {
-        return _genericValidatorExecutor.ValidatorResultIterator(apiCredential, new NewApiCredentialValidator());
+        return GenericValidatorExecutor.ValidatorResultIterator(apiCredential, new NewApiCredentialValidator());
     }
 
     public MessageBagVO ValidateUpdateApiCredential(ApiCredential apiCredential)
     {
-        return _genericValidatorExecutor.ValidatorResultIterator(apiCredential, new UpdateApiCredentialValidator());
+        return GenericValidatorExecutor.ValidatorResultIterator(apiCredential, new UpdateApiCredentialValidator());
     }
 }

@@ -1,13 +1,12 @@
 ﻿using Ecoinmerce.Domain.Objects.VOs.Responses;
-using Ecoinmerce.Domain.Validators.Interfaces;
 using FluentValidation;
 using FluentValidation.Results;
 
 namespace Ecoinmerce.Domain.Validators;
 
-public class GenericValidatorExecutor : IGenericValidatorExecutor
+public static class GenericValidatorExecutor
 {
-    public MessageBagVO ValidatorResultIterator<TEntity>(TEntity content, AbstractValidator<TEntity> validator, string baseIdentifier = null) where TEntity : class
+    public static MessageBagVO ValidatorResultIterator<TEntity>(TEntity content, AbstractValidator<TEntity> validator, string baseIdentifier = null) where TEntity : class
     {
         ValidationResult contentResult = validator.Validate(content);
         if (!contentResult.IsValid)

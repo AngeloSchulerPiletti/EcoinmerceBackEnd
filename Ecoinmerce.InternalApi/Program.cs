@@ -7,8 +7,6 @@ using Ecoinmerce.Application.Services.Text.Interfaces;
 using Ecoinmerce.Application.Services.Token;
 using Ecoinmerce.Application.Services.Token.Interfaces;
 using Ecoinmerce.Domain.Settings;
-using Ecoinmerce.Domain.Validators;
-using Ecoinmerce.Domain.Validators.Interfaces;
 using Ecoinmerce.Infra.Api.Management.Middleware;
 using Ecoinmerce.Infra.MailService;
 using Ecoinmerce.Infra.MailService.Interfaces;
@@ -71,8 +69,6 @@ builder.Services.Configure<BlockchainSetting>(sharedConfiguration);
 builder.Services.AddSingleton<IHdWalletManager, HdWalletManager>();
 
 builder.Services.AddAutoMapper(typeof(EcommerceMappingProfiles));
-
-builder.Services.AddSingleton<IGenericValidatorExecutor, GenericValidatorExecutor>();
 
 builder.Services.AddSingleton<IStringFormatterService, StringFormatterService>();
 builder.Services.AddSingleton<ITokenServiceEcommerceAdmin, TokenServiceEcommerceAdmin>();
