@@ -7,12 +7,13 @@ public static class GenericVerterExecutor
 {
     public static MessageBagSingleEntityVO<TEntity> UpdateEntityFromObject<TEntity, TObject>(TObject objectEntity, TEntity entity, List<string> ignoredProperties = null) where TEntity : class where TObject : class
     {
+        ignoredProperties ??= new List<string>();
         PropertyInfo[] propertyInfos = typeof(TObject).GetProperties();
         foreach (PropertyInfo propertyInfo in propertyInfos)
         {
             string propertyName = propertyInfo.Name;
 
-            if (ignoredProperties != null && !ignoredProperties.Contains(propertyName))
+            if (!ignoredProperties.Contains(propertyName))
             {
                 PropertyInfo customerProperty = typeof(TEntity).GetProperty(propertyName);
                 if (customerProperty != null)
