@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Ecoinmerce.Domain\Ecoinmerce.Domain.csproj" />
+    <ProjectReference Include="..\Ecoinmerce.Infra.Repository\Ecoinmerce.Infra.Repository.csproj" />
     <ProjectReference Include="..\Ecoinmerce.Infra.ViaCep\Ecoinmerce.Infra.ViaCep.csproj" />
   </ItemGroup>
 

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Ecoinmerce.Application.Interfaces;
+using Ecoinmerce.Application.Services.Token;
 using Ecoinmerce.Application.Services.Token.Interfaces;
 using Ecoinmerce.Domain.Entities;
 using Ecoinmerce.Domain.Objects.DTOs;
@@ -101,17 +102,32 @@ public class EcommerceAdminBusiness : IEcommerceAdminBusiness
 
     public MessageBagSingleEntityVO<EcommerceAdmin> Login(LoginDTO loginDTO)
     {
-        if (loginDTO.Email == null || loginDTO.NakedPassword == null)
-            return new MessageBagSingleEntityVO<EcommerceAdmin>("Preencha o email e a senha", "Erro no login");
+        MessageBagSingleEntityVO<EcommerceAdmin> messageBagError = new();
+        if (loginDTO.Email == null)
+        {
+            messageBagError.DictionaryMessages.Add("email", "Campo obrigatório");
+            return messageBagError;
+        }
+        else if (loginDTO.NakedPassword == null)
+        {
+            messageBagError.DictionaryMessages.Add("nakedPassword", "Campo obrigatório");
+            return messageBagError;
+        }
 
         EcommerceAdmin admin = _ecommerceAdminRepository.GetByEmail(loginDTO.Email);
         if (admin == null)
-            return new MessageBagSingleEntityVO<EcommerceAdmin>("Email não cadastrado", "Erro no login");
+        {
+            messageBagError.DictionaryMessages.Add("email", "Email não cadastrado");
+            return messageBagError;
+        }
 
         string hashedPassword = _tokenServiceEcommerceAdmin.HashPassword(loginDTO.NakedPassword, admin.Salt);
         if (hashedPassword != admin.Password)
-            return new MessageBagSingleEntityVO<EcommerceAdmin>("Senha inválida", "Erro no login");
-
+        {
+            messageBagError.DictionaryMessages.Add("nakedPassword", "Senha inválida");
+            return messageBagError;
+        }
+        
         TokenVO accessTokenVO = _tokenServiceEcommerceAdmin.GenerateAccessToken(admin);
         admin.SetAccessToken(accessTokenVO);
 

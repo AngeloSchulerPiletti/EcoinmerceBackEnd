@@ -102,16 +102,31 @@ public class EcommerceManagerBusiness : IEcommerceManagerBusiness
 
     public MessageBagSingleEntityVO<EcommerceManager> Login(LoginDTO loginDTO)
     {
-        if (loginDTO.Email == null || loginDTO.NakedPassword == null)
-            return new MessageBagSingleEntityVO<EcommerceManager>("Preencha o email e a senha", "Erro no login");
+        MessageBagSingleEntityVO<EcommerceManager> messageBagError = new();
+        if (loginDTO.Email == null)
+        {
+            messageBagError.DictionaryMessages.Add("email", "Campo obrigatório");
+            return messageBagError;
+        }
+        else if (loginDTO.NakedPassword == null)
+        {
+            messageBagError.DictionaryMessages.Add("nakedPassword", "Campo obrigatório");
+            return messageBagError;
+        }
 
         EcommerceManager manager = _ecommerceManagerRepository.GetByEmail(loginDTO.Email);
         if (manager == null)
-            return new MessageBagSingleEntityVO<EcommerceManager>("Email não cadastrado", "Erro no login");
+        {
+            messageBagError.DictionaryMessages.Add("email", "Email não cadastrado");
+            return messageBagError;
+        }
 
         string hashedPassword = _tokenServiceEcommerceManager.HashPassword(loginDTO.NakedPassword, manager.Salt);
         if (hashedPassword != manager.Password)
-            return new MessageBagSingleEntityVO<EcommerceManager>("Senha inválida", "Erro no login");
+        {
+            messageBagError.DictionaryMessages.Add("nakedPassword", "Senha inválida");
+            return messageBagError;
+        }
 
         TokenVO accessTokenVO = _tokenServiceEcommerceManager.GenerateAccessToken(manager);
         manager.SetAccessToken(accessTokenVO);
