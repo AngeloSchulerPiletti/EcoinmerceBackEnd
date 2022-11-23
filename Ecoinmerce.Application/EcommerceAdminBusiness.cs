@@ -105,26 +105,26 @@ public class EcommerceAdminBusiness : IEcommerceAdminBusiness
         MessageBagSingleEntityVO<EcommerceAdmin> messageBagError = new();
         if (loginDTO.Email == null)
         {
-            messageBagError.DictionaryMessages.Add("email", "Campo obrigatório");
+            messageBagError.DictionaryMessages.Add("email", new List<string>() { "Campo obrigatório" });
             return messageBagError;
         }
         else if (loginDTO.NakedPassword == null)
         {
-            messageBagError.DictionaryMessages.Add("nakedPassword", "Campo obrigatório");
+            messageBagError.DictionaryMessages.Add("nakedPassword", new List<string>() { "Campo obrigatório" });
             return messageBagError;
         }
 
         EcommerceAdmin admin = _ecommerceAdminRepository.GetByEmail(loginDTO.Email);
         if (admin == null)
         {
-            messageBagError.DictionaryMessages.Add("email", "Email não cadastrado");
+            messageBagError.DictionaryMessages.Add("email", new List<string>() { "Email não cadastrado" });
             return messageBagError;
         }
 
         string hashedPassword = _tokenServiceEcommerceAdmin.HashPassword(loginDTO.NakedPassword, admin.Salt);
         if (hashedPassword != admin.Password)
         {
-            messageBagError.DictionaryMessages.Add("nakedPassword", "Senha inválida");
+            messageBagError.DictionaryMessages.Add("nakedPassword", new List<string>() { "Senha inválida" });
             return messageBagError;
         }
         

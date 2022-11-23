@@ -105,26 +105,26 @@ public class EcommerceManagerBusiness : IEcommerceManagerBusiness
         MessageBagSingleEntityVO<EcommerceManager> messageBagError = new();
         if (loginDTO.Email == null)
         {
-            messageBagError.DictionaryMessages.Add("email", "Campo obrigatório");
+            messageBagError.DictionaryMessages.Add("email", new List<string>(){ "Campo obrigatório" });
             return messageBagError;
         }
         else if (loginDTO.NakedPassword == null)
         {
-            messageBagError.DictionaryMessages.Add("nakedPassword", "Campo obrigatório");
+            messageBagError.DictionaryMessages.Add("nakedPassword", new List<string>() { "Campo obrigatório" });
             return messageBagError;
         }
 
         EcommerceManager manager = _ecommerceManagerRepository.GetByEmail(loginDTO.Email);
         if (manager == null)
         {
-            messageBagError.DictionaryMessages.Add("email", "Email não cadastrado");
+            messageBagError.DictionaryMessages.Add("email", new List<string>() { "Email não cadastrado" });
             return messageBagError;
         }
 
         string hashedPassword = _tokenServiceEcommerceManager.HashPassword(loginDTO.NakedPassword, manager.Salt);
         if (hashedPassword != manager.Password)
         {
-            messageBagError.DictionaryMessages.Add("nakedPassword", "Senha inválida");
+            messageBagError.DictionaryMessages.Add("nakedPassword", new List<string>() { "Senha inválida" });
             return messageBagError;
         }
 
