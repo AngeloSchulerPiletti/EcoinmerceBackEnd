@@ -81,7 +81,7 @@ namespace Ecoinmerce.SmartContractSubscriber
                         Purchase purchase = new()
                         {
                             BlockHash = decoded.Log.BlockHash,
-                            CostumerWalletAddress = decoded.Event.CostumerWallet,
+                            CostumerWalletAddress = decoded.Event.CustomerWallet,
                             EcommerceWalletAddress = decoded.Event.EcommerceWallet,
                             Failed = false,
                             PurchaseEvent = purchaseEvent
