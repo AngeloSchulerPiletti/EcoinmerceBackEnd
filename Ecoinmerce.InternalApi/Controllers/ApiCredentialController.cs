@@ -39,10 +39,27 @@ public class ApiCredentialController : ControllerBase
         if (messageBagMaxCredentialsValidate.IsError) return BadRequest(messageBagMaxCredentialsValidate);
 
         MessageBagVO messageBagValidation = _apiCredentialBusiness.ValidateNewApiCredential(apiCredential);
-        if(messageBagValidation.IsError) return BadRequest(messageBagValidation);
+        if (messageBagValidation.IsError) return BadRequest(messageBagValidation);
 
         MessageBagSingleEntityVO<ApiCredential> messageBagApiCredential = _apiCredentialBusiness.CreateApiCredential(ecommerce, apiCredential);
         return messageBagApiCredential.IsError ? BadRequest(messageBagApiCredential) : Ok(messageBagApiCredential);
+    }
+
+    [AdminOrManagerAuth]
+    [HttpGet]
+    [Route("list")]
+    public IActionResult GetCredentials()
+    {
+        Ecommerce ecommerce;
+
+        EcommerceManager manager = (EcommerceManager)HttpContext.Items["Manager"];
+        EcommerceAdmin admin = (EcommerceAdmin)HttpContext.Items["Admin"];
+
+        ecommerce = manager == null ? admin.Ecommerce : manager.Ecommerce;
+
+        MessageBagListEntityVO<ApiCredential> messageBagListCredentials = new("Credenciais encontrada", null, false);
+        messageBagListCredentials.Entities.AddRange(ecommerce.ApiCredentials);
+        return Ok(messageBagListCredentials);
     }
 
     [ManagerAuth]
@@ -54,7 +71,7 @@ public class ApiCredentialController : ControllerBase
         Ecommerce ecommerce = manager.Ecommerce;
 
         MessageBagSingleEntityVO<ApiCredential> messageBagApiCredential = _apiCredentialBusiness.GetEcommerceApiCredentialById(ecommerce, id);
-        if(messageBagApiCredential.IsError) return BadRequest(messageBagApiCredential);
+        if (messageBagApiCredential.IsError) return BadRequest(messageBagApiCredential);
 
         MessageBagVO messageBagDelete = _apiCredentialBusiness.DeleteApiCredential(messageBagApiCredential.Entity);
         return messageBagDelete.IsError ? BadRequest(messageBagDelete) : Ok(messageBagDelete);
@@ -69,8 +86,8 @@ public class ApiCredentialController : ControllerBase
         EcommerceManager manager = (EcommerceManager)HttpContext.Items["Manager"];
         Ecommerce ecommerce = manager.Ecommerce;
 
-        MessageBagVO messageBagValidation =  _apiCredentialBusiness.ValidateUpdateApiCredential(apiCredentialUpdate);
-        if(messageBagValidation.IsError) return BadRequest(messageBagValidation);
+        MessageBagVO messageBagValidation = _apiCredentialBusiness.ValidateUpdateApiCredential(apiCredentialUpdate);
+        if (messageBagValidation.IsError) return BadRequest(messageBagValidation);
 
         MessageBagSingleEntityVO<ApiCredential> messageBagApiCredential = _apiCredentialBusiness.GetEcommerceApiCredentialById(ecommerce, apiCredentialUpdate.Id);
         if (messageBagApiCredential.IsError) return BadRequest(messageBagApiCredential);
