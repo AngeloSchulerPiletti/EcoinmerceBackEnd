@@ -1,4 +1,6 @@
 ﻿
+using Newtonsoft.Json;
+
 namespace Ecoinmerce.Domain.Entities;
 
 
@@ -20,8 +22,11 @@ public class Purchase : BaseTimestampAgentEntity
     public int PurchaseCheckId { get; set; }
     public int PurchaseEventId { get; set; }
     public int PurchaseEventFailId { get; set; }
+    public int EcommerceId { get; set; }
 
     public virtual PurchaseCheck PurchaseCheck { get; set; }
     public virtual PurchaseEvent PurchaseEvent { get; set; }
     public virtual PurchaseEventFail PurchaseEventFail { get; set; }
+    [JsonIgnore]
+    public virtual Ecommerce Ecommerce { get; set; }
 }

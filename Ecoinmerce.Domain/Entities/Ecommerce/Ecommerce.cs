@@ -30,6 +30,8 @@ public class Ecommerce : BaseTimestampEntity, IBaseConfirmable
     public virtual EcommerceManager Manager { get; set; }
     [JsonIgnore]
     public virtual List<EcommerceAdmin> Admins { get; set; } = new List<EcommerceAdmin>();
+    [JsonIgnore]
+    public virtual List<Purchase> Purchases { get; set; }
 
     public void SetConfirmationToken(TokenVO token)
     {

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Ecoinmerce.Infra.Repository.Migrations.Ecommerce
+namespace Ecoinmerce.Infra.Repository.Migrations
 {
     [DbContext(typeof(EcommerceContext))]
     partial class EcommerceContextModelSnapshot : ModelSnapshot
@@ -84,42 +84,42 @@ namespace Ecoinmerce.Infra.Repository.Migrations.Ecommerce
                         new
                         {
                             Id = 1,
-                            AccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuZ2Vsb3BpbGV0dGlAZ21haWwuY29tIiwibmJmIjoxNjY3ODU3MTYwLCJleHAiOjE2Njk1ODUxNjAsImlhdCI6MTY2Nzg1NzE2MH0.Fv4i6GNbLahXUnrXjqU-DLIY0zjh8FP2nb2B8eFo9UI",
-                            AccessTokenExpiry = new DateTime(2022, 11, 27, 21, 39, 20, 0, DateTimeKind.Utc),
-                            CreatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 587, DateTimeKind.Local).AddTicks(5213),
+                            AccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuZ2Vsb3BpbGV0dGlAZ21haWwuY29tIiwibmJmIjoxNjcwODUzMjkzLCJleHAiOjE2NzI1ODEyOTMsImlhdCI6MTY3MDg1MzI5M30.CKmQgLLRJtsOZoLgByR80KR7tdOK2u1Xx33-O8cQg88",
+                            AccessTokenExpiry = new DateTime(2023, 1, 1, 13, 54, 53, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 606, DateTimeKind.Local).AddTicks(947),
                             CreatedBy = "SYSTEM SEED",
                             Description = "Esse aqui é um api credencial criado automaticamente como teste",
                             EcommerceId = 1,
                             Name = "TESTE Credencial",
-                            UpdatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 587, DateTimeKind.Local).AddTicks(5214),
+                            UpdatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 606, DateTimeKind.Local).AddTicks(948),
                             UpdatedBy = "SYSTEM SEED",
                             ValidityInDays = 20
                         },
                         new
                         {
                             Id = 2,
-                            AccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJydW5hLmZ1c2lnZXJAZ21haWwuY29tIiwibmJmIjoxNjY3ODU3MTYwLCJleHAiOjE2Njk1ODUxNjAsImlhdCI6MTY2Nzg1NzE2MH0.NTekKKEU8radERnuf_Cft1WpmJKjF5xL80K4rAkgnes",
-                            AccessTokenExpiry = new DateTime(2022, 11, 27, 21, 39, 20, 0, DateTimeKind.Utc),
-                            CreatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 634, DateTimeKind.Local).AddTicks(4164),
+                            AccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJydW5hLmZ1c2lnZXJAZ21haWwuY29tIiwibmJmIjoxNjcwODUzMjkzLCJleHAiOjE2NzI1ODEyOTMsImlhdCI6MTY3MDg1MzI5M30.dHEQUkET3_l2f2yeAB5G-Z51ZN4J0JuucUkCfWWILuM",
+                            AccessTokenExpiry = new DateTime(2023, 1, 1, 13, 54, 53, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 633, DateTimeKind.Local).AddTicks(7316),
                             CreatedBy = "SYSTEM SEED",
                             Description = "Esse aqui é um api credencial criado automaticamente como teste",
                             EcommerceId = 2,
                             Name = "TESTE Credencial",
-                            UpdatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 634, DateTimeKind.Local).AddTicks(4165),
+                            UpdatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 633, DateTimeKind.Local).AddTicks(7317),
                             UpdatedBy = "SYSTEM SEED",
                             ValidityInDays = 20
                         },
                         new
                         {
                             Id = 3,
-                            AccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2Fzb2xpdmVpcmEuY29udGF0b25saW5lQGdtYWlsLmNvbSIsIm5iZiI6MTY2Nzg1NzE2MCwiZXhwIjoxNjY5NTg1MTYwLCJpYXQiOjE2Njc4NTcxNjB9.pKJ172XxxpBawxiz1rnSubspGXwxgXmYDI8dSD08CbE",
-                            AccessTokenExpiry = new DateTime(2022, 11, 27, 21, 39, 20, 0, DateTimeKind.Utc),
-                            CreatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 676, DateTimeKind.Local).AddTicks(3466),
+                            AccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1Y2Fzb2xpdmVpcmEuY29udGF0b25saW5lQGdtYWlsLmNvbSIsIm5iZiI6MTY3MDg1MzI5MywiZXhwIjoxNjcyNTgxMjkzLCJpYXQiOjE2NzA4NTMyOTN9.3UM0mrWGCcPUhmrHW4EAWk1wvSmFyU5kQ8obAvou_Wo",
+                            AccessTokenExpiry = new DateTime(2023, 1, 1, 13, 54, 53, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 664, DateTimeKind.Local).AddTicks(638),
                             CreatedBy = "SYSTEM SEED",
                             Description = "Esse aqui é um api credencial criado automaticamente como teste",
                             EcommerceId = 3,
                             Name = "TESTE Credencial",
-                            UpdatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 676, DateTimeKind.Local).AddTicks(3467),
+                            UpdatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 664, DateTimeKind.Local).AddTicks(639),
                             UpdatedBy = "SYSTEM SEED",
                             ValidityInDays = 20
                         });
@@ -223,7 +223,7 @@ namespace Ecoinmerce.Infra.Repository.Migrations.Ecommerce
                             AverageTotalEmployees = 100,
                             Cep = "93270420",
                             Cnpj = "74544297000192",
-                            CreatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 587, DateTimeKind.Local).AddTicks(5197),
+                            CreatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 606, DateTimeKind.Local).AddTicks(937),
                             Email = "angelopiletti@gmail.com",
                             FantasyName = "TEST Nome Fantasia",
                             IsDeleted = false,
@@ -231,7 +231,7 @@ namespace Ecoinmerce.Infra.Repository.Migrations.Ecommerce
                             ManagerId = 1,
                             Phone = "5134732749",
                             SocialReason = "TEST S.A",
-                            UpdatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 587, DateTimeKind.Local).AddTicks(5201),
+                            UpdatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 606, DateTimeKind.Local).AddTicks(939),
                             Website = "https://google.com"
                         },
                         new
@@ -241,7 +241,7 @@ namespace Ecoinmerce.Infra.Repository.Migrations.Ecommerce
                             AverageTotalEmployees = 100,
                             Cep = "93270420",
                             Cnpj = "74544297000192",
-                            CreatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 634, DateTimeKind.Local).AddTicks(4149),
+                            CreatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 633, DateTimeKind.Local).AddTicks(7310),
                             Email = "bruna.fusiger@gmail.com",
                             FantasyName = "TEST Nome Fantasia",
                             IsDeleted = false,
@@ -249,7 +249,7 @@ namespace Ecoinmerce.Infra.Repository.Migrations.Ecommerce
                             ManagerId = 2,
                             Phone = "5134732749",
                             SocialReason = "TEST S.A",
-                            UpdatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 634, DateTimeKind.Local).AddTicks(4152),
+                            UpdatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 633, DateTimeKind.Local).AddTicks(7312),
                             Website = "https://google.com"
                         },
                         new
@@ -259,7 +259,7 @@ namespace Ecoinmerce.Infra.Repository.Migrations.Ecommerce
                             AverageTotalEmployees = 100,
                             Cep = "93270420",
                             Cnpj = "74544297000192",
-                            CreatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 676, DateTimeKind.Local).AddTicks(3449),
+                            CreatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 664, DateTimeKind.Local).AddTicks(630),
                             Email = "lucasoliveira.contatonline@gmail.com",
                             FantasyName = "TEST Nome Fantasia",
                             IsDeleted = false,
@@ -267,7 +267,7 @@ namespace Ecoinmerce.Infra.Repository.Migrations.Ecommerce
                             ManagerId = 3,
                             Phone = "5134732749",
                             SocialReason = "TEST S.A",
-                            UpdatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 676, DateTimeKind.Local).AddTicks(3452),
+                            UpdatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 664, DateTimeKind.Local).AddTicks(631),
                             Website = "https://google.com"
                         });
                 });
@@ -381,9 +381,9 @@ namespace Ecoinmerce.Infra.Repository.Migrations.Ecommerce
                         new
                         {
                             Id = 1,
-                            AccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkFuZ2VsbyIsIlVzZXJuYW1lIjoiYW5nZWxvQWRtaW4iLCJlbWFpbCI6ImFuZ2Vsb3BpbGV0dGlAZ21haWwuY29tIiwicm9sZSI6IiIsIm5iZiI6MTY2Nzg1NzE2MCwiZXhwIjoxNjY3OTAwMzYwLCJpYXQiOjE2Njc4NTcxNjB9.P1mq1gx1Lno3zMQBNwpOTW8qZkqa6Md-VtFY2daOeRY",
-                            AccessTokenExpiry = new DateTime(2022, 11, 8, 9, 39, 20, 0, DateTimeKind.Utc),
-                            CreatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 568, DateTimeKind.Local).AddTicks(7847),
+                            AccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkFuZ2VsbyIsIlVzZXJuYW1lIjoiYW5nZWxvQWRtaW4iLCJlbWFpbCI6ImFuZ2Vsb3BpbGV0dGlAZ21haWwuY29tIiwicm9sZSI6IiIsIm5iZiI6MTY3MDg1MzI5MywiZXhwIjoxNjcwODk2NDkzLCJpYXQiOjE2NzA4NTMyOTN9.xVJUCJ851AwF7gkQy8fEPAjajistPygVWW3Nm2UDToc",
+                            AccessTokenExpiry = new DateTime(2022, 12, 13, 1, 54, 53, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 592, DateTimeKind.Local).AddTicks(9503),
                             CreatedBy = "SYSTEM SEED",
                             EcommerceId = 1,
                             Email = "angelopiletti@gmail.com",
@@ -391,20 +391,20 @@ namespace Ecoinmerce.Infra.Repository.Migrations.Ecommerce
                             IsDeleted = false,
                             IsEmailConfirmed = true,
                             LastName = "Schuler Piletti",
-                            Password = "46ZCSI4QuqMs3b12gJs9NVuGuAXChcjfyWhs6nr2Hh4=",
-                            RefreshToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImFuZ2Vsb0FkbWluIiwiZW1haWwiOiJhbmdlbG9waWxldHRpQGdtYWlsLmNvbSIsIm5iZiI6MTY2Nzg1NzE2MCwiZXhwIjoxNjY4MDI5OTYwLCJpYXQiOjE2Njc4NTcxNjB9.s-9RXQid_n2ti0gcHNP6uR14oPFoCus4OKDRq5cgNeI",
-                            RefreshTokenExpiry = new DateTime(2022, 11, 9, 21, 39, 20, 0, DateTimeKind.Utc),
-                            Salt = new byte[] { 106, 87, 197, 184, 110, 227, 228, 51, 36, 101, 4, 71, 180, 83, 167, 96, 6, 72, 172, 219, 31, 144, 90, 115, 8, 75, 207, 212, 38, 199, 9, 149, 205, 111, 197, 238, 114, 138, 221, 128 },
-                            UpdatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 568, DateTimeKind.Local).AddTicks(7848),
+                            Password = "mkPSkMD1Dartaem+Uhf9G56Xo+8PZhgM1srbUqTIiWQ=",
+                            RefreshToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImFuZ2Vsb0FkbWluIiwiZW1haWwiOiJhbmdlbG9waWxldHRpQGdtYWlsLmNvbSIsIm5iZiI6MTY3MDg1MzI5MywiZXhwIjoxNjcxMDI2MDkzLCJpYXQiOjE2NzA4NTMyOTN9.0DyRh6HqChG25u0nIG0rMLMkM9-HXtjjHNxAF2LiqwM",
+                            RefreshTokenExpiry = new DateTime(2022, 12, 14, 13, 54, 53, 0, DateTimeKind.Utc),
+                            Salt = new byte[] { 233, 66, 57, 164, 194, 167, 188, 65, 30, 87, 254, 158, 2, 124, 125, 233, 16, 253, 223, 52, 19, 160, 155, 1, 216, 95, 249, 227, 7, 57, 238, 147, 130, 22, 75, 25, 137, 13, 233, 251 },
+                            UpdatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 592, DateTimeKind.Local).AddTicks(9504),
                             UpdatedBy = "SYSTEM SEED",
                             Username = "angeloAdmin"
                         },
                         new
                         {
                             Id = 2,
-                            AccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkJydW5hIiwiVXNlcm5hbWUiOiJicnVuYUFkbWluIiwiZW1haWwiOiJicnVuYS5mdXNpZ2VyQGdtYWlsLmNvbSIsInJvbGUiOiIiLCJuYmYiOjE2Njc4NTcxNjAsImV4cCI6MTY2NzkwMDM2MCwiaWF0IjoxNjY3ODU3MTYwfQ.IfB9PA1d7R-Hp_NqoPDSlRT3TAfb1rGxDGzHP8osQiU",
-                            AccessTokenExpiry = new DateTime(2022, 11, 8, 9, 39, 20, 0, DateTimeKind.Utc),
-                            CreatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 615, DateTimeKind.Local).AddTicks(7470),
+                            AccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkJydW5hIiwiVXNlcm5hbWUiOiJicnVuYUFkbWluIiwiZW1haWwiOiJicnVuYS5mdXNpZ2VyQGdtYWlsLmNvbSIsInJvbGUiOiIiLCJuYmYiOjE2NzA4NTMyOTMsImV4cCI6MTY3MDg5NjQ5MywiaWF0IjoxNjcwODUzMjkzfQ.1QiOP8naSjd82O0FanhoZ6kbbU52hddfrXeWQP4JVt8",
+                            AccessTokenExpiry = new DateTime(2022, 12, 13, 1, 54, 53, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 623, DateTimeKind.Local).AddTicks(3468),
                             CreatedBy = "SYSTEM SEED",
                             EcommerceId = 2,
                             Email = "bruna.fusiger@gmail.com",
@@ -412,20 +412,20 @@ namespace Ecoinmerce.Infra.Repository.Migrations.Ecommerce
                             IsDeleted = false,
                             IsEmailConfirmed = true,
                             LastName = "Fusiger",
-                            Password = "NtIghf1mIw+0i29NFwleOApjM00dE+GgXNDL6fSQmfU=",
-                            RefreshToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImJydW5hQWRtaW4iLCJlbWFpbCI6ImJydW5hLmZ1c2lnZXJAZ21haWwuY29tIiwibmJmIjoxNjY3ODU3MTYwLCJleHAiOjE2NjgwMjk5NjAsImlhdCI6MTY2Nzg1NzE2MH0.dRfkX4qfDhRFOiMBcToXQk5aKaY9faWIXvedTa4TVug",
-                            RefreshTokenExpiry = new DateTime(2022, 11, 9, 21, 39, 20, 0, DateTimeKind.Utc),
-                            Salt = new byte[] { 7, 10, 49, 111, 23, 53, 118, 232, 6, 164, 99, 96, 109, 158, 167, 250, 42, 33, 250, 108, 101, 77, 70, 51, 35, 147, 185, 22, 183, 62, 221, 47, 22, 164, 112, 94, 160, 210, 11, 120 },
-                            UpdatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 615, DateTimeKind.Local).AddTicks(7471),
+                            Password = "Qjsx2NEZEEtrR6GD73HrPrbc45lmiB+91tXE2oqBJXc=",
+                            RefreshToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImJydW5hQWRtaW4iLCJlbWFpbCI6ImJydW5hLmZ1c2lnZXJAZ21haWwuY29tIiwibmJmIjoxNjcwODUzMjkzLCJleHAiOjE2NzEwMjYwOTMsImlhdCI6MTY3MDg1MzI5M30.54ptDcKgKzJdXtgXJmBSCoppC37wrB5SVlDrBq6U9EE",
+                            RefreshTokenExpiry = new DateTime(2022, 12, 14, 13, 54, 53, 0, DateTimeKind.Utc),
+                            Salt = new byte[] { 211, 54, 170, 190, 91, 7, 113, 224, 201, 214, 165, 138, 135, 17, 187, 68, 201, 244, 197, 203, 70, 86, 227, 54, 236, 240, 101, 76, 173, 108, 103, 177, 147, 236, 105, 7, 149, 79, 201, 119 },
+                            UpdatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 623, DateTimeKind.Local).AddTicks(3468),
                             UpdatedBy = "SYSTEM SEED",
                             Username = "brunaAdmin"
                         },
                         new
                         {
                             Id = 3,
-                            AccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Ikx1Y2FzIiwiVXNlcm5hbWUiOiJsdWNhc0FkbWluIiwiZW1haWwiOiJsdWNhc29saXZlaXJhLmNvbnRhdG9ubGluZUBnbWFpbC5jb20iLCJyb2xlIjoiIiwibmJmIjoxNjY3ODU3MTYwLCJleHAiOjE2Njc5MDAzNjAsImlhdCI6MTY2Nzg1NzE2MH0.tSo7v4h-Ji0e3uWzvqTXijZI4lsF3Mo5Ihpsl7-nhyQ",
-                            AccessTokenExpiry = new DateTime(2022, 11, 8, 9, 39, 20, 0, DateTimeKind.Utc),
-                            CreatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 659, DateTimeKind.Local).AddTicks(8984),
+                            AccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Ikx1Y2FzIiwiVXNlcm5hbWUiOiJsdWNhc0FkbWluIiwiZW1haWwiOiJsdWNhc29saXZlaXJhLmNvbnRhdG9ubGluZUBnbWFpbC5jb20iLCJyb2xlIjoiIiwibmJmIjoxNjcwODUzMjkzLCJleHAiOjE2NzA4OTY0OTMsImlhdCI6MTY3MDg1MzI5M30.2T3Qhjkg9J9gojVQoHY0XdNhdR_-V9xkkKaQAsY_u1g",
+                            AccessTokenExpiry = new DateTime(2022, 12, 13, 1, 54, 53, 0, DateTimeKind.Utc),
+                            CreatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 650, DateTimeKind.Local).AddTicks(201),
                             CreatedBy = "SYSTEM SEED",
                             EcommerceId = 3,
                             Email = "lucasoliveira.contatonline@gmail.com",
@@ -433,11 +433,11 @@ namespace Ecoinmerce.Infra.Repository.Migrations.Ecommerce
                             IsDeleted = false,
                             IsEmailConfirmed = true,
                             LastName = "Oliveira",
-                            Password = "AR3kMeqGAh2SSCHTRSi9A6EzPV98IHn1fmYiug9oEME=",
-                            RefreshToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6Imx1Y2FzQWRtaW4iLCJlbWFpbCI6Imx1Y2Fzb2xpdmVpcmEuY29udGF0b25saW5lQGdtYWlsLmNvbSIsIm5iZiI6MTY2Nzg1NzE2MCwiZXhwIjoxNjY4MDI5OTYwLCJpYXQiOjE2Njc4NTcxNjB9.-K5h4kNXEB0EuQa6kGQ0aJDOHNix1lZNDdWHCBnXLVA",
-                            RefreshTokenExpiry = new DateTime(2022, 11, 9, 21, 39, 20, 0, DateTimeKind.Utc),
-                            Salt = new byte[] { 25, 144, 82, 27, 204, 19, 156, 42, 239, 82, 169, 179, 61, 226, 201, 13, 120, 145, 40, 233, 166, 213, 46, 166, 83, 9, 245, 127, 205, 236, 33, 226, 73, 176, 31, 154, 4, 170, 170, 253 },
-                            UpdatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 659, DateTimeKind.Local).AddTicks(8985),
+                            Password = "37Za6AoyjLcbN4U7eaBgUPEfid9rLC4raV53ZVdqxKY=",
+                            RefreshToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6Imx1Y2FzQWRtaW4iLCJlbWFpbCI6Imx1Y2Fzb2xpdmVpcmEuY29udGF0b25saW5lQGdtYWlsLmNvbSIsIm5iZiI6MTY3MDg1MzI5MywiZXhwIjoxNjcxMDI2MDkzLCJpYXQiOjE2NzA4NTMyOTN9.wH9wgVoy83eQVCORdVytFpA2xnyd8O2LAkb0ae8ToyQ",
+                            RefreshTokenExpiry = new DateTime(2022, 12, 14, 13, 54, 53, 0, DateTimeKind.Utc),
+                            Salt = new byte[] { 147, 139, 221, 56, 159, 246, 227, 201, 96, 157, 178, 23, 17, 64, 252, 132, 71, 187, 175, 167, 110, 51, 51, 171, 139, 131, 43, 81, 196, 193, 20, 249, 178, 209, 37, 248, 57, 109, 141, 203 },
+                            UpdatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 650, DateTimeKind.Local).AddTicks(202),
                             UpdatedBy = "SYSTEM SEED",
                             Username = "lucasAdmin"
                         });
@@ -555,67 +555,67 @@ namespace Ecoinmerce.Infra.Repository.Migrations.Ecommerce
                         new
                         {
                             Id = 1,
-                            AccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkFuZ2VsbyIsIlVzZXJuYW1lIjoiYW5nZWxvTWFuYWdlciIsImVtYWlsIjoiYW5nZWxvcGlsZXR0aUBnbWFpbC5jb20iLCJuYmYiOjE2Njc4NTcxNjAsImV4cCI6MTY2NzkwMDM2MCwiaWF0IjoxNjY3ODU3MTYwfQ.E3Z_-KiF5bqyv9qE9PxIogabpzI8EFsAwAVouQD2Q1c",
-                            AccessTokenExpiry = new DateTime(2022, 11, 8, 9, 39, 20, 0, DateTimeKind.Utc),
+                            AccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkFuZ2VsbyIsIlVzZXJuYW1lIjoiYW5nZWxvTWFuYWdlciIsImVtYWlsIjoiYW5nZWxvcGlsZXR0aUBnbWFpbC5jb20iLCJuYmYiOjE2NzA4NTMyOTMsImV4cCI6MTY3MDg5NjQ5MywiaWF0IjoxNjcwODUzMjkzfQ.8xmsHHB-B4y83duvNMqk6eFiHQKE5L3jezUxCqIglHs",
+                            AccessTokenExpiry = new DateTime(2022, 12, 13, 1, 54, 53, 0, DateTimeKind.Utc),
                             Cellphone = "51982505194",
                             Cpf = "05105784030",
-                            CreatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 550, DateTimeKind.Local).AddTicks(7052),
+                            CreatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 577, DateTimeKind.Local).AddTicks(9856),
                             EcommerceId = 1,
                             Email = "angelopiletti@gmail.com",
                             FirstName = "Angelo",
                             IsDeleted = false,
                             IsEmailConfirmed = true,
                             LastName = "Schuler Piletti",
-                            Password = "PS28arxVGLVt8CkVJ2jfvvoHpcSh6HlRCy9M27B6Dq4=",
+                            Password = "YGxibG14v0NEgdJhE65juqalP4Zm7OpP6QMhmhLh/YM=",
                             Phone = "5134732749",
-                            RefreshToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImFuZ2Vsb01hbmFnZXIiLCJlbWFpbCI6ImFuZ2Vsb3BpbGV0dGlAZ21haWwuY29tIiwibmJmIjoxNjY3ODU3MTYwLCJleHAiOjE2NjgwMjk5NjAsImlhdCI6MTY2Nzg1NzE2MH0.EAEwKoJiA4IQ9BqdKzSu29vVwcsgIC7sR0xX0yKswN8",
-                            RefreshTokenExpiry = new DateTime(2022, 11, 9, 21, 39, 20, 0, DateTimeKind.Utc),
-                            Salt = new byte[] { 18, 192, 52, 47, 153, 132, 93, 177, 251, 38, 134, 192, 130, 17, 163, 66, 249, 65, 168, 142, 112, 1, 18, 244, 243, 81, 244, 21, 219, 135, 123, 111, 56, 16, 197, 69, 199, 113, 224, 99 },
-                            UpdatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 550, DateTimeKind.Local).AddTicks(7068),
+                            RefreshToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImFuZ2Vsb01hbmFnZXIiLCJlbWFpbCI6ImFuZ2Vsb3BpbGV0dGlAZ21haWwuY29tIiwibmJmIjoxNjcwODUzMjkzLCJleHAiOjE2NzEwMjYwOTMsImlhdCI6MTY3MDg1MzI5M30.IyBQ40SoYhCzjU8t0FhAXdrsKK5w-sUyq33hXWtZasw",
+                            RefreshTokenExpiry = new DateTime(2022, 12, 14, 13, 54, 53, 0, DateTimeKind.Utc),
+                            Salt = new byte[] { 170, 97, 123, 14, 227, 155, 68, 216, 124, 179, 247, 254, 104, 68, 162, 169, 218, 166, 139, 162, 1, 78, 53, 92, 139, 210, 248, 200, 154, 197, 137, 6, 219, 75, 4, 133, 215, 104, 122, 239 },
+                            UpdatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 577, DateTimeKind.Local).AddTicks(9866),
                             Username = "angeloManager"
                         },
                         new
                         {
                             Id = 2,
-                            AccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkJydW5hIiwiVXNlcm5hbWUiOiJicnVuYU1hbmFnZXIiLCJlbWFpbCI6ImJydW5hLmZ1c2lnZXJAZ21haWwuY29tIiwibmJmIjoxNjY3ODU3MTYwLCJleHAiOjE2Njc5MDAzNjAsImlhdCI6MTY2Nzg1NzE2MH0.-BZB3e1wQiiPU7hQ4nqboL6PPUUG7On5ehDg11GDrgI",
-                            AccessTokenExpiry = new DateTime(2022, 11, 8, 9, 39, 20, 0, DateTimeKind.Utc),
+                            AccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IkJydW5hIiwiVXNlcm5hbWUiOiJicnVuYU1hbmFnZXIiLCJlbWFpbCI6ImJydW5hLmZ1c2lnZXJAZ21haWwuY29tIiwibmJmIjoxNjcwODUzMjkzLCJleHAiOjE2NzA4OTY0OTMsImlhdCI6MTY3MDg1MzI5M30.VKFA-09In7EgfFbACo_G_pIpZOl7OSduULSyAPa9hHA",
+                            AccessTokenExpiry = new DateTime(2022, 12, 13, 1, 54, 53, 0, DateTimeKind.Utc),
                             Cellphone = "51982505194",
                             Cpf = "05105784030",
-                            CreatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 596, DateTimeKind.Local).AddTicks(8349),
+                            CreatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 611, DateTimeKind.Local).AddTicks(8933),
                             EcommerceId = 2,
                             Email = "bruna.fusiger@gmail.com",
                             FirstName = "Bruna",
                             IsDeleted = false,
                             IsEmailConfirmed = true,
                             LastName = "Fusiger",
-                            Password = "QLwK/2NXXycALpgkzoDtQ4JWRTEdMlyFb+pXFfmfaT8=",
+                            Password = "eGXp9kjqj6x9Y41b5fKeUYKzyH6ZnEvGnPntXFV8jek=",
                             Phone = "5134732749",
-                            RefreshToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImJydW5hTWFuYWdlciIsImVtYWlsIjoiYnJ1bmEuZnVzaWdlckBnbWFpbC5jb20iLCJuYmYiOjE2Njc4NTcxNjAsImV4cCI6MTY2ODAyOTk2MCwiaWF0IjoxNjY3ODU3MTYwfQ.xNixrukxyjaepdWsvmsPIHJ71upmU4rVLY6800gPYqk",
-                            RefreshTokenExpiry = new DateTime(2022, 11, 9, 21, 39, 20, 0, DateTimeKind.Utc),
-                            Salt = new byte[] { 110, 142, 37, 239, 12, 152, 229, 86, 53, 140, 45, 106, 212, 247, 207, 73, 112, 205, 198, 129, 41, 248, 119, 34, 117, 26, 246, 139, 123, 236, 183, 35, 210, 254, 85, 13, 98, 48, 48, 243 },
-                            UpdatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 596, DateTimeKind.Local).AddTicks(8353),
+                            RefreshToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6ImJydW5hTWFuYWdlciIsImVtYWlsIjoiYnJ1bmEuZnVzaWdlckBnbWFpbC5jb20iLCJuYmYiOjE2NzA4NTMyOTMsImV4cCI6MTY3MTAyNjA5MywiaWF0IjoxNjcwODUzMjkzfQ.OGxlQWzfynPgOXEoNo0azircNxpie-WKW95R4Lr6XCI",
+                            RefreshTokenExpiry = new DateTime(2022, 12, 14, 13, 54, 53, 0, DateTimeKind.Utc),
+                            Salt = new byte[] { 36, 108, 162, 66, 25, 162, 194, 20, 127, 249, 115, 36, 159, 176, 120, 104, 236, 236, 166, 242, 96, 22, 250, 175, 16, 91, 228, 21, 226, 157, 119, 0, 117, 123, 29, 228, 240, 237, 0, 236 },
+                            UpdatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 611, DateTimeKind.Local).AddTicks(8935),
                             Username = "brunaManager"
                         },
                         new
                         {
                             Id = 3,
-                            AccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Ikx1Y2FzIiwiVXNlcm5hbWUiOiJsdWNhc01hbmFnZXIiLCJlbWFpbCI6Imx1Y2Fzb2xpdmVpcmEuY29udGF0b25saW5lQGdtYWlsLmNvbSIsIm5iZiI6MTY2Nzg1NzE2MCwiZXhwIjoxNjY3OTAwMzYwLCJpYXQiOjE2Njc4NTcxNjB9.a1nMPgJcnQxGsR5RImoFIPtahBSSy30n5P7q1w-R_0U",
-                            AccessTokenExpiry = new DateTime(2022, 11, 8, 9, 39, 20, 0, DateTimeKind.Utc),
+                            AccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Ikx1Y2FzIiwiVXNlcm5hbWUiOiJsdWNhc01hbmFnZXIiLCJlbWFpbCI6Imx1Y2Fzb2xpdmVpcmEuY29udGF0b25saW5lQGdtYWlsLmNvbSIsIm5iZiI6MTY3MDg1MzI5MywiZXhwIjoxNjcwODk2NDkzLCJpYXQiOjE2NzA4NTMyOTN9.S4ZuF1PULDavKLQ3VgussYbkgugOze4RVDjKkKFOjhc",
+                            AccessTokenExpiry = new DateTime(2022, 12, 13, 1, 54, 53, 0, DateTimeKind.Utc),
                             Cellphone = "51982505194",
                             Cpf = "05105784030",
-                            CreatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 642, DateTimeKind.Local).AddTicks(8776),
+                            CreatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 639, DateTimeKind.Local).AddTicks(8028),
                             EcommerceId = 3,
                             Email = "lucasoliveira.contatonline@gmail.com",
                             FirstName = "Lucas",
                             IsDeleted = false,
                             IsEmailConfirmed = true,
                             LastName = "Oliveira",
-                            Password = "7xks0sJ6X51nQXF9mq1BIqqLQUzcD4iMRLaYAOzxr2U=",
+                            Password = "IrLj+/MOgxn9mShHoNWQl7yOBBOOY0Pn3GpW49S5l98=",
                             Phone = "5134732749",
-                            RefreshToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6Imx1Y2FzTWFuYWdlciIsImVtYWlsIjoibHVjYXNvbGl2ZWlyYS5jb250YXRvbmxpbmVAZ21haWwuY29tIiwibmJmIjoxNjY3ODU3MTYwLCJleHAiOjE2NjgwMjk5NjAsImlhdCI6MTY2Nzg1NzE2MH0.n_cFjZW8dQ9YWPaq-LMRw39KpDxUS6vBoColcFk5Bjg",
-                            RefreshTokenExpiry = new DateTime(2022, 11, 9, 21, 39, 20, 0, DateTimeKind.Utc),
-                            Salt = new byte[] { 54, 199, 29, 52, 39, 25, 234, 239, 171, 173, 119, 83, 159, 171, 155, 83, 76, 143, 46, 37, 165, 118, 145, 11, 170, 17, 176, 148, 86, 233, 13, 83, 35, 140, 159, 87, 146, 6, 113, 136 },
-                            UpdatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 642, DateTimeKind.Local).AddTicks(8779),
+                            RefreshToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6Imx1Y2FzTWFuYWdlciIsImVtYWlsIjoibHVjYXNvbGl2ZWlyYS5jb250YXRvbmxpbmVAZ21haWwuY29tIiwibmJmIjoxNjcwODUzMjkzLCJleHAiOjE2NzEwMjYwOTMsImlhdCI6MTY3MDg1MzI5M30.ENaeAFQCxPzql7P6Sp11FvTD2N96YMsg6Q52C-py_XU",
+                            RefreshTokenExpiry = new DateTime(2022, 12, 14, 13, 54, 53, 0, DateTimeKind.Utc),
+                            Salt = new byte[] { 83, 1, 144, 168, 22, 98, 66, 52, 31, 40, 101, 169, 67, 112, 118, 104, 138, 231, 187, 161, 225, 247, 76, 67, 231, 40, 182, 42, 98, 47, 203, 188, 195, 37, 210, 110, 78, 15, 115, 20 },
+                            UpdatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 639, DateTimeKind.Local).AddTicks(8029),
                             Username = "lucasManager"
                         });
                 });
@@ -686,44 +686,235 @@ namespace Ecoinmerce.Infra.Repository.Migrations.Ecommerce
                         {
                             Id = 1,
                             Address = "0x83596d3984C65c48D9f167ada9698BECFa709571",
-                            CreatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 596, DateTimeKind.Local).AddTicks(7892),
+                            CreatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 611, DateTimeKind.Local).AddTicks(8659),
                             CreatedBy = "SYSTEM SEED",
                             EcommerceId = 1,
                             IsDeleted = false,
                             Name = "TEST Wallet",
                             PrivateKey = "0x879b22729079d26717c15544e85f3692229b481368ea4b5a65ca289a5c26db53",
                             PublicKey = "0489249214e77e5d07d2de2e63b82f5e2029e4d0d739a341a166e6363db1c338e749f11823ded16954ba15070dd496f109a9655c7b9cd08417538ed5ac8d1216b2",
-                            UpdatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 596, DateTimeKind.Local).AddTicks(7914),
+                            UpdatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 611, DateTimeKind.Local).AddTicks(8671),
                             UpdatedBy = "SYSTEM SEED"
                         },
                         new
                         {
                             Id = 2,
                             Address = "0xd49B964c84132F43e3d1Ed3A7b67B57304Cb6fB3",
-                            CreatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 642, DateTimeKind.Local).AddTicks(8406),
+                            CreatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 639, DateTimeKind.Local).AddTicks(7843),
                             CreatedBy = "SYSTEM SEED",
                             EcommerceId = 2,
                             IsDeleted = false,
                             Name = "TEST Wallet",
                             PrivateKey = "0x830226e76d7cb5d86d6b2754a4626984cfffbfc8cb477e3665877d753da9111f",
                             PublicKey = "045a0df1485dd7614bc5eb51b5612638040d5f835d1c310320ad73a051eb0391f5f953aa3c701b3e6ec8efaee2217adbfb32fb78f27eaef8203b9d6e5417f1f129",
-                            UpdatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 642, DateTimeKind.Local).AddTicks(8414),
+                            UpdatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 639, DateTimeKind.Local).AddTicks(7847),
                             UpdatedBy = "SYSTEM SEED"
                         },
                         new
                         {
                             Id = 3,
                             Address = "0xecE385e3Fd686DA0959e375E155B036C3eb34774",
-                            CreatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 684, DateTimeKind.Local).AddTicks(4298),
+                            CreatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 671, DateTimeKind.Local).AddTicks(7455),
                             CreatedBy = "SYSTEM SEED",
                             EcommerceId = 3,
                             IsDeleted = false,
                             Name = "TEST Wallet",
                             PrivateKey = "0x5178945d19f0a66cfaa52cb4b03a139d402bb682a13aaf94e75ba74bb26f55e5",
                             PublicKey = "04c8867096480458cfdebf46cef3132bb0f17ab94a53de0192ff8ef25994ce19960c7cdd0a1f1d5513e270be4898cb5c0c20e6b5044f0dd49c1844e519d331e921",
-                            UpdatedAt = new DateTime(2022, 11, 7, 18, 39, 20, 684, DateTimeKind.Local).AddTicks(4321),
+                            UpdatedAt = new DateTime(2022, 12, 12, 10, 54, 53, 671, DateTimeKind.Local).AddTicks(7466),
                             UpdatedBy = "SYSTEM SEED"
                         });
+                });
+
+            modelBuilder.Entity("Ecoinmerce.Domain.Entities.Purchase", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("BlockHash")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("CostumerWalletAddress")
+                        .IsRequired()
+                        .HasMaxLength(42)
+                        .HasColumnType("nvarchar(42)");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("EcommerceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EcommerceWalletAddress")
+                        .IsRequired()
+                        .HasMaxLength(42)
+                        .HasColumnType("nvarchar(42)");
+
+                    b.Property<bool>("Failed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Observation")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<int>("PurchaseCheckId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PurchaseEventFailId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PurchaseEventId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TransactionHash")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EcommerceId");
+
+                    b.HasIndex("PurchaseCheckId")
+                        .IsUnique();
+
+                    b.HasIndex("PurchaseEventFailId")
+                        .IsUnique();
+
+                    b.HasIndex("PurchaseEventId")
+                        .IsUnique();
+
+                    b.ToTable("Purchases");
+                });
+
+            modelBuilder.Entity("Ecoinmerce.Domain.Entities.PurchaseCheck", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CheckOverCounter")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PurchaseChecks");
+                });
+
+            modelBuilder.Entity("Ecoinmerce.Domain.Entities.PurchaseEvent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<decimal>("AmountPaidInEther")
+                        .HasPrecision(28, 18)
+                        .HasColumnType("decimal(28,18)");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("PaidAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PurchaseIdentifier")
+                        .IsRequired()
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PurchaseEvents");
+                });
+
+            modelBuilder.Entity("Ecoinmerce.Domain.Entities.PurchaseEventFail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("BlockHash")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LogAddress")
+                        .IsRequired()
+                        .HasMaxLength(42)
+                        .HasColumnType("nvarchar(42)");
+
+                    b.Property<string>("Observation")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PurchaseEventFails");
                 });
 
             modelBuilder.Entity("Ecoinmerce.Domain.Entities.Role", b =>
@@ -846,6 +1037,41 @@ namespace Ecoinmerce.Infra.Repository.Migrations.Ecommerce
                     b.Navigation("Ecommerce");
                 });
 
+            modelBuilder.Entity("Ecoinmerce.Domain.Entities.Purchase", b =>
+                {
+                    b.HasOne("Ecoinmerce.Domain.Entities.Ecommerce", "Ecommerce")
+                        .WithMany("Purchases")
+                        .HasForeignKey("EcommerceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ecoinmerce.Domain.Entities.PurchaseCheck", "PurchaseCheck")
+                        .WithOne("Purchase")
+                        .HasForeignKey("Ecoinmerce.Domain.Entities.Purchase", "PurchaseCheckId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ecoinmerce.Domain.Entities.PurchaseEventFail", "PurchaseEventFail")
+                        .WithOne("Purchase")
+                        .HasForeignKey("Ecoinmerce.Domain.Entities.Purchase", "PurchaseEventFailId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ecoinmerce.Domain.Entities.PurchaseEvent", "PurchaseEvent")
+                        .WithOne("Purchase")
+                        .HasForeignKey("Ecoinmerce.Domain.Entities.Purchase", "PurchaseEventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ecommerce");
+
+                    b.Navigation("PurchaseCheck");
+
+                    b.Navigation("PurchaseEvent");
+
+                    b.Navigation("PurchaseEventFail");
+                });
+
             modelBuilder.Entity("Ecoinmerce.Domain.Entities.RoleBond", b =>
                 {
                     b.HasOne("Ecoinmerce.Domain.Entities.EcommerceAdmin", "EcommerceAdmin")
@@ -872,6 +1098,8 @@ namespace Ecoinmerce.Infra.Repository.Migrations.Ecommerce
                     b.Navigation("ApiCredentials");
 
                     b.Navigation("EtherWallets");
+
+                    b.Navigation("Purchases");
                 });
 
             modelBuilder.Entity("Ecoinmerce.Domain.Entities.EcommerceAdmin", b =>
@@ -882,6 +1110,21 @@ namespace Ecoinmerce.Infra.Repository.Migrations.Ecommerce
             modelBuilder.Entity("Ecoinmerce.Domain.Entities.EcommerceManager", b =>
                 {
                     b.Navigation("Ecommerce");
+                });
+
+            modelBuilder.Entity("Ecoinmerce.Domain.Entities.PurchaseCheck", b =>
+                {
+                    b.Navigation("Purchase");
+                });
+
+            modelBuilder.Entity("Ecoinmerce.Domain.Entities.PurchaseEvent", b =>
+                {
+                    b.Navigation("Purchase");
+                });
+
+            modelBuilder.Entity("Ecoinmerce.Domain.Entities.PurchaseEventFail", b =>
+                {
+                    b.Navigation("Purchase");
                 });
 
             modelBuilder.Entity("Ecoinmerce.Domain.Entities.Role", b =>
