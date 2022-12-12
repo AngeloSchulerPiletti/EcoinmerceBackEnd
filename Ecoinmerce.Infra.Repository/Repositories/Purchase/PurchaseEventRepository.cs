@@ -6,7 +6,7 @@ namespace Ecoinmerce.Infra.Repository;
 
 public class PurchaseEventRepository : GenericRepository<PurchaseEvent>, IPurchaseEventRepository
 {
-    public PurchaseEventRepository(PurchaseContext context) : base(context)
+    public PurchaseEventRepository(EcommerceContext context) : base(context)
     {
 
     }

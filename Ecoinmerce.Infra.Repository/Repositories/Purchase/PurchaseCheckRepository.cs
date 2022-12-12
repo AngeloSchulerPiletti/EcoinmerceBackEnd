@@ -6,7 +6,7 @@ namespace Ecoinmerce.Infra.Repository;
 
 public class PurchaseCheckRepository : GenericRepository<PurchaseCheck>, IPurchaseCheckRepository
 {
-    public PurchaseCheckRepository(PurchaseContext context) : base(context)
+    public PurchaseCheckRepository(EcommerceContext context) : base(context)
     {
 
     }
