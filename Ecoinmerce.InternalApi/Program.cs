@@ -47,7 +47,6 @@ builder.Services.AddApiVersioning();
 
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddDbContext<PurchaseContext>(options => options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddDbContext<EcommerceContext>(options => options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
 builder.Services.AddSingleton(builder.Configuration.GetSection("EmailSetting").Get<EmailSetting>());
@@ -84,6 +83,7 @@ builder.Services.AddScoped<IEcommerceAdminBusiness, EcommerceAdminBusiness>();
 builder.Services.AddScoped<IEcommerceManagerBusiness, EcommerceManagerBusiness>();
 builder.Services.AddScoped<IApiCredentialBusiness, ApiCredentialBusiness>();
 builder.Services.AddScoped<ISmartContractBusiness, SmartContractBusiness>();
+builder.Services.AddScoped<IPurchaseBusiness, PurchaseBusiness>();
 
 builder.Services.AddScoped<IEtherWalletRepository, EtherWalletRepository>();
 builder.Services.AddScoped<IEcommerceRepository, EcommerceRepository>();

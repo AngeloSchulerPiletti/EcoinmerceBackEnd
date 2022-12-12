@@ -23,7 +23,6 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddControllers();
 builder.Services.AddApiVersioning();
-builder.Services.AddDbContext<PurchaseContext>(options => options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddDbContext<EcommerceContext>(options => options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
 builder.Services.AddSingleton(builder.Configuration.GetSection("EmailSetting").Get<EmailSetting>());
