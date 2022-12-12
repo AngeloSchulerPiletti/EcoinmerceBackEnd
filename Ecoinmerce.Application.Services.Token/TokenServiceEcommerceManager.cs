@@ -84,7 +84,7 @@ public class TokenServiceEcommerceManager : BaseTokenService, ITokenServiceEcomm
     public Claim GetEmailFromToken(string token)
     {
         JwtSecurityToken tokenData = _tokenHandler.ReadJwtToken(token);
-        return tokenData.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Email);
+        return tokenData.Claims.FirstOrDefault(claim => claim.Type == "email");
     }
 
     public new string HashPassword(string nakedPassword, byte[] salt)
