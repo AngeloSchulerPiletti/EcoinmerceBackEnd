@@ -42,9 +42,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecoinmerce.Domain.Validator
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecoinmerce.Infra.ViaCep", "Ecoinmerce.Infra.ViaCep\Ecoinmerce.Infra.ViaCep.csproj", "{8CC9C6A4-D036-4906-A7B1-BDA221FB4E38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecoinmerce.Services.Mapper", "Ecoinmerce.Services.Mapper\Ecoinmerce.Services.Mapper.csproj", "{D5291353-CEC8-4D52-8181-EE7363DF9D66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecoinmerce.Services.Mapper", "Ecoinmerce.Services.Mapper\Ecoinmerce.Services.Mapper.csproj", "{D5291353-CEC8-4D52-8181-EE7363DF9D66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecoinmerce.Services.WalletManager", "Ecoinmerce.Services.WalletManager\Ecoinmerce.Services.WalletManager.csproj", "{DE932572-E70A-4312-B169-EF08219F500A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecoinmerce.Services.WalletManager", "Ecoinmerce.Services.WalletManager\Ecoinmerce.Services.WalletManager.csproj", "{DE932572-E70A-4312-B169-EF08219F500A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
