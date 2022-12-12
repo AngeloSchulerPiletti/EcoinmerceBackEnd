@@ -8,6 +8,7 @@ public interface IApiCredentialBusiness
     public MessageBagSingleEntityVO<ApiCredential> CreateApiCredential(Ecommerce ecommerce, ApiCredential apiCredential);
     public MessageBagVO DeleteApiCredential(ApiCredential apiCredential);
     public MessageBagSingleEntityVO<ApiCredential> GetApiCredentialById(int id);
+    public MessageBagListEntityVO<ApiCredential> GetApiCredentialsByEcommerceId(int ecommerceId);
     public MessageBagSingleEntityVO<ApiCredential> GetEcommerceApiCredentialById(Ecommerce ecommerce, int id);
     public int GetMaxCredentials();
     public MessageBagSingleEntityVO<ApiCredential> RenewCredential(Ecommerce ecommerce, ApiCredential apiCredential);

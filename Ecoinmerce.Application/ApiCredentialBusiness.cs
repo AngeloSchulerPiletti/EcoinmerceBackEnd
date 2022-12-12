@@ -16,9 +16,9 @@ public class ApiCredentialBusiness : IApiCredentialBusiness
     private readonly ITokenServiceEcommerce _tokenServiceEcommerce;
     private readonly ApiCredentialSetting _apiCredentialSetting;
 
-    public ApiCredentialBusiness(IApiCredentialRepository apiCredentialRepository, 
-                                 IEcommerceRepository ecommerceRepository, 
-                                 ITokenServiceEcommerce tokenServiceEcommerce, 
+    public ApiCredentialBusiness(IApiCredentialRepository apiCredentialRepository,
+                                 IEcommerceRepository ecommerceRepository,
+                                 ITokenServiceEcommerce tokenServiceEcommerce,
                                  ApiCredentialSetting apiCredentialSetting)
     {
         _apiCredentialRepository = apiCredentialRepository;
@@ -56,6 +56,16 @@ public class ApiCredentialBusiness : IApiCredentialBusiness
         return apiCredential == null ?
             new MessageBagSingleEntityVO<ApiCredential>(null, "Credencial não existe") :
             new MessageBagSingleEntityVO<ApiCredential>("Credencial encontrada", "Sucesso", false, apiCredential);
+    }
+
+    public MessageBagListEntityVO<ApiCredential> GetApiCredentialsByEcommerceId(int ecommerceId)
+    {
+        List<ApiCredential> apiCredentials = _apiCredentialRepository.GetApiCredentialsByEcommerceId(ecommerceId);
+        if (apiCredentials == null) return new MessageBagListEntityVO<ApiCredential>("Erro ao buscar credenciais", "Erro interno");
+
+        MessageBagListEntityVO<ApiCredential> messageBagList = new("Credenciais encontradas", null, false);
+        messageBagList.Entities.AddRange(apiCredentials);
+        return messageBagList;
     }
 
     public MessageBagSingleEntityVO<ApiCredential> GetEcommerceApiCredentialById(Ecommerce ecommerce, int id)

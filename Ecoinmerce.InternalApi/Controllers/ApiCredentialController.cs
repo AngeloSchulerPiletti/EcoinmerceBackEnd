@@ -57,9 +57,8 @@ public class ApiCredentialController : ControllerBase
 
         ecommerce = manager == null ? admin.Ecommerce : manager.Ecommerce;
 
-        MessageBagListEntityVO<ApiCredential> messageBagListCredentials = new("Credenciais encontrada", null, false);
-        messageBagListCredentials.Entities.AddRange(ecommerce.ApiCredentials);
-        return Ok(messageBagListCredentials);
+        MessageBagListEntityVO<ApiCredential> messageBagCredentials = _apiCredentialBusiness.GetApiCredentialsByEcommerceId(ecommerce.Id);
+        return messageBagCredentials.IsError ? BadRequest(messageBagCredentials) : Ok(messageBagCredentials);
     }
 
     [ManagerAuth]

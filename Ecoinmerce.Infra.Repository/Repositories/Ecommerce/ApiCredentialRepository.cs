@@ -12,4 +12,9 @@ public class ApiCredentialRepository : GenericRepository<ApiCredential>, IApiCre
     {
         _ecommerceContext = ecommerceContext;
     }
+
+    public List<ApiCredential> GetApiCredentialsByEcommerceId(int ecommerceId)
+    {
+        return _ecommerceContext.ApiCredentials.Where(x => x.EcommerceId == ecommerceId).ToList();
+    }
 }
