@@ -61,6 +61,22 @@ public class ApiCredentialController : ControllerBase
         return messageBagCredentials.IsError ? BadRequest(messageBagCredentials) : Ok(messageBagCredentials);
     }
 
+    [AdminOrManagerAuth]
+    [HttpGet]
+    [Route("{id}")]
+    public IActionResult GetCredential(int id)
+    {
+        Ecommerce ecommerce;
+
+        EcommerceManager manager = (EcommerceManager)HttpContext.Items["Manager"];
+        EcommerceAdmin admin = (EcommerceAdmin)HttpContext.Items["Admin"];
+
+        ecommerce = manager == null ? admin.Ecommerce : manager.Ecommerce;
+
+        MessageBagSingleEntityVO<ApiCredential> messageBagCredential = _apiCredentialBusiness.GetEcommerceApiCredentialById(ecommerce, id);
+        return messageBagCredential.IsError ? BadRequest(messageBagCredential) : Ok(messageBagCredential);
+    }
+
     [ManagerAuth]
     [HttpDelete]
     [Route("delete-credential/{id}")]
