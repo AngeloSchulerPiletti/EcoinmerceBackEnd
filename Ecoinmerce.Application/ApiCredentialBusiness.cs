@@ -95,9 +95,9 @@ public class ApiCredentialBusiness : IApiCredentialBusiness
 
     public MessageBagSingleEntityVO<ApiCredential> UpdateApiCredential(ApiCredential oldApiCredential, ApiCredential updateApiCredential)
     {
-        oldApiCredential.ValidityInDays = updateApiCredential.ValidityInDays == null ;
-        oldApiCredential.Name ??= updateApiCredential.Name;
-        oldApiCredential.Description ??= updateApiCredential.Description;
+        if (updateApiCredential.ValidityInDays == null) oldApiCredential.ValidityInDays = updateApiCredential.ValidityInDays;
+        if (updateApiCredential.Name == null) oldApiCredential.Name = updateApiCredential.Name;
+        if (updateApiCredential.Description == null) oldApiCredential.Description = updateApiCredential.Description;
 
         bool saveResult = _apiCredentialRepository.SaveChanges();
         return saveResult ?
