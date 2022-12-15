@@ -1,5 +1,5 @@
 ﻿using Ecoinmerce.Domain.Entities.Interfaces;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Ecoinmerce.Domain.Entities;
 
