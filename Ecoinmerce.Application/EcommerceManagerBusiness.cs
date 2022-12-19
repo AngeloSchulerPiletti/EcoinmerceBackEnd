@@ -21,7 +21,7 @@ public class EcommerceManagerBusiness : IEcommerceManagerBusiness
     private readonly ITokenServiceEcommerceManager _tokenServiceEcommerceManager;
     private readonly IUserMail _mailService;
     private readonly IMapper _mapper;
-    private const string _baseIdentifier = "manager";
+    private const string _baseIdentifier = "cadastroManager";
 
     public EcommerceManagerBusiness(IEcommerceManagerRepository ecommerceManagerRepository,
                                     ITokenServiceEcommerceManager tokenServiceEcommerceManager,
