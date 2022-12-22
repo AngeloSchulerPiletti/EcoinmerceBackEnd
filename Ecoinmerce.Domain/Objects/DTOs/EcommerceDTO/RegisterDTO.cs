@@ -2,8 +2,8 @@
 
 public class RegisterDTO
 {
-    public RegisterManagerDTO Manager { get; set; }
-    public RegisterEcommerceDTO Ecommerce { get; set; }
+    public RegisterManagerDTO RegisterManager { get; set; }
+    public RegisterEcommerceDTO RegisterEcommerce { get; set; }
 }
 
 /// <summary>

@@ -22,7 +22,7 @@ public class EcommerceBusiness : IEcommerceBusiness
     private readonly IHdWalletManager _hdWalletManager;
     private readonly IUserMail _mailService;
     private readonly ITokenServiceEcommerce _tokenServiceEcommerce;
-    private const string _baseIdentifier = "cadastroEcommerce";
+    private const string _baseIdentifier = "registerEcommerce";
 
     public EcommerceBusiness(IHdWalletManager hdWalletManager,
                              IEcommerceRepository ecommerceRepository,
