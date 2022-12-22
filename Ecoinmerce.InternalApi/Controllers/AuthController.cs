@@ -29,16 +29,16 @@ public class AuthController : ControllerBase
     [HttpPost]
     public IActionResult Register([FromBody] RegisterDTO registerDTO)
     {
-        MessageBagVO messageBagManagerValidation = _ecommerceManagerBusiness.ValidateRegister(registerDTO.Manager);
+        MessageBagVO messageBagManagerValidation = _ecommerceManagerBusiness.ValidateRegister(registerDTO.RegisterManager);
         if (messageBagManagerValidation.IsError) return BadRequest(messageBagManagerValidation);
 
-        MessageBagVO messageBagEcommerceValidation = _ecommerceBusiness.ValidateRegister(registerDTO.Ecommerce);
+        MessageBagVO messageBagEcommerceValidation = _ecommerceBusiness.ValidateRegister(registerDTO.RegisterEcommerce);
         if (messageBagEcommerceValidation.IsError) return BadRequest(messageBagEcommerceValidation);
 
-        MessageBagSingleEntityVO<Ecommerce> messageBagEcommerce = _ecommerceBusiness.Register(registerDTO.Ecommerce);
+        MessageBagSingleEntityVO<Ecommerce> messageBagEcommerce = _ecommerceBusiness.Register(registerDTO.RegisterEcommerce);
         if (messageBagEcommerce.IsError) return BadRequest(messageBagEcommerce);
 
-        MessageBagSingleEntityVO<EcommerceManager> messageBagManager = _ecommerceManagerBusiness.Register(registerDTO.Manager, messageBagEcommerce.Entity);
+        MessageBagSingleEntityVO<EcommerceManager> messageBagManager = _ecommerceManagerBusiness.Register(registerDTO.RegisterManager, messageBagEcommerce.Entity);
         if (messageBagManager.IsError) return BadRequest(messageBagManager);
 
         _ecommerceManagerBusiness.SendConfirmationEmailAsync(messageBagManager.Entity);
