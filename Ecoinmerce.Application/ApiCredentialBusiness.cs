@@ -46,7 +46,7 @@ public class ApiCredentialBusiness : IApiCredentialBusiness
         _apiCredentialRepository.Delete(apiCredential);
         bool saveResult = _apiCredentialRepository.SaveChanges();
         return saveResult ?
-            new MessageBagSingleEntityVO<ApiCredential>("Credencial deletada", "Sucesso") :
+            new MessageBagSingleEntityVO<ApiCredential>("Credencial deletada", "Sucesso", false) :
             new MessageBagSingleEntityVO<ApiCredential>("Tivemos um erro e já estamos trabalhando para corrigí-lo", "Não foi possível deletar a credencial");
     }
 
