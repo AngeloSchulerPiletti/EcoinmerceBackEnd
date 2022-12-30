@@ -18,7 +18,6 @@ using Ecoinmerce.Services.WalletManager;
 using Ecoinmerce.Services.WalletManager.Interfaces;
 using Ecoinmerce.Utils.Json;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);

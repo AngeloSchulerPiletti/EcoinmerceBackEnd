@@ -2,27 +2,27 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
-    <PackageReference Include="FluentValidation" Version="11.2.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.10">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.10" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+	  <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.10" />
+	  <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Ecoinmerce.Application\Ecoinmerce.Application.csproj" />
-    <ProjectReference Include="..\Ecoinmerce.Domain\Ecoinmerce.Domain.csproj" />
-    <ProjectReference Include="..\Ecoinmerce.Infra.MailService\Ecoinmerce.Infra.MailService.csproj" />
-    <ProjectReference Include="..\Ecoinmerce.Infra.Repository\Ecoinmerce.Infra.Repository.csproj" />
+	  <ProjectReference Include="..\Ecoinmerce.Application.Services.Text\Ecoinmerce.Application.Services.Text.csproj" />
+	  <ProjectReference Include="..\Ecoinmerce.Application.Services.Token\Ecoinmerce.Application.Services.Token.csproj" />
+	  <ProjectReference Include="..\Ecoinmerce.Application.Services\Ecoinmerce.Application.Services.csproj" />
+	  <ProjectReference Include="..\Ecoinmerce.Application\Ecoinmerce.Application.csproj" />
+	  <ProjectReference Include="..\Ecoinmerce.Domain\Ecoinmerce.Domain.csproj" />
+	  <ProjectReference Include="..\Ecoinmerce.Infra.Blockchain\Ecoinmerce.Infra.Blockchain.csproj" />
+	  <ProjectReference Include="..\Ecoinmerce.Infra.MailService\Ecoinmerce.Infra.MailService.csproj" />
+	  <ProjectReference Include="..\Ecoinmerce.Infra.Repository\Ecoinmerce.Infra.Repository.csproj" />
+	  <ProjectReference Include="..\Ecoinmerce.Services.Mapper\Ecoinmerce.Services.Mapper.csproj" />
+	  <ProjectReference Include="..\Ecoinmerce.Services.WalletManager\Ecoinmerce.Services.WalletManager.csproj" />
   </ItemGroup>
 
 </Project>

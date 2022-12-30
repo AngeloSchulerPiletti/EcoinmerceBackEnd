@@ -10,7 +10,7 @@ public class PluginController : ControllerBase
     private readonly string _absoluteBasePath;
     public PluginController()
     {
-        var relativePath = ".\\PartnerPlugin\\Scripts\\";
+        var relativePath = ".\\Plugin\\Scripts\\";
         _absoluteBasePath = Path.GetFullPath(relativePath);
     }
 
