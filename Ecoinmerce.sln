@@ -46,6 +46,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecoinmerce.Services.Mapper"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecoinmerce.Services.WalletManager", "Ecoinmerce.Services.WalletManager\Ecoinmerce.Services.WalletManager.csproj", "{DE932572-E70A-4312-B169-EF08219F500A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecoinmerce.Infra.Ratings", "Ecoinmerce.Infra.Ratings\Ecoinmerce.Infra.Ratings.csproj", "{610CBB72-76F5-4BF2-A59D-97ED414A9419}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -440,6 +442,26 @@ Global
 		{DE932572-E70A-4312-B169-EF08219F500A}.Release|x64.Build.0 = Release|Any CPU
 		{DE932572-E70A-4312-B169-EF08219F500A}.Release|x86.ActiveCfg = Release|Any CPU
 		{DE932572-E70A-4312-B169-EF08219F500A}.Release|x86.Build.0 = Release|Any CPU
+		{610CBB72-76F5-4BF2-A59D-97ED414A9419}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{610CBB72-76F5-4BF2-A59D-97ED414A9419}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{610CBB72-76F5-4BF2-A59D-97ED414A9419}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{610CBB72-76F5-4BF2-A59D-97ED414A9419}.Debug|ARM.Build.0 = Debug|Any CPU
+		{610CBB72-76F5-4BF2-A59D-97ED414A9419}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{610CBB72-76F5-4BF2-A59D-97ED414A9419}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{610CBB72-76F5-4BF2-A59D-97ED414A9419}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{610CBB72-76F5-4BF2-A59D-97ED414A9419}.Debug|x64.Build.0 = Debug|Any CPU
+		{610CBB72-76F5-4BF2-A59D-97ED414A9419}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{610CBB72-76F5-4BF2-A59D-97ED414A9419}.Debug|x86.Build.0 = Debug|Any CPU
+		{610CBB72-76F5-4BF2-A59D-97ED414A9419}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{610CBB72-76F5-4BF2-A59D-97ED414A9419}.Release|Any CPU.Build.0 = Release|Any CPU
+		{610CBB72-76F5-4BF2-A59D-97ED414A9419}.Release|ARM.ActiveCfg = Release|Any CPU
+		{610CBB72-76F5-4BF2-A59D-97ED414A9419}.Release|ARM.Build.0 = Release|Any CPU
+		{610CBB72-76F5-4BF2-A59D-97ED414A9419}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{610CBB72-76F5-4BF2-A59D-97ED414A9419}.Release|ARM64.Build.0 = Release|Any CPU
+		{610CBB72-76F5-4BF2-A59D-97ED414A9419}.Release|x64.ActiveCfg = Release|Any CPU
+		{610CBB72-76F5-4BF2-A59D-97ED414A9419}.Release|x64.Build.0 = Release|Any CPU
+		{610CBB72-76F5-4BF2-A59D-97ED414A9419}.Release|x86.ActiveCfg = Release|Any CPU
+		{610CBB72-76F5-4BF2-A59D-97ED414A9419}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
