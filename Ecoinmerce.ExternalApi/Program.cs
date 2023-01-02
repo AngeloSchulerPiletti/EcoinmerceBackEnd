@@ -52,6 +52,7 @@ builder.Services.AddSingleton(builder.Configuration.GetSection("EmailSetting").G
 builder.Services.AddSingleton(builder.Configuration.GetSection("HdWalletCredentials").Get<HdWalletCredentialSetting>());
 builder.Services.AddSingleton(builder.Configuration.GetSection("ApiCredentials").Get<ApiCredentialSetting>());
 builder.Services.AddSingleton(builder.Configuration.GetSection("TokenSecrets").Get<TokenSecretsSetting>());
+builder.Services.AddSingleton(builder.Configuration.GetSection("Ratings").Get<RatingsSettings>());
 
 
 var relativePath = $"..\\";
