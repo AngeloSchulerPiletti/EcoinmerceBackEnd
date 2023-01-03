@@ -153,4 +153,12 @@ public class EcommerceBusiness : IEcommerceBusiness
         messageBag.IsError = false;
         return messageBag;
     }
+
+    public MessageBagSingleEntityVO<string> GetEcommerceNameById(int id)
+    {
+        Ecommerce ecommerce = _ecommerceRepository.GetById(id);
+        return ecommerce == null ?
+            new MessageBagSingleEntityVO<string>("Não foi possível o ecommerce desse pagamento") :
+            new MessageBagSingleEntityVO<string>("Ecommerce encontrado", null, false, ecommerce.FantasyName);
+    }
 }
