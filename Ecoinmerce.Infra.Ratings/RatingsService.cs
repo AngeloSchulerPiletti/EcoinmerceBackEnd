@@ -40,18 +40,20 @@ public class RatingsService : IRatingsService
         client.DefaultRequestHeaders.Add("X-CMC_PRO_API_KEY", _ratingsSettings.CoinMarketCap.AccessToken);
 
         HttpResponseMessage response = client.GetAsync(url.ToString()).Result;
-        if (response == null || response.StatusCode != HttpStatusCode.OK)
-        {
-            return null;
-        }
+        if (response == null || response.StatusCode != HttpStatusCode.OK) return null;
 
-        CoinMarketCapResponse coinMarketCapResponse = JsonSerializer.Deserialize<CoinMarketCapResponse>(response.Content.ReadAsStream());
+        string stringfiedResponse = response.Content.ReadAsStringAsync().Result;
+        CoinMarketCapResponse coinMarketCapResponse = JsonSerializer.Deserialize<CoinMarketCapResponse>(stringfiedResponse);
+
+        List<CoinMarketCapResponseData> quoteDataList = coinMarketCapResponse.Data[convertTo.CoinMarketCapCode];
+        if (coinMarketCapResponse.Status.ErrorCode != "0" || quoteDataList == null || quoteDataList.Count == 0) return null;
+
         RatingQuote ratingQuote = new()
         {
             CurrencyFrom = convertFrom.CoinMarketCapCode,
             CurrencyTo = convertTo.CoinMarketCapCode,
-            Price = coinMarketCapResponse.Data[1].Quote[convertTo.CoinMarketCapCode].Price,
-            UpdatedAt = coinMarketCapResponse.Data[1].Quote[convertTo.CoinMarketCapCode].LastUpdated,
+            Price = quoteDataList[0].Quote[convertTo.CoinMarketCapCode].Price,
+            UpdatedAt = quoteDataList[0].Quote[convertTo.CoinMarketCapCode].LastUpdated,
         };
         return ratingQuote;
     }
