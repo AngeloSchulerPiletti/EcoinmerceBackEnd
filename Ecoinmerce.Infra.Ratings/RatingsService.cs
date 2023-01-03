@@ -18,6 +18,11 @@ public class RatingsService : IRatingsService
         _ratingsSettings = ratingsSettings;
     }
 
+    public RatingQuote GetRating(RatingCode convertFrom, RatingCode convertTo)
+    {
+        return GetRatingFromCoinMarketCap(convertFrom, convertTo);
+    }
+
     public RatingQuote GetRatingFromCoinMarketCap(RatingCode convertFrom, RatingCode convertTo)
     {
         NameValueCollection queryString = HttpUtility.ParseQueryString(string.Empty);

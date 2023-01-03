@@ -6,4 +6,5 @@ namespace Ecoinmerce.Infra.Ratings.Interfaces;
 public interface IRatingsService
 {
     public RatingQuote GetRatingFromCoinMarketCap(RatingCode convertFrom, RatingCode convertTo);
+    public RatingQuote GetRating(RatingCode convertFrom, RatingCode convertTo);
 }
