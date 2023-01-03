@@ -23,6 +23,7 @@
 	  <ProjectReference Include="..\Ecoinmerce.Infra.Ratings\Ecoinmerce.Infra.Ratings.csproj" />
 	  <ProjectReference Include="..\Ecoinmerce.Infra.Repository\Ecoinmerce.Infra.Repository.csproj" />
 	  <ProjectReference Include="..\Ecoinmerce.Services.Mapper\Ecoinmerce.Services.Mapper.csproj" />
+	  <ProjectReference Include="..\Ecoinmerce.Services.StorageReader\Ecoinmerce.Services.StorageReader.csproj" />
 	  <ProjectReference Include="..\Ecoinmerce.Services.WalletManager\Ecoinmerce.Services.WalletManager.csproj" />
   </ItemGroup>
 

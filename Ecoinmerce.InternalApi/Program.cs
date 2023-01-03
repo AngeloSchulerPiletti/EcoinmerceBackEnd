@@ -16,6 +16,8 @@ using Ecoinmerce.Infra.Repository;
 using Ecoinmerce.Infra.Repository.Database.Context;
 using Ecoinmerce.Infra.Repository.Interfaces;
 using Ecoinmerce.Services.Mapper.AutoMapperProfiles;
+using Ecoinmerce.Services.StorageReader;
+using Ecoinmerce.Services.StorageReader.Interfaces;
 using Ecoinmerce.Services.WalletManager;
 using Ecoinmerce.Services.WalletManager.Interfaces;
 using Ecoinmerce.Utils.Json;
@@ -55,6 +57,7 @@ builder.Services.AddSingleton(builder.Configuration.GetSection("HdWalletCredenti
 builder.Services.AddSingleton(builder.Configuration.GetSection("ApiCredentials").Get<ApiCredentialSetting>());
 builder.Services.AddSingleton(builder.Configuration.GetSection("TokenSecrets").Get<TokenSecretsSetting>());
 builder.Services.AddSingleton(builder.Configuration.GetSection("Ratings").Get<RatingsSettings>());
+builder.Services.AddSingleton(builder.Configuration.GetSection("Storage").Get<StorageSettings>());
 
 
 var relativePath = $"..\\";
@@ -75,6 +78,7 @@ builder.Services.AddSingleton<IStringFormatterService, StringFormatterService>()
 builder.Services.AddSingleton<ITokenServiceEcommerceAdmin, TokenServiceEcommerceAdmin>();
 builder.Services.AddSingleton<ITokenServiceEcommerceManager, TokenServiceEcommerceManager>();
 builder.Services.AddSingleton<ITokenServiceEcommerce, TokenServiceEcommerce>();
+builder.Services.AddSingleton<IStorageReader, StorageReader>();
 
 builder.Services.AddSingleton<IRatingsService, RatingsService>();
 builder.Services.AddSingleton<IPaginationService, PaginationService>();
