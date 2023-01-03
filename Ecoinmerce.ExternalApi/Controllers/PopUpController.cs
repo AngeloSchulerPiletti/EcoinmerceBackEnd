@@ -17,8 +17,12 @@ public class PopUpController : Controller
 
     [HttpGet]
     [Route("ether/easy-popup")]
-    public IActionResult GetEtherEasyPopUp([FromQuery] string purchaseTotal, [FromQuery] string purchaseIdentifier, [FromQuery] uint ecommerceId)
+    public IActionResult GetEtherEasyPopUp([FromQuery] string purchaseTotal, [FromQuery] string purchaseIdentifier, [FromQuery] int ecommerceId)
     {
+        MessageBagSingleEntityVO<string> messageBagEcommerceName = _ecommerceBusiness.GetEcommerceNameById(ecommerceId);
+        if (messageBagEcommerceName.IsError) return BadRequest(messageBagEcommerceName);
+
+        ViewBag.ecommerceName = messageBagEcommerceName.Entity;
         ViewBag.purchaseTotal = purchaseTotal;
         return View("~/PopUp/Ether/Index.cshtml");
     }
