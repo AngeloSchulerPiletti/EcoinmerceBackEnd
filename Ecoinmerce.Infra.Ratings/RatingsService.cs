@@ -1,7 +1,6 @@
 ﻿using Ecoinmerce.Domain.Settings;
 using Ecoinmerce.Infra.Ratings.Interfaces;
 using Ecoinmerce.Infra.Ratings.Responses;
-using Newtonsoft.Json;
 using System.Collections.Specialized;
 using System.Net;
 using System.Net.Http.Headers;
@@ -13,7 +12,6 @@ namespace Ecoinmerce.Infra.Ratings;
 public class RatingsService : IRatingsService
 {
     private readonly RatingsSettings _ratingsSettings;
-    private readonly JsonSerializer _jsonSerializer = new();
 
     public RatingsService(RatingsSettings ratingsSettings)
     {
@@ -42,7 +40,7 @@ public class RatingsService : IRatingsService
             return null;
         }
 
-        CoinMarketCapResponse coinMarketCapResponse = _jsonSerializer.Deserialize<CoinMarketCapResponse>(response.Content);
+        CoinMarketCapResponse coinMarketCapResponse = JsonSerializer.Deserialize<CoinMarketCapResponse>(response.Content.ReadAsStream());
         RatingQuote ratingQuote = new()
         {
             CurrencyFrom = convertFrom.CoinMarketCapCode,
