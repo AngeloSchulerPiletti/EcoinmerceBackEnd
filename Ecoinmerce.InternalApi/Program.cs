@@ -10,6 +10,8 @@ using Ecoinmerce.Domain.Settings;
 using Ecoinmerce.Infra.Api.Management.Middleware;
 using Ecoinmerce.Infra.MailService;
 using Ecoinmerce.Infra.MailService.Interfaces;
+using Ecoinmerce.Infra.Ratings;
+using Ecoinmerce.Infra.Ratings.Interfaces;
 using Ecoinmerce.Infra.Repository;
 using Ecoinmerce.Infra.Repository.Database.Context;
 using Ecoinmerce.Infra.Repository.Interfaces;
@@ -74,6 +76,7 @@ builder.Services.AddSingleton<ITokenServiceEcommerceAdmin, TokenServiceEcommerce
 builder.Services.AddSingleton<ITokenServiceEcommerceManager, TokenServiceEcommerceManager>();
 builder.Services.AddSingleton<ITokenServiceEcommerce, TokenServiceEcommerce>();
 
+builder.Services.AddSingleton<IRatingsService, RatingsService>();
 builder.Services.AddSingleton<IPaginationService, PaginationService>();
 builder.Services.AddSingleton<IUserMail, UserMail>();
 builder.Services.AddSingleton<IHdWalletManager, HdWalletManager>();

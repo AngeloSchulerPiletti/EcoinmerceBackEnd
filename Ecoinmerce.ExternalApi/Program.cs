@@ -18,6 +18,8 @@ using Ecoinmerce.Infra.MailService.Interfaces;
 using Ecoinmerce.Application.Services.Interfaces;
 using Ecoinmerce.Application.Services;
 using Ecoinmerce.Services.Mapper.AutoMapperProfiles;
+using Ecoinmerce.Infra.Ratings.Interfaces;
+using Ecoinmerce.Infra.Ratings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -74,6 +76,7 @@ builder.Services.AddSingleton<ITokenServiceEcommerceAdmin, TokenServiceEcommerce
 builder.Services.AddSingleton<ITokenServiceEcommerceManager, TokenServiceEcommerceManager>();
 builder.Services.AddSingleton<ITokenServiceEcommerce, TokenServiceEcommerce>();
 
+builder.Services.AddSingleton<IRatingsService, RatingsService>();
 builder.Services.AddSingleton<IPaginationService, PaginationService>();
 builder.Services.AddSingleton<IUserMail, UserMail>();
 builder.Services.AddSingleton<IHdWalletManager, HdWalletManager>();
