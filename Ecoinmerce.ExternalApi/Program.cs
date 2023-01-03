@@ -81,6 +81,7 @@ builder.Services.AddSingleton<IPaginationService, PaginationService>();
 builder.Services.AddSingleton<IUserMail, UserMail>();
 builder.Services.AddSingleton<IHdWalletManager, HdWalletManager>();
 
+builder.Services.AddScoped<IRatingsBusiness, RatingsBusiness>();
 builder.Services.AddScoped<IEcommerceBusiness, EcommerceBusiness>();
 builder.Services.AddScoped<IEcommerceAdminBusiness, EcommerceAdminBusiness>();
 builder.Services.AddScoped<IEcommerceManagerBusiness, EcommerceManagerBusiness>();
