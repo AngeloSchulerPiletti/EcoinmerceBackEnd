@@ -1,8 +1,11 @@
 ﻿using Ecoinmerce.Domain.Settings;
 using Ecoinmerce.Infra.Ratings.Interfaces;
+using Ecoinmerce.Infra.Ratings.Responses;
+using Newtonsoft.Json;
 using System.Collections.Specialized;
 using System.Net;
 using System.Net.Http.Headers;
+using System.Text.Json;
 using System.Web;
 
 namespace Ecoinmerce.Infra.Ratings;
@@ -10,13 +13,14 @@ namespace Ecoinmerce.Infra.Ratings;
 public class RatingsService : IRatingsService
 {
     private readonly RatingsSettings _ratingsSettings;
+    private readonly JsonSerializer _jsonSerializer = new();
 
     public RatingsService(RatingsSettings ratingsSettings)
     {
         _ratingsSettings = ratingsSettings;
     }
 
-    public decimal? GetRatingFromCoinMarketCap(RatingCode convertFrom, RatingCode convertTo)
+    public RatingQuote GetRatingFromCoinMarketCap(RatingCode convertFrom, RatingCode convertTo)
     {
         NameValueCollection queryString = HttpUtility.ParseQueryString(string.Empty);
         queryString["symbol"] = convertFrom.CoinMarketCapCode;
@@ -24,7 +28,7 @@ public class RatingsService : IRatingsService
 
         UriBuilder url = new(_ratingsSettings.CoinMarketCap.BaseUrl)
         {
-            Path = "v2/cryptocurrency/listings/latest",
+            Path = "v2/cryptocurrency/quotes/latest",
             Query = queryString.ToString()
         };
 
@@ -33,9 +37,19 @@ public class RatingsService : IRatingsService
         client.DefaultRequestHeaders.Add("X-CMC_PRO_API_KEY", _ratingsSettings.CoinMarketCap.AccessToken);
 
         HttpResponseMessage response = client.GetAsync(url.ToString()).Result;
-        if(response == null || response.StatusCode != HttpStatusCode.OK) {
+        if (response == null || response.StatusCode != HttpStatusCode.OK)
+        {
             return null;
         }
-        response.Content.
+
+        CoinMarketCapResponse coinMarketCapResponse = _jsonSerializer.Deserialize<CoinMarketCapResponse>(response.Content);
+        RatingQuote ratingQuote = new()
+        {
+            CurrencyFrom = convertFrom.CoinMarketCapCode,
+            CurrencyTo = convertTo.CoinMarketCapCode,
+            Price = coinMarketCapResponse.Data[1].Quote[convertTo.CoinMarketCapCode].Price,
+            UpdatedAt = coinMarketCapResponse.Data[1].Quote[convertTo.CoinMarketCapCode].LastUpdated,
+        };
+        return ratingQuote;
     }
 }

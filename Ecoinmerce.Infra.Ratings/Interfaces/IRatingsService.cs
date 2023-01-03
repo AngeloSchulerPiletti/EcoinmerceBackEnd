@@ -1,8 +1,9 @@
 ﻿using Ecoinmerce.Domain.Settings;
+using Ecoinmerce.Infra.Ratings.Responses;
 
 namespace Ecoinmerce.Infra.Ratings.Interfaces;
 
 public interface IRatingsService
 {
-    public decimal GetRatingFromCoinMarketCap(RatingCode convertFrom, RatingCode convertTo)/
+    public RatingQuote GetRatingFromCoinMarketCap(RatingCode convertFrom, RatingCode convertTo);
 }
