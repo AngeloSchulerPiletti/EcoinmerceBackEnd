@@ -4,6 +4,7 @@ using Ecoinmerce.Infra.Ratings.Responses;
 using System.Collections.Specialized;
 using System.Net;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Text.Json;
 using System.Web;
 
@@ -42,11 +43,10 @@ public class RatingsService : IRatingsService
         HttpResponseMessage response = client.GetAsync(url.ToString()).Result;
         if (response == null || response.StatusCode != HttpStatusCode.OK) return null;
 
-        string stringfiedResponse = response.Content.ReadAsStringAsync().Result;
-        CoinMarketCapResponse coinMarketCapResponse = JsonSerializer.Deserialize<CoinMarketCapResponse>(stringfiedResponse);
+        CoinMarketCapResponse coinMarketCapResponse = response.Content.ReadFromJsonAsync<CoinMarketCapResponse>().Result;
 
-        List<CoinMarketCapResponseData> quoteDataList = coinMarketCapResponse.Data[convertTo.CoinMarketCapCode];
-        if (coinMarketCapResponse.Status.ErrorCode != "0" || quoteDataList == null || quoteDataList.Count == 0) return null;
+        List<CoinMarketCapResponseData> quoteDataList = coinMarketCapResponse.Data[convertFrom.CoinMarketCapCode];
+        if (coinMarketCapResponse.Status.ErrorCode != null || quoteDataList == null || quoteDataList.Count == 0) return null;
 
         RatingQuote ratingQuote = new()
         {
