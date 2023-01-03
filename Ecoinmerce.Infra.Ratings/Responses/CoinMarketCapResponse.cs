@@ -4,8 +4,8 @@ namespace Ecoinmerce.Infra.Ratings.Responses;
 
 public class CoinMarketCapResponse
 {
-    public Dictionary<int, CoinMarketCapResponseData> Data { get; set; }
     public CoinMarketCapResponseStatus Status { get; set; }
+    public Dictionary<string, List<CoinMarketCapResponseData>> Data { get; set; }
 }
 public class CoinMarketCapResponseData
 {
