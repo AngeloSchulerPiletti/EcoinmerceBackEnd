@@ -118,7 +118,8 @@ public class EcommerceBusiness : IEcommerceBusiness
                 Address = account.Address,
                 PrivateKey = account.PrivateKey,
                 PublicKey = account.PublicKey,
-                Name = registerEcommerceDTO.WalletName
+                Name = registerEcommerceDTO.WalletName,
+                IsInternalCustody = true
             };
         }
         else
@@ -126,7 +127,8 @@ public class EcommerceBusiness : IEcommerceBusiness
             wallet = new()
             {
                 Address = registerEcommerceDTO.WalletAddress,
-                Name = registerEcommerceDTO.WalletName
+                Name = registerEcommerceDTO.WalletName,
+                IsInternalCustody = false
             };
         }
         return wallet;
