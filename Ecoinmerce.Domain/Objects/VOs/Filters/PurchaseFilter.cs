@@ -61,18 +61,21 @@ public class PurchaseFilter
             if (CreatedTo == null) queries.Add($"CreatedAt >= {CreatedFrom}");
             else queries.Add($"CreatedAt >= {CreatedFrom} AND CreatedAt <= {CreatedTo}");
         }
+        else if (CreatedTo != null) queries.Add($"CreatedAt <= {CreatedTo}");
 
         if (PaidFrom != null)
         {
             if (PaidTo == null) queries.Add($"PaidAt >= {PaidFrom}");
             else queries.Add($"PaidAt >= {PaidFrom} AND PaidAt <= {PaidTo}");
         }
+        else if (PaidTo != null) queries.Add($"PaidAt <= {PaidTo}");
 
         if (AmountPaidInEtherFrom != null)
         {
             if (AmountPaidInEtherTo == null) queries.Add($"AmountPaidInEther >= {AmountPaidInEtherFrom}");
             else queries.Add($"AmountPaidInEther >= {AmountPaidInEtherFrom} AND AmountPaidInEther <= {AmountPaidInEtherTo}");
         }
+        else if (AmountPaidInEtherTo != null) queries.Add($"AmountPaidInEther <= {AmountPaidInEtherTo}");
 
         if (PurchaseIdentifier != null) queries.Add($" PurchaseIdentifier = {PurchaseIdentifier}");
 
