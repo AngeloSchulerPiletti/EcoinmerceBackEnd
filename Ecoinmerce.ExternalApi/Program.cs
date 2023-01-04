@@ -22,6 +22,8 @@ using Ecoinmerce.Infra.Ratings.Interfaces;
 using Ecoinmerce.Infra.Ratings;
 using Ecoinmerce.Services.StorageReader;
 using Ecoinmerce.Services.StorageReader.Interfaces;
+using Ecoinmerce.SmartContracts.Interfaces;
+using Ecoinmerce.SmartContracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -79,6 +81,7 @@ builder.Services.AddSingleton<ITokenServiceEcommerceAdmin, TokenServiceEcommerce
 builder.Services.AddSingleton<ITokenServiceEcommerceManager, TokenServiceEcommerceManager>();
 builder.Services.AddSingleton<ITokenServiceEcommerce, TokenServiceEcommerce>();
 builder.Services.AddSingleton<IStorageReader, StorageReader>();
+builder.Services.AddSingleton<IBinReader, BinReader>();
 
 builder.Services.AddSingleton<IRatingsService, RatingsService>();
 builder.Services.AddSingleton<IPaginationService, PaginationService>();

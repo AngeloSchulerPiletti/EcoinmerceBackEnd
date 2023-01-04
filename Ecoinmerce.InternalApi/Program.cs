@@ -20,6 +20,8 @@ using Ecoinmerce.Services.StorageReader;
 using Ecoinmerce.Services.StorageReader.Interfaces;
 using Ecoinmerce.Services.WalletManager;
 using Ecoinmerce.Services.WalletManager.Interfaces;
+using Ecoinmerce.SmartContracts.Interfaces;
+using Ecoinmerce.SmartContracts;
 using Ecoinmerce.Utils.Json;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
@@ -79,6 +81,7 @@ builder.Services.AddSingleton<ITokenServiceEcommerceAdmin, TokenServiceEcommerce
 builder.Services.AddSingleton<ITokenServiceEcommerceManager, TokenServiceEcommerceManager>();
 builder.Services.AddSingleton<ITokenServiceEcommerce, TokenServiceEcommerce>();
 builder.Services.AddSingleton<IStorageReader, StorageReader>();
+builder.Services.AddSingleton<IBinReader, BinReader>();
 
 builder.Services.AddSingleton<IRatingsService, RatingsService>();
 builder.Services.AddSingleton<IPaginationService, PaginationService>();
