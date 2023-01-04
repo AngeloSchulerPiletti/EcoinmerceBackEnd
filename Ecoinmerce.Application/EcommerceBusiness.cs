@@ -159,7 +159,7 @@ public class EcommerceBusiness : IEcommerceBusiness
     {
         Ecommerce ecommerce = _ecommerceRepository.GetById(id);
         if (ecommerce == null)
-            return new MessageBagSingleEntityVO<PublicEcommerce>("Não foi possível o ecommerce desse pagamento");
+            return new MessageBagSingleEntityVO<PublicEcommerce>("Não foi possível encontrar o ecommerce desse pagamento");
 
         PublicEcommerce publicEcommerce = new()
         {
@@ -167,5 +167,13 @@ public class EcommerceBusiness : IEcommerceBusiness
             WalletAddress = ecommerce.EtherWallets[0].Address
         };
         return new MessageBagSingleEntityVO<PublicEcommerce>("Ecommerce encontrado", null, false, publicEcommerce);
+    }
+
+    public MessageBagSingleEntityVO<Ecommerce> GetEcommerceById(int id)
+    {
+        Ecommerce ecommerce = _ecommerceRepository.GetById(id);
+        return ecommerce == null ?
+            new MessageBagSingleEntityVO<Ecommerce>("Não foi possível encontrar o ecommerce. Tente mais tarde") :
+            new MessageBagSingleEntityVO<Ecommerce>("Ecommerce encontrado", null, false, ecommerce);
     }
 }
