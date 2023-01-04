@@ -9,9 +9,9 @@ namespace Ecoinmerce.ExternalApi.Controllers;
 public class MidiaController : ControllerBase
 {
     [HttpGet]
-    [Route("brand")]
-    public IActionResult GetMidia()
+    [Route("brand/{filename}")]
+    public IActionResult GetMidia(string filename)
     {
-
+        return BadRequest();
     }
 }
