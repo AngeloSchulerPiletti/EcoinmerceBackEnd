@@ -3,6 +3,7 @@ using Ecoinmerce.Application.Interfaces;
 using Ecoinmerce.Application.Services.Token.Interfaces;
 using Ecoinmerce.Domain.Entities;
 using Ecoinmerce.Domain.Objects.DTOs;
+using Ecoinmerce.Domain.Objects.DTOs.EcommerceDTO;
 using Ecoinmerce.Domain.Objects.VOs.Responses;
 using Ecoinmerce.Domain.Validators;
 using Ecoinmerce.Infra.MailService.Interfaces;
@@ -154,11 +155,17 @@ public class EcommerceBusiness : IEcommerceBusiness
         return messageBag;
     }
 
-    public MessageBagSingleEntityVO<string> GetEcommerceNameById(int id)
+    public MessageBagSingleEntityVO<PublicEcommerce> GetPublicEcommerceById(int id)
     {
         Ecommerce ecommerce = _ecommerceRepository.GetById(id);
-        return ecommerce == null ?
-            new MessageBagSingleEntityVO<string>("Não foi possível o ecommerce desse pagamento") :
-            new MessageBagSingleEntityVO<string>("Ecommerce encontrado", null, false, ecommerce.FantasyName);
+        if (ecommerce == null)
+            return new MessageBagSingleEntityVO<PublicEcommerce>("Não foi possível o ecommerce desse pagamento");
+
+        PublicEcommerce publicEcommerce = new()
+        {
+            FantasyName = ecommerce.FantasyName,
+            WalletAddress = ecommerce.EtherWallets[0].Address
+        };
+        return new MessageBagSingleEntityVO<PublicEcommerce>("Ecommerce encontrado", null, false, publicEcommerce);
     }
 }
