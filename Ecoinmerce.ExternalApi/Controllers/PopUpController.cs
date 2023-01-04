@@ -1,4 +1,5 @@
 ﻿using Ecoinmerce.Application.Interfaces;
+using Ecoinmerce.Domain.Objects.DTOs.EcommerceDTO;
 using Ecoinmerce.Domain.Objects.VOs.Responses;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,11 +25,12 @@ public class PopUpController : Controller
         MessageBagSingleEntityVO<string> messageBagSmartContractJson = _smartContractBusiness.GetSmartContractJson();
         if (messageBagSmartContractJson.IsError) return BadRequest(messageBagSmartContractJson);
 
-        MessageBagSingleEntityVO<string> messageBagEcommerceName = _ecommerceBusiness.GetEcommerceNameById(ecommerceId);
+        MessageBagSingleEntityVO<PublicEcommerce> messageBagEcommerceName = _ecommerceBusiness.GetPublicEcommerceById(ecommerceId);
         if (messageBagEcommerceName.IsError) return BadRequest(messageBagEcommerceName);
 
         ViewBag.smartContractJson = messageBagSmartContractJson.Entity;
-        ViewBag.ecommerceName = messageBagEcommerceName.Entity;
+        ViewBag.ecommerceName = messageBagEcommerceName.Entity.FantasyName;
+        ViewBag.ecommerceAddress = messageBagEcommerceName.Entity.WalletAddress;
         ViewBag.purchaseTotal = purchaseTotal;
         return View("~/PopUp/Ether/Index.cshtml");
     }
