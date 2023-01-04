@@ -48,10 +48,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecoinmerce.Services.WalletM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecoinmerce.Infra.Ratings", "Ecoinmerce.Infra.Ratings\Ecoinmerce.Infra.Ratings.csproj", "{610CBB72-76F5-4BF2-A59D-97ED414A9419}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Storage", "Storage", "{EAC5E15D-3103-44B8-87C1-BE9B77DA8552}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Midia", "Midia", "{58B99589-C0A8-44A7-8A89-FCA7842CDE96}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecoinmerce.Services.StorageReader", "Ecoinmerce.Services.StorageReader\Ecoinmerce.Services.StorageReader.csproj", "{B97B7D09-0AFF-494D-8B86-B37488490016}"
 EndProject
 Global
@@ -491,9 +487,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{58B99589-C0A8-44A7-8A89-FCA7842CDE96} = {EAC5E15D-3103-44B8-87C1-BE9B77DA8552}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6581AC3D-39ED-46D5-99C6-5BA4ED722624}
