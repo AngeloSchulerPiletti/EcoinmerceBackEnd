@@ -9,6 +9,6 @@ public interface IPurchaseBusiness
 {
     public MessageBagSingleEntityVO<Purchase> GetEcommercePurchaseById(int purchaseId, Ecommerce ecommerce);
     public MessageBagSingleEntityVO<Purchase> GetPurchaseById(int id);
-    public MessageBagListEntityVO<Purchase> GetPurchasesByFilter(PurchaseFilter filter, PaginationDTO pagination);
+    public MessageBagListEntityVO<Purchase> GetPurchasesByFilter(PurchaseFilter filter, PaginationDTO pagination, Ecommerce ecommerce);
     public MessageBagSingleEntityVO<Purchase> UpdatePurchaseObservation(Purchase purchase, string observation);
 }

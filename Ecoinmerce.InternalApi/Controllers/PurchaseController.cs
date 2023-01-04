@@ -1,10 +1,10 @@
 ﻿using Ecoinmerce.Application.Interfaces;
 using Ecoinmerce.Domain.Entities;
+using Ecoinmerce.Domain.Objects.DTOs.Requests;
 using Ecoinmerce.Domain.Objects.VOs.Filters;
 using Ecoinmerce.Domain.Objects.VOs.Responses;
 using Ecoinmerce.InternalApi.ControllerAttributes;
 using EcoinmerceInfra.Api.Management.ControllerAttributes;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecoinmerce.InternalApi.Controllers;
@@ -27,6 +27,8 @@ public class PurchaseController : ControllerBase
     [Pagination]
     public IActionResult GetPurchases([FromBody] PurchaseFilter filter)
     {
+        PaginationDTO pagination = (PaginationDTO)HttpContext.Items["Pagination"];
+
         Ecommerce ecommerce;
 
         EcommerceManager manager = (EcommerceManager)HttpContext.Items["Manager"];
@@ -34,7 +36,8 @@ public class PurchaseController : ControllerBase
 
         ecommerce = manager == null ? admin.Ecommerce : manager.Ecommerce;
 
-        return BadRequest("Pede pro angelo terminar");
+        MessageBagListEntityVO<Purchase> messageBagPurchases = _purchaseBusiness.GetPurchasesByFilter(filter, pagination, ecommerce);
+        return messageBagPurchases.IsError ? BadRequest(messageBagPurchases) : Ok(messageBagPurchases);
 
     }
 

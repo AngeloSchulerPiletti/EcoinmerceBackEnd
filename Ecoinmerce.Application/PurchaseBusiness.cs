@@ -4,11 +4,6 @@ using Ecoinmerce.Domain.Objects.DTOs.Requests;
 using Ecoinmerce.Domain.Objects.VOs.Filters;
 using Ecoinmerce.Domain.Objects.VOs.Responses;
 using Ecoinmerce.Infra.Repository.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ecoinmerce.Application;
 
@@ -37,9 +32,15 @@ public class PurchaseBusiness : IPurchaseBusiness
                new MessageBagSingleEntityVO<Purchase>("Transação encontrada", null, false, purchase);
     }
 
-    public MessageBagListEntityVO<Purchase> GetPurchasesByFilter(PurchaseFilter filter, PaginationDTO pagination)
+    public MessageBagListEntityVO<Purchase> GetPurchasesByFilter(PurchaseFilter filter, PaginationDTO pagination, Ecommerce ecommerce)
     {
-        throw new NotImplementedException();
+        List<Purchase> purchases = _purchaseRepository.GetPurchasesByFilter(ref pagination, filter);
+        MessageBagListEntityVO<Purchase> messageBagPurchases = new("Transações encontradas", null, false)
+        {
+            Pagination = pagination,
+            Entities = purchases
+        };
+        return messageBagPurchases;
     }
 
     public MessageBagSingleEntityVO<Purchase> UpdatePurchaseObservation(Purchase purchase, string observation)
