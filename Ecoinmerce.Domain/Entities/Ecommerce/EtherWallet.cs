@@ -10,6 +10,7 @@ public class EtherWallet : BaseTimestampAgentEntity
     [JsonIgnore]
     public string PrivateKey { get; set; }
     public string Address { get; set; }
+    public bool IsInternalCustody { get; set; }
     public bool? IsDeleted { get; set; }
     public int EcommerceId { get; set; }
     [JsonIgnore]
