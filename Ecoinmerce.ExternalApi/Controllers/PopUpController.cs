@@ -31,6 +31,7 @@ public class PopUpController : Controller
         ViewBag.smartContractJson = messageBagSmartContractJson.Entity;
         ViewBag.ecommerceName = messageBagEcommerceName.Entity.FantasyName;
         ViewBag.ecommerceAddress = messageBagEcommerceName.Entity.WalletAddress;
+        ViewBag.purchaseIdentifier = purchaseIdentifier;
         ViewBag.purchaseTotal = purchaseTotal;
         return View("~/PopUp/Ether/Index.cshtml");
     }
