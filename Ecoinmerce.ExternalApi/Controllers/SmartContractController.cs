@@ -1,4 +1,5 @@
 ﻿using Ecoinmerce.Application.Interfaces;
+using Ecoinmerce.Domain.Objects.VOs.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiVersion("1")]
@@ -18,4 +19,14 @@ public class SmartContractController : ControllerBase
     {
         return Ok(_smartContractBusiness.GetSmartContractAddress());
     }
+
+
+    [HttpGet]
+    [Route("bin/json")]
+    public IActionResult GetSmartContractJson()
+    {
+        MessageBagSingleEntityVO<string> messageBagJson = _smartContractBusiness.GetSmartContractJson();
+        return messageBagJson.IsError ? BadRequest(messageBagJson) : Ok(messageBagJson);
+    }
+
 }
