@@ -180,7 +180,7 @@
         try {
             let smartContractJson = @Html.Raw(ViewData["smartContractJson"])
         @{
-            string smartContractAddress = ViewData["smartContractAddress"]
+            string smartContractAddress = ViewBag.smartContractAddress;
         }
             console.log(@smartContractAddress)
         const contract = new web3.eth.Contract(smartContractJson.abi, @smartContractAddress);

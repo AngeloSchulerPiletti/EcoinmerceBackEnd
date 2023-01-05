@@ -32,7 +32,7 @@ public class PopUpController : Controller
 
         string smartContractAddress = _smartContractBusiness.GetSmartContractAddress();
 
-        ViewData["smartContractAddress"] = smartContractAddress;
+        ViewBag.smartContractAddress = smartContractAddress;
         ViewData["smartContractJson"] = JValue.Parse(messageBagSmartContractJson.Entity).ToString(Formatting.Indented);
         ViewData["ecommerceName"] = messageBagEcommerceName.Entity.FantasyName;
         ViewData["ecommerceAddress"] = messageBagEcommerceName.Entity.WalletAddress;
