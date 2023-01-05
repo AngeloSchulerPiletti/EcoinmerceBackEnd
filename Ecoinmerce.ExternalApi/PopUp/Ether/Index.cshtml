@@ -1,4 +1,5 @@
-﻿@*
+﻿@using Ecoinmerce.Domain.Objects.VOs.Models;
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
@@ -118,77 +119,82 @@
     </style>
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
     <script>
-                  window.onload = () => {
-                      getRating()
-                    let timer = document.getElementById("timer");
-                    let duration = 15;
-                    setInterval(() => {
-                      if (duration === 0) {
-                          getRating()
-                        timer.textContent = duration = 15;
-                      } else {
-                        timer.textContent = --duration;
-                      }
-                    }, 1000);
-                  };
 
-                   function getRating(){
-                       let rating = document.getElementById('rating');
-                       let totalInEther = document.getElementById('total-in-ether');
-                       totalInEther.textContent = 'Aguardando a cotação';
+        var totalInEther = 0;
+        window.onload = () => {
+            getRating()
+            let timer = document.getElementById("timer");
+            let duration = 15;
+            setInterval(() => {
+                if (duration === 0) {
+                    getRating()
+                    timer.textContent = duration = 15;
+                } else {
+                    timer.textContent = --duration;
+                }
+            }, 1000);
+        };
 
-                        rating.textContent = 'Buscando cotação';
-                          fetch('https://localhost:7153/api/v1/ratings/quote/ETH/BRL',
-                      {
-                          method: 'GET',
-                          headers: { 'Content-Type': 'application/json;charset=utf-8', 'access-control-allow-origin': '*' }
-                      })
-                      .then((res) => res.json().then(res => {
-                          rating.textContent = res.entity.price + ' BRL';
-                          totalInEther.textContent = @ViewData["purchaseTotal"] / Number(res.entity.price.replace(",", ".")) + ' ETH';
+        function getRating() {
+            let rating = document.getElementById('rating');
+            var totalEtherEl = document.getElementById('total-in-ether');
+            totalEtherEl.textContent = 'Aguardando a cotação';
 
-                      }))
-                      .catch((error) => {
-                          console.log(error);
-                          rating.textContent = "Não foi possível fazer a cotação no momento"}
-                      )
-                  };
+            rating.textContent = 'Buscando cotação';
+            fetch('https://localhost:7153/api/v1/ratings/quote/ETH/BRL',
+                {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json;charset=utf-8', 'access-control-allow-origin': '*' }
+                })
+                .then((res) => res.json().then(res => {
+                    rating.textContent = 'R$ ' + res.entity.price;
+                    console.log(@Model.PurchaseTotal);
+                    console.log(Number(res.entity.price.replace(',', '.')));
+                    totalInEther = Number("@Model.PurchaseTotal") / Number(res.entity.price.replace(',', '.'));
+                    totalEtherEl.textContent = totalInEther + ' ETH';
 
-                 async function connectWallet(){
-                if (window.ethereum) {
-                  try {
+                }))
+                .catch((error) => {
+                    console.log(error);
+                    rating.textContent = "Não foi possível fazer a cotação no momento"
+                }
+                )
+        };
+
+
+        async function connectWallet() {
+            if (window.ethereum) {
+                try {
                     const accounts = await window.ethereum.request({
-                      method: "eth_requestAccounts"
+                        method: "eth_requestAccounts"
                     });
                     let walletAddress = accounts[0];
-                  } catch (error) {
+                } catch (error) {
                     console.log("Error connecting...");
-                  }
-                } else {
-                  window.location.href =
-                    "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn";
                 }
-              };
+            } else {
+                window.location.href =
+                    "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn";
+            }
+        };
 
-                  async function payPurchase() {
-                     if (!window.ethereum) return console.log(`No MetaMask found!`);
+        async function payPurchase() {
+            if (!window.ethereum) return console.log(`No MetaMask found!`);
 
-        const web3 = new Web3(window.ethereum);
-        const accounts = await web3.eth.requestAccounts();
-        if (!accounts || !accounts.length) return console.log(`Wallet not found`);
+            const web3 = new Web3(window.ethereum);
+            const accounts = await web3.eth.requestAccounts();
+            if (!accounts || !accounts.length) return console.log(`Wallet not found`);
 
-        try {
-            let smartContractJson = @Html.Raw(ViewData["smartContractJson"])
-        @{
-            string smartContractAddress = ViewBag.smartContractAddress;
+            try {
+                let smartContractJson = @Html.Raw(Model.SmartContractJson)
+
+                    console.log("@Model.SmartContractAddress")
+                const contract = new web3.eth.Contract(smartContractJson.abi, "@Model.SmartContractAddress");
+                await contract.methods.purchasePayment("@Model.EcommerceAddress", "@Model.PurchaseIdentifier").send({ from: accounts[0], gasPrice: 1000000, gas: 50000, value: web3.utils.toWei(totalInEther.toString()) });
+            } catch (error) {
+                console.log(error)
+            }
         }
-            console.log(@smartContractAddress)
-        const contract = new web3.eth.Contract(smartContractJson.abi, @smartContractAddress);
-        //await contract.methods.purchasePayment(@ViewData["ecommerceAddress"], @ViewData["purchaseIdentifier"]).send({from: accounts[0], gasPrice: 100000000, gas: 1000, value: 0.0123});
-        } catch (error) {
-          console.log(error)
-        }
-                  }
     </script>
 </head>
 <body>
@@ -201,11 +207,11 @@
                 <div id="timer">15</div>
             </div>
             <ul>
-                <li>Total em moeda fiduciária: <span>R$  @ViewData["purchaseTota"]</span></li>
+                <li>Total em moeda fiduciária: <span>R$  @Model.PurchaseTotal</span></li>
                 <li>Total em Ether: <span id="total-in-ether"></span></li>
                 <li>Cotação atual: <span id="rating"></span></li>
                 <li>Processadora de pagamento: <span>E-coinmerce</span></li>
-                <li>Pagamento para o ecommerce: <span>@ViewData["ecommerceName"] </span></li>
+                <li>Pagamento para o ecommerce: <span>@Model.EcommerceName </span></li>
             </ul>
             <div class="popup-sale-details-actions">
                 <button id="connect-wallet" onclick="connectWallet()">

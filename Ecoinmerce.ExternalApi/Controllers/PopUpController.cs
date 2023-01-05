@@ -1,9 +1,8 @@
 ﻿using Ecoinmerce.Application.Interfaces;
 using Ecoinmerce.Domain.Objects.DTOs.EcommerceDTO;
+using Ecoinmerce.Domain.Objects.VOs.Models;
 using Ecoinmerce.Domain.Objects.VOs.Responses;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Ecoinmerce.ExternalApi.Controllers;
 
@@ -22,7 +21,7 @@ public class PopUpController : Controller
 
     [HttpGet]
     [Route("ether/easy-popup")]
-    public IActionResult GetEtherEasyPopUp([FromQuery] decimal purchaseTotal, [FromQuery] string purchaseIdentifier, [FromQuery] int ecommerceId)
+    public IActionResult GetEtherEasyPopUp([FromQuery] string purchaseTotal, [FromQuery] string purchaseIdentifier, [FromQuery] int ecommerceId)
     {
         MessageBagSingleEntityVO<string> messageBagSmartContractJson = _smartContractBusiness.GetSmartContractJson();
         if (messageBagSmartContractJson.IsError) return BadRequest(messageBagSmartContractJson);
@@ -32,12 +31,16 @@ public class PopUpController : Controller
 
         string smartContractAddress = _smartContractBusiness.GetSmartContractAddress();
 
-        ViewBag.smartContractAddress = smartContractAddress;
-        ViewData["smartContractJson"] = JValue.Parse(messageBagSmartContractJson.Entity).ToString(Formatting.Indented);
-        ViewData["ecommerceName"] = messageBagEcommerceName.Entity.FantasyName;
-        ViewData["ecommerceAddress"] = messageBagEcommerceName.Entity.WalletAddress;
-        ViewData["purchaseIdentifier"] = purchaseIdentifier;
-        ViewData["purchaseTotal"] = purchaseTotal;
-        return View("~/PopUp/Ether/Index.cshtml");
+        PopUpModel model = new()
+        {
+            SmartContractAddress = smartContractAddress,
+            SmartContractJson = messageBagSmartContractJson.Entity,
+            EcommerceName = messageBagEcommerceName.Entity.FantasyName,
+            EcommerceAddress = messageBagEcommerceName.Entity.WalletAddress,
+            PurchaseIdentifier = purchaseIdentifier,
+            PurchaseTotal = purchaseTotal
+        };
+
+        return View("~/PopUp/Ether/Index.cshtml", model);
     }
 }
