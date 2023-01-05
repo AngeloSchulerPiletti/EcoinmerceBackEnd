@@ -2,6 +2,8 @@
 using Ecoinmerce.Domain.Objects.DTOs.EcommerceDTO;
 using Ecoinmerce.Domain.Objects.VOs.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Ecoinmerce.ExternalApi.Controllers;
 
@@ -20,7 +22,7 @@ public class PopUpController : Controller
 
     [HttpGet]
     [Route("ether/easy-popup")]
-    public IActionResult GetEtherEasyPopUp([FromQuery] string purchaseTotal, [FromQuery] string purchaseIdentifier, [FromQuery] int ecommerceId)
+    public IActionResult GetEtherEasyPopUp([FromQuery] decimal purchaseTotal, [FromQuery] string purchaseIdentifier, [FromQuery] int ecommerceId)
     {
         MessageBagSingleEntityVO<string> messageBagSmartContractJson = _smartContractBusiness.GetSmartContractJson();
         if (messageBagSmartContractJson.IsError) return BadRequest(messageBagSmartContractJson);
@@ -28,11 +30,14 @@ public class PopUpController : Controller
         MessageBagSingleEntityVO<PublicEcommerce> messageBagEcommerceName = _ecommerceBusiness.GetPublicEcommerceById(ecommerceId);
         if (messageBagEcommerceName.IsError) return BadRequest(messageBagEcommerceName);
 
-        ViewBag.smartContractJson = messageBagSmartContractJson.Entity;
-        ViewBag.ecommerceName = messageBagEcommerceName.Entity.FantasyName;
-        ViewBag.ecommerceAddress = messageBagEcommerceName.Entity.WalletAddress;
-        ViewBag.purchaseIdentifier = purchaseIdentifier;
-        ViewBag.purchaseTotal = purchaseTotal;
+        string smartContractAddress = _smartContractBusiness.GetSmartContractAddress();
+
+        ViewData["smartContractAddress"] = smartContractAddress;
+        ViewData["smartContractJson"] = JValue.Parse(messageBagSmartContractJson.Entity).ToString(Formatting.Indented);
+        ViewData["ecommerceName"] = messageBagEcommerceName.Entity.FantasyName;
+        ViewData["ecommerceAddress"] = messageBagEcommerceName.Entity.WalletAddress;
+        ViewData["purchaseIdentifier"] = purchaseIdentifier;
+        ViewData["purchaseTotal"] = purchaseTotal;
         return View("~/PopUp/Ether/Index.cshtml");
     }
 }

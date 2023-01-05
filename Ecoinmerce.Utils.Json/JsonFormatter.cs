@@ -4,6 +4,6 @@ public static class JsonFormatter
 {
     public static string FormatJsonToInline(string formattedJson)
     {
-        return formattedJson.Replace("\\r\\n", "");
+        return formattedJson.Replace("\r\n", "");
     }
 }

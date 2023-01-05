@@ -4,20 +4,216 @@
 @{
 }
 
-<div>
-    <h1>Ecoinmerce PopUp</h1>
-    <h6>Detalhes da compra</h6>
-    <div>
-        <p>Compra realizada em </p>
-        <p>Pagamento realizado via Ecoinmerce</p>
-    </div>
-    <ul>
-        <li>Total: R$ </li>
-        <li>Total em Ether: </li>
-        <li>Cotação atual: </li>
-    </ul>
-    <div>
-        <button>Conectar wallet</button>
-        <button>Pagar</button>
-    </div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Popup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap"
+          rel="stylesheet" />
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        body {
+            background-color: #1e1e1e;
+        }
+
+        .popup {
+            padding: 25px;
+            box-sizing: border-box;
+            color: #fff;
+            font-family: "Work Sans", sans-serif;
+            width: 80%;
+            max-width: 700px;
+            margin-inline: auto;
+        }
+
+        .popup-logo {
+            width: 150px;
+        }
+
+        .popup-title {
+            text-align: center;
+        }
+
+        .popup-sale-details {
+            background-color: #fff;
+            color: #000;
+            border-radius: 5px;
+            margin-top: 15px;
+            padding: 15px 30px;
+            position: relative;
+        }
+
+            .popup-sale-details ul {
+                font-size: 18px;
+                list-style: none;
+            }
+
+            .popup-sale-details li {
+                margin-top: 25px;
+            }
+
+                .popup-sale-details li > span {
+                    font-weight: 900;
+                    color: #cf4e16;
+                }
+
+        .popup-sale-details-quotation-timer {
+            text-align: center;
+        }
+
+            .popup-sale-details-quotation-timer #timer {
+                background-color: #cdc1c1;
+                margin: 10px auto 0px;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                font-size: 22px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+        .popup-sale-details-actions {
+            margin: 20px 0px 5px;
+            display: flex;
+            justify-content: end;
+        }
+
+        button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            font-family: "Work Sans", sans-serif;
+            cursor: pointer;
+        }
+
+        #connect-wallet {
+            background-color: #cdc1c1;
+            transition: 0.5s;
+            margin-right: 10px;
+        }
+
+            #connect-wallet:hover {
+                background-color: #cdc1c1c9;
+            }
+
+        #pay-purchase {
+            background-color: #cf4e16;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: 0.5s;
+        }
+
+            #pay-purchase:hover {
+                background-color: #e0622c;
+            }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script>
+                  window.onload = () => {
+                      getRating()
+                    let timer = document.getElementById("timer");
+                    let duration = 15;
+                    setInterval(() => {
+                      if (duration === 0) {
+                          getRating()
+                        timer.textContent = duration = 15;
+                      } else {
+                        timer.textContent = --duration;
+                      }
+                    }, 1000);
+                  };
+
+                   function getRating(){
+                       let rating = document.getElementById('rating');
+                       let totalInEther = document.getElementById('total-in-ether');
+                       totalInEther.textContent = 'Aguardando a cotação';
+
+                        rating.textContent = 'Buscando cotação';
+                          fetch('https://localhost:7153/api/v1/ratings/quote/ETH/BRL',
+                      {
+                          method: 'GET',
+                          headers: { 'Content-Type': 'application/json;charset=utf-8', 'access-control-allow-origin': '*' }
+                      })
+                      .then((res) => res.json().then(res => {
+                          rating.textContent = res.entity.price + ' BRL';
+                          totalInEther.textContent = @ViewData["purchaseTotal"] / Number(res.entity.price.replace(",", ".")) + ' ETH';
+
+                      }))
+                      .catch((error) => {
+                          console.log(error);
+                          rating.textContent = "Não foi possível fazer a cotação no momento"}
+                      )
+                  };
+
+                 async function connectWallet(){
+                if (window.ethereum) {
+                  try {
+                    const accounts = await window.ethereum.request({
+                      method: "eth_requestAccounts"
+                    });
+                    let walletAddress = accounts[0];
+                  } catch (error) {
+                    console.log("Error connecting...");
+                  }
+                } else {
+                  window.location.href =
+                    "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn";
+                }
+              };
+
+                  async function payPurchase() {
+                     if (!window.ethereum) return console.log(`No MetaMask found!`);
+
+        const web3 = new Web3(window.ethereum);
+        const accounts = await web3.eth.requestAccounts();
+        if (!accounts || !accounts.length) return console.log(`Wallet not found`);
+
+        try {
+            let smartContractJson = @Html.Raw(ViewData["smartContractJson"])
+        @{
+            string smartContractAddress = ViewData["smartContractAddress"]
+        }
+            console.log(@smartContractAddress)
+        const contract = new web3.eth.Contract(smartContractJson.abi, @smartContractAddress);
+        //await contract.methods.purchasePayment(@ViewData["ecommerceAddress"], @ViewData["purchaseIdentifier"]).send({from: accounts[0], gasPrice: 100000000, gas: 1000, value: 0.0123});
+        } catch (error) {
+          console.log(error)
+        }
+                  }
+    </script>
+</head>
+<body>
+    <main class="popup">
+        <image src="./horizontal-brand-ecoinmerce.png" class="popup-logo" />
+        <h1 class="popup-title">Detalhes da compra</h1>
+        <div class="popup-sale-details">
+            <div class="popup-sale-details-quotation-timer">
+                <h3>Tempo de validade da cotação:</h3>
+                <div id="timer">15</div>
+            </div>
+            <ul>
+                <li>Total em moeda fiduciária: <span>R$  @ViewData["purchaseTota"]</span></li>
+                <li>Total em Ether: <span id="total-in-ether"></span></li>
+                <li>Cotação atual: <span id="rating"></span></li>
+                <li>Processadora de pagamento: <span>E-coinmerce</span></li>
+                <li>Pagamento para o ecommerce: <span>@ViewData["ecommerceName"] </span></li>
+            </ul>
+            <div class="popup-sale-details-actions">
+                <button id="connect-wallet" onclick="connectWallet()">
+                    Conectar wallet
+                </button>
+                <button id="pay-purchase" onclick="payPurchase()">Pagar</button>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
