@@ -72,8 +72,6 @@ IConfigurationRoot sharedConfiguration = new ConfigurationBuilder()
 
 builder.Services.Configure<BlockchainSetting>(sharedConfiguration);
 
-builder.Services.AddSingleton<IHdWalletManager, HdWalletManager>();
-
 builder.Services.AddAutoMapper(typeof(EcommerceMappingProfiles));
 
 builder.Services.AddSingleton<IStringFormatterService, StringFormatterService>();
