@@ -13,19 +13,17 @@ namespace Ecoinmerce.SmartContractSubscriber
 {
     public class Worker : BackgroundService
     {
-        private readonly StreamingWebSocketClient _client;
-        private readonly IPurchaseRepository _purchaseRepository;
-        private readonly IPurchaseEventFailRepository _purchaseEventFailRepository;
+        private StreamingWebSocketClient _client { get; set; }
+        private IPurchaseRepository _purchaseRepository { get; set; }
+        private IPurchaseEventFailRepository _purchaseEventFailRepository { get; set; }
+        private readonly IServiceProvider _serviceProvider;
 
-        public Worker(IPurchaseRepository purchaseRepository,
-                      IPurchaseEventFailRepository purchaseEventFailRepository,
+        public Worker(IServiceProvider serviceProvider,
                       IOptions<BlockchainSetting> blockchainSetting)
         {
+            _serviceProvider = serviceProvider;
             BlockchainSettingsBlockchain connectionSettings = blockchainSetting.Value.Blockchain;
             _client = new StreamingWebSocketClient($"{connectionSettings.WsUrl}:{connectionSettings.Port}");
-
-            _purchaseRepository = purchaseRepository;
-            _purchaseEventFailRepository = purchaseEventFailRepository;
         }
 
         private void HandleError(FilterLog log, string message)
@@ -45,6 +43,13 @@ namespace Ecoinmerce.SmartContractSubscriber
 
         public async override Task StartAsync(CancellationToken cancellationToken)
         {
+            IServiceScope scope = _serviceProvider.CreateScope();
+
+            _purchaseRepository =
+                 scope.ServiceProvider.GetRequiredService<IPurchaseRepository>();
+            _purchaseEventFailRepository =
+                 scope.ServiceProvider.GetRequiredService<IPurchaseEventFailRepository>();
+
             await GetLogsTokenTransfer_Observable_Subscription();
         }
 
