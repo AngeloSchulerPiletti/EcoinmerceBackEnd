@@ -70,15 +70,19 @@ public class BaseContext : DbContext
 
     private void AddAgents(IBaseAgentEntity entity, bool wasAdded)
     {
-        EcommerceAdmin admin = (EcommerceAdmin)HttpContextAccessor.HttpContext.Items["Admin"];
-        EcommerceManager customer = (EcommerceManager)HttpContextAccessor.HttpContext.Items["Manager"];
+        string agent;
+        if (HttpContextAccessor.HttpContext == null)
+            agent = "ANONYMOUS";
+        else
+        {
+            EcommerceAdmin admin = (EcommerceAdmin)HttpContextAccessor.HttpContext.Items["Admin"];
+            EcommerceManager customer = (EcommerceManager)HttpContextAccessor.HttpContext.Items["Manager"];
 
-        string agent = admin == null ? (customer == null ? "ANONYMOUS" : customer.Email) : admin.Username;
+            agent = admin == null ? (customer == null ? "ANONYMOUS" : customer.Email) : admin.Username;
+        }
 
         if (wasAdded)
-        {
             entity.CreatedBy = agent;
-        }
         entity.UpdatedBy = agent;
     }
 }
