@@ -42,42 +42,30 @@ public class PurchaseFilter
         if (ObservationSearch != null) queries.Add($"Observation LIKE '%{ObservationSearch}%'");
 
         if (Failed != null)
-            queries.Add($"Failed = {Failed}");
+            queries.Add($"Failed = '{((bool)Failed ? '1' : '0')}'");
 
         if (BlockHash != null)
-            queries.Add($"BlockHash = {BlockHash}");
+            queries.Add($"BlockHash = '{BlockHash}'");
 
         if (TransactionHash != null)
-            queries.Add($"TransactionHash = {TransactionHash}");
+            queries.Add($"TransactionHash = '{TransactionHash}'");
 
         if (EcommerceWalletAddress != null)
-            queries.Add($"EcommerceWalletAddress = {EcommerceWalletAddress}");
+            queries.Add($"EcommerceWalletAddress = '{EcommerceWalletAddress}'");
 
         if (CostumerWalletAddress != null)
-            queries.Add($"CostumerWalletAddress = {CostumerWalletAddress}");
+            queries.Add($"CostumerWalletAddress = '{CostumerWalletAddress}'");
 
-        if (CreatedFrom != null)
-        {
-            if (CreatedTo == null) queries.Add($"CreatedAt >= {CreatedFrom}");
-            else queries.Add($"CreatedAt >= {CreatedFrom} AND CreatedAt <= {CreatedTo}");
-        }
-        else if (CreatedTo != null) queries.Add($"CreatedAt <= {CreatedTo}");
+        if (CreatedFrom != null) queries.Add($"CreatedAt >= '{CreatedFrom}'");
+        if (CreatedTo != null) queries.Add($"CreatedAt <= '{CreatedTo}'");
 
-        if (PaidFrom != null)
-        {
-            if (PaidTo == null) queries.Add($"PaidAt >= {PaidFrom}");
-            else queries.Add($"PaidAt >= {PaidFrom} AND PaidAt <= {PaidTo}");
-        }
-        else if (PaidTo != null) queries.Add($"PaidAt <= {PaidTo}");
+        if (PaidFrom != null)queries.Add($"PaidAt >= '{PaidFrom}'");
+        if (PaidTo != null) queries.Add($"PaidAt <= '{PaidTo}'");
 
-        if (AmountPaidInEtherFrom != null)
-        {
-            if (AmountPaidInEtherTo == null) queries.Add($"AmountPaidInEther >= {AmountPaidInEtherFrom}");
-            else queries.Add($"AmountPaidInEther >= {AmountPaidInEtherFrom} AND AmountPaidInEther <= {AmountPaidInEtherTo}");
-        }
-        else if (AmountPaidInEtherTo != null) queries.Add($"AmountPaidInEther <= {AmountPaidInEtherTo}");
+        if (AmountPaidInEtherFrom != null) queries.Add($"AmountPaidInEther >= {AmountPaidInEtherFrom}");
+        if (AmountPaidInEtherTo != null) queries.Add($"AmountPaidInEther <= {AmountPaidInEtherTo}");
 
-        if (PurchaseIdentifier != null) queries.Add($" PurchaseIdentifier = {PurchaseIdentifier}");
+        if (PurchaseIdentifier != null) queries.Add($" PurchaseIdentifier = '{PurchaseIdentifier}'");
 
         _mainQuery = queries.Count > 0 ?
             String.Join(" AND ", queries.ToArray()) :
