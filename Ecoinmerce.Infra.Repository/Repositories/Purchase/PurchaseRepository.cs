@@ -18,15 +18,14 @@ public class PurchaseRepository : GenericRepository<Purchase>, IPurchaseReposito
     public List<Purchase> GetPurchasesByFilter(ref PaginationDTO pagination, PurchaseFilter filter, Ecommerce ecommerce)
     {
         string queryId = filter.GetQueryId();
-        int total = _ecommerceContext.Purchases.FromSqlRaw(queryId).Where(x => x.EcommerceId == ecommerce.Id).Count();
+        int total = _ecommerceContext.Purchases.FromSqlRaw(queryId).Count();
         pagination.FillBasedInTotalItems(total);
 
-        if (total == 0) return new List<Purchase>();
+        if (total == 0) return new();
 
         string query = filter.GetQuery();
         return _ecommerceContext.Purchases
                                 .FromSqlRaw(query)
-                                .Where(x => x.EcommerceId == ecommerce.Id)
                                 .Skip(pagination.Skip)
                                 .Take(pagination.Limit)
                                 .ToList();
