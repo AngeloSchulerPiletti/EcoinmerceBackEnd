@@ -1,13 +1,14 @@
 ﻿using System.Globalization;
 using System.Security.Policy;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Xml.Linq;
 
 namespace Ecoinmerce.Domain.Objects.VOs.Filters;
 
 public class PurchaseFilter
 {
-    private readonly string _mainQuery;
+    private string _mainQuery { get; set; }
 
     public PurchaseFilter(string observationSearch,
                           bool? failed,
@@ -36,7 +37,59 @@ public class PurchaseFilter
         AmountPaidInEtherFrom = amountPaidInEtherFrom;
         AmountPaidInEtherTo = amountPaidInEtherTo;
         PurchaseIdentifier = purchaseIdentifier;
+    }
 
+    public string ObservationSearch { get; set; }
+    public bool? Failed { get; set; }
+    public string BlockHash { get; set; }
+    public string TransactionHash { get; set; }
+    [JsonIgnore]
+    public int? EcommerceId { get; set; }
+    public string EcommerceWalletAddress { get; set; }
+    public string CostumerWalletAddress { get; set; }
+    public DateTime? CreatedFrom { get; set; }
+    public DateTime? CreatedTo { get; set; }
+    public DateTime? PaidFrom { get; set; }
+    public DateTime? PaidTo { get; set; }
+    public decimal? AmountPaidInEtherFrom { get; set; }
+    public decimal? AmountPaidInEtherTo { get; set; }
+    public string PurchaseIdentifier { get; set; }
+    public string GetQuery()
+    {
+        StringBuilder builder = new();
+        builder.Append("Select * ");
+        builder.Append("From Purchases ");
+        string query = GetBufferedQuery();
+        if (query != null)
+        {
+            builder.Append("Where ");
+            builder.Append(query);
+        }
+        return builder.ToString();
+    }
+
+    public string GetQueryId()
+    {
+        StringBuilder builder = new();
+        builder.Append("Select Id ");
+        builder.Append("From Purchases ");
+        string query = GetBufferedQuery();
+        if (query != null)
+        {
+            builder.Append("Where ");
+            builder.Append(query);
+        }
+        return builder.ToString();
+    }
+
+    private string GetBufferedQuery()
+    {
+        if (_mainQuery == null) BuildQuery();
+        return _mainQuery;
+    }
+
+    private void BuildQuery()
+    {
         List<string> queries = new();
 
         if (ObservationSearch != null) queries.Add($"Observation LIKE '%{ObservationSearch}%'");
@@ -59,8 +112,10 @@ public class PurchaseFilter
         if (CreatedFrom != null) queries.Add($"CreatedAt >= '{CreatedFrom}'");
         if (CreatedTo != null) queries.Add($"CreatedAt <= '{CreatedTo}'");
 
-        if (PaidFrom != null)queries.Add($"PaidAt >= '{PaidFrom}'");
+        if (PaidFrom != null) queries.Add($"PaidAt >= '{PaidFrom}'");
         if (PaidTo != null) queries.Add($"PaidAt <= '{PaidTo}'");
+
+        if (EcommerceId != null) queries.Add($"EcommerceId = {EcommerceId}");
 
         if (AmountPaidInEtherFrom != null) queries.Add($"AmountPaidInEther >= {AmountPaidInEtherFrom}");
         if (AmountPaidInEtherTo != null) queries.Add($"AmountPaidInEther <= {AmountPaidInEtherTo}");
@@ -72,42 +127,4 @@ public class PurchaseFilter
             null;
     }
 
-    public string ObservationSearch { get; set; }
-    public bool? Failed { get; set; }
-    public string BlockHash { get; set; }
-    public string TransactionHash { get; set; }
-    public string EcommerceWalletAddress { get; set; }
-    public string CostumerWalletAddress { get; set; }
-    public DateTime? CreatedFrom { get; set; }
-    public DateTime? CreatedTo { get; set; }
-    public DateTime? PaidFrom { get; set; }
-    public DateTime? PaidTo { get; set; }
-    public decimal? AmountPaidInEtherFrom { get; set; }
-    public decimal? AmountPaidInEtherTo { get; set; }
-    public string PurchaseIdentifier { get; set; }
-    public string GetQuery()
-    {
-        StringBuilder builder = new();
-        builder.Append("Select * ");
-        builder.Append("From Purchases ");
-        if (_mainQuery != null)
-        {
-            builder.Append("Where ");
-            builder.Append(_mainQuery);
-        }
-        return builder.ToString();
-    }
-
-    public string GetQueryId()
-    {
-        StringBuilder builder = new();
-        builder.Append("Select Id ");
-        builder.Append("From Purchases ");
-        if (_mainQuery != null)
-        {
-            builder.Append("Where ");
-            builder.Append(_mainQuery);
-        }
-        return builder.ToString();
-    }
 }
