@@ -1,5 +1,4 @@
-﻿
-using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Ecoinmerce.Domain.Entities;
 
