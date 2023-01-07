@@ -15,7 +15,7 @@ public class PurchaseRepository : GenericRepository<Purchase>, IPurchaseReposito
         _ecommerceContext = ecommerceContext;
     }
 
-    public List<Purchase> GetPurchasesByFilter(ref PaginationDTO pagination, PurchaseFilter filter, Ecommerce ecommerce)
+    public List<Purchase> GetPurchasesByFilter(ref PaginationDTO pagination, PurchaseFilter filter)
     {
         string queryId = filter.GetQueryId();
         int total = _ecommerceContext.Purchases.FromSqlRaw(queryId).Count();

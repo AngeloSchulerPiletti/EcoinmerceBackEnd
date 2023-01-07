@@ -6,5 +6,5 @@ namespace Ecoinmerce.Infra.Repository.Interfaces;
 
 public interface IPurchaseRepository : IGenericRepository<Purchase>
 {
-    public List<Purchase> GetPurchasesByFilter(ref PaginationDTO pagination, PurchaseFilter filter, Ecommerce ecommerce);
+    public List<Purchase> GetPurchasesByFilter(ref PaginationDTO pagination, PurchaseFilter filter);
 }

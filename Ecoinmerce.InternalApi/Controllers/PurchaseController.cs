@@ -36,7 +36,9 @@ public class PurchaseController : ControllerBase
 
         ecommerce = manager == null ? admin.Ecommerce : manager.Ecommerce;
 
-        MessageBagListEntityVO<Purchase> messageBagPurchases = _purchaseBusiness.GetPurchasesByFilter(filter, pagination, ecommerce);
+        filter.EcommerceId = ecommerce.Id;
+
+        MessageBagListEntityVO<Purchase> messageBagPurchases = _purchaseBusiness.GetPurchasesByFilter(filter, pagination);
         return messageBagPurchases.IsError ? BadRequest(messageBagPurchases) : Ok(messageBagPurchases);
 
     }

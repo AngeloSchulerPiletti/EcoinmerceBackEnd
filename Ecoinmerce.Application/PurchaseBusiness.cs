@@ -32,9 +32,9 @@ public class PurchaseBusiness : IPurchaseBusiness
                new MessageBagSingleEntityVO<Purchase>("Transação encontrada", null, false, purchase);
     }
 
-    public MessageBagListEntityVO<Purchase> GetPurchasesByFilter(PurchaseFilter filter, PaginationDTO pagination, Ecommerce ecommerce)
+    public MessageBagListEntityVO<Purchase> GetPurchasesByFilter(PurchaseFilter filter, PaginationDTO pagination)
     {
-        List<Purchase> purchases = _purchaseRepository.GetPurchasesByFilter(ref pagination, filter, ecommerce);
+        List<Purchase> purchases = _purchaseRepository.GetPurchasesByFilter(ref pagination, filter);
         MessageBagListEntityVO<Purchase> messageBagPurchases = new("Transações encontradas", null, false)
         {
             Pagination = pagination,
