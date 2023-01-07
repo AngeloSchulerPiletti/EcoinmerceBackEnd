@@ -128,17 +128,17 @@ public class EcommerceContext : BaseContext
         modelBuilder.Entity<Purchase>()
             .HasOne(a => a.PurchaseCheck)
             .WithOne(a => a.Purchase)
-            .HasForeignKey<Purchase>(a => a.PurchaseCheckId);
+            .HasForeignKey<PurchaseCheck>(a => a.PurchaseId);
 
         modelBuilder.Entity<Purchase>()
             .HasOne(a => a.PurchaseEvent)
             .WithOne(a => a.Purchase)
-            .HasForeignKey<Purchase>(a => a.PurchaseEventId);
+            .HasForeignKey<PurchaseEvent>(a => a.PurchaseId);
 
         modelBuilder.Entity<Purchase>()
             .HasOne(a => a.PurchaseEventFail)
             .WithOne(a => a.Purchase)
-            .HasForeignKey<Purchase>(a => a.PurchaseEventFailId);
+            .HasForeignKey<PurchaseEventFail>(a => a.PurchaseId);
 
         modelBuilder.Entity<Purchase>()
             .HasOne(a => a.Ecommerce)

@@ -9,6 +9,7 @@ public class PurchaseEvent : BaseTimestampEntity
     public DateTime PaidAt { get; set; }
     public decimal AmountPaidInEther { get; set; }
     public string PurchaseIdentifier { get; set; }
+    public int PurchaseId { get; set; }
 
     [JsonIgnore]
     public virtual Purchase Purchase { get; set; }

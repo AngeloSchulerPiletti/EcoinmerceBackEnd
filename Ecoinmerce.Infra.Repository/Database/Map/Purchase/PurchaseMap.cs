@@ -20,11 +20,11 @@ public class PurchaseMap : CreateBaseTimestampAgentEntityMap<Purchase>, IEntityT
             .IsRequired();
 
         builder.Property(x => x.BlockHash)
-            .HasMaxLength(64)
+            .HasMaxLength(128)
             .IsRequired();
 
         builder.Property(x => x.TransactionHash)
-            .HasMaxLength(64)
+            .HasMaxLength(128)
             .IsRequired();
 
         builder.Property(x => x.Observation)

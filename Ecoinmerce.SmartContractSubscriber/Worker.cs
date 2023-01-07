@@ -16,6 +16,8 @@ namespace Ecoinmerce.SmartContractSubscriber
         private StreamingWebSocketClient _client { get; set; }
         private IPurchaseRepository _purchaseRepository { get; set; }
         private IPurchaseEventFailRepository _purchaseEventFailRepository { get; set; }
+        private IEcommerceRepository _ecommerceRepository { get; set; }
+
         private readonly IServiceProvider _serviceProvider;
 
         public Worker(IServiceProvider serviceProvider,
@@ -49,6 +51,8 @@ namespace Ecoinmerce.SmartContractSubscriber
                  scope.ServiceProvider.GetRequiredService<IPurchaseRepository>();
             _purchaseEventFailRepository =
                  scope.ServiceProvider.GetRequiredService<IPurchaseEventFailRepository>();
+            _ecommerceRepository =
+                 scope.ServiceProvider.GetRequiredService<IEcommerceRepository>();
 
             await GetLogsTokenTransfer_Observable_Subscription();
         }
@@ -77,6 +81,8 @@ namespace Ecoinmerce.SmartContractSubscriber
 
                     if (decoded != null)
                     {
+                        Ecommerce ecommerce = _ecommerceRepository.GetByWalletAddress(decoded.Event.EcommerceWallet);
+
                         PurchaseEvent purchaseEvent = new()
                         {
                             AmountPaidInEther = Web3.Convert.FromWei(decoded.Event.PaymentAmount),
@@ -88,8 +94,10 @@ namespace Ecoinmerce.SmartContractSubscriber
                             BlockHash = decoded.Log.BlockHash,
                             CostumerWalletAddress = decoded.Event.CustomerWallet,
                             EcommerceWalletAddress = decoded.Event.EcommerceWallet,
+                            TransactionHash = decoded.Log.TransactionHash,
                             Failed = false,
-                            PurchaseEvent = purchaseEvent
+                            PurchaseEvent = purchaseEvent,
+                            Ecommerce = ecommerce
                         };
 
                         _purchaseRepository.Insert(purchase);

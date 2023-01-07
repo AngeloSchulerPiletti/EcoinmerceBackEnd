@@ -19,9 +19,6 @@ public class Purchase : BaseTimestampAgentEntity
     public string CostumerWalletAddress { get; set; }
 
     // Bonds
-    public int PurchaseCheckId { get; set; }
-    public int PurchaseEventId { get; set; }
-    public int PurchaseEventFailId { get; set; }
     public int EcommerceId { get; set; }
 
     public virtual PurchaseCheck PurchaseCheck { get; set; }

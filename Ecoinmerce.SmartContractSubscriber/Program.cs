@@ -28,7 +28,7 @@ IHost host = Host.CreateDefaultBuilder(args)
                      services.AddHttpContextAccessor();
 
                      services.AddDbContext<EcommerceContext>(options => options
-                                                                        //.UseLazyLoadingProxies()
+                                                                        .UseLazyLoadingProxies()
                                                                         .UseSqlServer(configuration.GetConnectionString("Default")));
 
                      services.AddSingleton(configuration.GetSection("TokenSecrets").Get<TokenSecretsSetting>());
@@ -39,7 +39,8 @@ IHost host = Host.CreateDefaultBuilder(args)
                              .AddScoped<ITokenServiceEcommerce, TokenServiceEcommerce>()
                              .AddScoped<IHdWalletManager, HdWalletManager>()
                              .AddScoped<IPurchaseRepository, PurchaseRepository>()
-                             .AddScoped<IPurchaseEventFailRepository, PurchaseEventFailRepository>();
+                             .AddScoped<IPurchaseEventFailRepository, PurchaseEventFailRepository>()
+                             .AddScoped<IEcommerceRepository, EcommerceRepository>();
 
                      services.AddHostedService<Worker>();
                  })

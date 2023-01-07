@@ -8,6 +8,7 @@ public class PurchaseEventFail : BaseTimestampEntity
     public string LogAddress { get; set; }
     public string BlockHash { get; set; }
     public string Observation { get; set; }
+    public int PurchaseId { get; set; }
 
     [JsonIgnore]
     public virtual Purchase Purchase { get; set; }

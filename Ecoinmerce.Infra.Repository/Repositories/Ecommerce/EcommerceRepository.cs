@@ -29,6 +29,12 @@ public class EcommerceRepository : GenericRepository<Ecommerce>, IEcommerceRepos
         return _ecommerceContext.Ecommerces.FirstOrDefault(x => x.Email == email);
     }
 
+    public Ecommerce GetByWalletAddress(string walletAddress)
+    {
+        EtherWallet wallet = _ecommerceContext.EtherWallets.FirstOrDefault(x => x.Address == walletAddress);
+        return wallet.Ecommerce;
+    }
+
     public int GetTotalApiCredentials(int ecommerceId)
     {
         return _ecommerceContext.ApiCredentials.Where(x => x.Id == ecommerceId).Count();
