@@ -35,7 +35,7 @@ public class PopUpController : Controller
         string host = HttpContext.Request.Host.Value;
         StringBuilder imageFullPathBuilder = new();
         imageFullPathBuilder.Append(host);
-        imageFullPathBuilder.Append("/api/v1/midia/brand/");
+        imageFullPathBuilder.Append("/api/v1/midia/brand");
 
         PopUpModel model = new()
         {
