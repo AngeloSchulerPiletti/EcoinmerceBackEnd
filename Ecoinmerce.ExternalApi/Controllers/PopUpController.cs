@@ -3,6 +3,7 @@ using Ecoinmerce.Domain.Objects.DTOs.EcommerceDTO;
 using Ecoinmerce.Domain.Objects.VOs.Models;
 using Ecoinmerce.Domain.Objects.VOs.Responses;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
 
 namespace Ecoinmerce.ExternalApi.Controllers;
 
@@ -31,6 +32,11 @@ public class PopUpController : Controller
 
         string smartContractAddress = _smartContractBusiness.GetSmartContractAddress();
 
+        string host = HttpContext.Request.Host.Value;
+        StringBuilder imageFullPathBuilder = new();
+        imageFullPathBuilder.Append(host);
+        imageFullPathBuilder.Append("/api/v1/midia/brand/");
+
         PopUpModel model = new()
         {
             SmartContractAddress = smartContractAddress,
@@ -38,7 +44,8 @@ public class PopUpController : Controller
             EcommerceName = messageBagEcommerceName.Entity.FantasyName,
             EcommerceAddress = messageBagEcommerceName.Entity.WalletAddress,
             PurchaseIdentifier = purchaseIdentifier,
-            PurchaseTotal = purchaseTotal
+            PurchaseTotal = purchaseTotal,
+            BrandImagesBaseFullPath = imageFullPathBuilder.ToString(),
         };
 
         return View("~/PopUp/Ether/Index.cshtml", model);

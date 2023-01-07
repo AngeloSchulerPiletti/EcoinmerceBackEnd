@@ -8,4 +8,5 @@ public record PopUpModel
     public string EcommerceAddress { get; set; }
     public string PurchaseIdentifier { get; set; }
     public string PurchaseTotal { get; set; }
+    public string BrandImagesBaseFullPath { get; set; }
 }
