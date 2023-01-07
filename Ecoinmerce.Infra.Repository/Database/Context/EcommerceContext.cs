@@ -39,7 +39,6 @@ public class EcommerceContext : BaseContext
 
     public DbSet<Purchase> Purchases { get; set; }
     public DbSet<PurchaseCheck> PurchaseChecks { get; set; }
-    public DbSet<PurchaseEvent> PurchaseEvents { get; set; }
     public DbSet<PurchaseEventFail> PurchaseEventFails { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -122,18 +121,12 @@ public class EcommerceContext : BaseContext
 
         modelBuilder.ApplyConfiguration(new PurchaseMap());
         modelBuilder.ApplyConfiguration(new PurchaseCheckMap());
-        modelBuilder.ApplyConfiguration(new PurchaseEventMap());
         modelBuilder.ApplyConfiguration(new PurchaseEventFailMap());
 
         modelBuilder.Entity<Purchase>()
             .HasOne(a => a.PurchaseCheck)
             .WithOne(a => a.Purchase)
             .HasForeignKey<PurchaseCheck>(a => a.PurchaseId);
-
-        modelBuilder.Entity<Purchase>()
-            .HasOne(a => a.PurchaseEvent)
-            .WithOne(a => a.Purchase)
-            .HasForeignKey<PurchaseEvent>(a => a.PurchaseId);
 
         modelBuilder.Entity<Purchase>()
             .HasOne(a => a.PurchaseEventFail)

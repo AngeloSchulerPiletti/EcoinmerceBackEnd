@@ -102,7 +102,6 @@ builder.Services.AddScoped<IApiCredentialRepository, ApiCredentialRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<IPurchaseRepository, PurchaseRepository>();
 builder.Services.AddScoped<IPurchaseCheckRepository, PurchaseCheckRepository>();
-builder.Services.AddScoped<IPurchaseEventRepository, PurchaseEventRepository>();
 builder.Services.AddScoped<IPurchaseEventFailRepository, PurchaseEventFailRepository>();
 
 builder.Services.AddEndpointsApiExplorer();

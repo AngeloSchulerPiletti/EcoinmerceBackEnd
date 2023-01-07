@@ -83,11 +83,6 @@ namespace Ecoinmerce.SmartContractSubscriber
                     {
                         Ecommerce ecommerce = _ecommerceRepository.GetByWalletAddress(decoded.Event.EcommerceWallet);
 
-                        PurchaseEvent purchaseEvent = new()
-                        {
-                            AmountPaidInEther = Web3.Convert.FromWei(decoded.Event.PaymentAmount),
-                            PurchaseIdentifier = decoded.Event.PurchaseIdentifier
-                        };
 
                         Purchase purchase = new()
                         {
@@ -96,7 +91,9 @@ namespace Ecoinmerce.SmartContractSubscriber
                             EcommerceWalletAddress = decoded.Event.EcommerceWallet,
                             TransactionHash = decoded.Log.TransactionHash,
                             Failed = false,
-                            PurchaseEvent = purchaseEvent,
+                            AmountPaidInEther = Web3.Convert.FromWei(decoded.Event.PaymentAmount),
+                            PurchaseIdentifier = decoded.Event.PurchaseIdentifier,
+                            PaidAt = DateTime.Now,
                             Ecommerce = ecommerce
                         };
 

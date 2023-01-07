@@ -30,6 +30,13 @@ public class PurchaseMap : CreateBaseTimestampAgentEntityMap<Purchase>, IEntityT
         builder.Property(x => x.Observation)
             .HasMaxLength(300);
 
+        builder.Property(x => x.PurchaseIdentifier)
+            .HasMaxLength(70);
+
+        builder.Property(x => x.AmountPaidInEther)
+            .HasColumnType("decimal")
+            .HasPrecision(28, 18);
+
 
 
         /* 
