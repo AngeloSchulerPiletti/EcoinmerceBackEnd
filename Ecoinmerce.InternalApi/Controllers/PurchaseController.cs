@@ -21,7 +21,7 @@ public class PurchaseController : ControllerBase
         _purchaseBusiness = purchaseBusiness;
     }
 
-    [HttpGet]
+    [HttpPost]
     [Route("list")]
     [AdminOrManagerAuth]
     [Pagination]
