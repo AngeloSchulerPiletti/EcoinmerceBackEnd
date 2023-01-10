@@ -21,7 +21,10 @@ public class UserMail : IUserMail
         _smtpClient = new SmtpClient()
         {
             DeliveryMethod = SmtpDeliveryMethod.Network,
-            Credentials = new System.Net.NetworkCredential(_emailSetting.User, _emailSetting.Password)
+            Credentials = new System.Net.NetworkCredential(_emailSetting.User, _emailSetting.Password),
+            Host = emailSetting.SmtpServer,
+            EnableSsl= emailSetting.ShouldUseSsl,
+            Port= emailSetting.Port,
         };
     }
 
@@ -29,10 +32,7 @@ public class UserMail : IUserMail
     {
         try
         {
-            _smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-            _smtpClient.Credentials = new System.Net.NetworkCredential(_emailSetting.User, _emailSetting.Password);
             _smtpClient.Send(mail);
-
             return true;
         }
         catch (Exception)
