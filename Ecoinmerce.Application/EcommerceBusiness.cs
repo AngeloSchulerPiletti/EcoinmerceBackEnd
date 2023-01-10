@@ -83,7 +83,8 @@ public class EcommerceBusiness : IEcommerceBusiness
         MailMessage mailMessage = new()
         {
             Body = "Bem vindo! Esperamos poder ajudá-los nessa caminhada de aceitar cripto como pagamento",
-            Subject = "Bem vindo à Web 3.0"
+            Subject = "Bem vindo à Web 3.0",
+            From = new MailAddress("contato@ecoinmerce.com")
         };
         mailMessage.To.Add(ecommerce.Email);
 

@@ -197,6 +197,7 @@ public class EcommerceAdminBusiness : IEcommerceAdminBusiness
         {
             Subject = $"Bem vindo, {admin.FirstName}",
             Body = $"Test body - {admin.ConfirmationToken}",
+            From = new MailAddress("contato@ecoinmerce.com")
         };
         mailMessage.To.Add(admin.Email);
 
@@ -209,6 +210,7 @@ public class EcommerceAdminBusiness : IEcommerceAdminBusiness
         {
             Subject = $"Bem vindo, {admin.FirstName}",
             Body = $"Test body forgot password - {admin.ConfirmationToken}",
+            From = new MailAddress("contato@ecoinmerce.com")
         };
         mailMessage.To.Add(admin.Email);
 

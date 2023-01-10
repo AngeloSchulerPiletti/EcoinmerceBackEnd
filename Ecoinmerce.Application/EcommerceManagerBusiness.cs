@@ -199,6 +199,7 @@ public class EcommerceManagerBusiness : IEcommerceManagerBusiness
         {
             Subject = $"Bem vindo, {manager.FirstName}",
             Body = $"Test body - {manager.ConfirmationToken}",
+            From = new MailAddress("contato@ecoinmerce.com")
         };
         mailMessage.To.Add(manager.Email);
 
@@ -211,6 +212,7 @@ public class EcommerceManagerBusiness : IEcommerceManagerBusiness
         {
             Subject = $"Bem vindo, {manager.FirstName}",
             Body = $"Test body forgot password - {manager.ConfirmationToken}",
+            From = new MailAddress("contato@ecoinmerce.com")
         };
         mailMessage.To.Add(manager.Email);
 

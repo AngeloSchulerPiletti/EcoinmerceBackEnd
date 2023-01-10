@@ -24,7 +24,7 @@ public class UserMail : IUserMail
             Credentials = new System.Net.NetworkCredential(_emailSetting.User, _emailSetting.Password),
             Host = emailSetting.SmtpServer,
             EnableSsl= emailSetting.ShouldUseSsl,
-            Port= emailSetting.Port,
+            Port= emailSetting.Port
         };
     }
 
